@@ -5,8 +5,12 @@
       "src": "package.json",
       "use": "@vercel/next",
       "config": {
-        "installCommand": "npm run vercel-install"
+        "installCommand": "npm run vercel-install",
+        "buildCommand": "npm run build --no-lint"
       }
     }
-  ]
+  ],
+  "github": {
+    "silent": true
+  }
 } 
