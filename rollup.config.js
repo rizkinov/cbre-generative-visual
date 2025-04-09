@@ -1,14 +1,16 @@
-const resolve = require('@rollup/plugin-node-resolve');
-const commonjs = require('@rollup/plugin-commonjs');
-const typescript = require('@rollup/plugin-typescript');
-const peerDepsExternal = require('rollup-plugin-peer-deps-external');
-const postcss = require('rollup-plugin-postcss');
-const { defineConfig } = require('rollup');
-const babel = require('@rollup/plugin-babel');
+import resolve from '@rollup/plugin-node-resolve';
+import commonjs from '@rollup/plugin-commonjs';
+import typescript from '@rollup/plugin-typescript';
+import peerDepsExternal from 'rollup-plugin-peer-deps-external';
+import postcss from 'rollup-plugin-postcss';
+import { defineConfig } from 'rollup';
+import { createRequire } from 'module';
+import babel from '@rollup/plugin-babel';
 
+const require = createRequire(import.meta.url);
 const packageJson = require('./package.json');
 
-module.exports = defineConfig([
+export default defineConfig([
   {
     input: 'src/index.ts',
     output: [
@@ -55,7 +57,7 @@ module.exports = defineConfig([
       }),
       postcss({
         config: {
-          path: './postcss.config.js',
+          path: './postcss.config.cjs',
         },
         extensions: ['.css'],
         minimize: true,

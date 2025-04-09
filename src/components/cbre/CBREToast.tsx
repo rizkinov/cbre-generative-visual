@@ -57,5 +57,5 @@ export function toast({
   });
 }
 
-// Export the useSonner hook for direct access to sonner's functionality
-export { useSonner } from "sonner"; 
+// Export the useToast hook for direct access to sonner's functionality
+export { useToast } from "sonner"; 
