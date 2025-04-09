@@ -569,7 +569,7 @@ export default function SidebarExamplePage() {
                     </CBRESidebar>
                     
                     <div className="flex-1 flex flex-col overflow-hidden bg-lighter-grey">
-                      <div className="flex items-center h-[68px] bg-white py-0 box-border">
+                      <div className="flex items-center h-[60px] bg-white py-0 box-border">
                         <CBRESidebarTrigger className="mr-4 ml-4" />
                         <h2 className="text-xl font-financier text-cbre-green">Floating Sidebar</h2>
                       </div>

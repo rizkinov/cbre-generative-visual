@@ -1,15 +1,8 @@
 {
-  "version": 2,
-  "builds": [
-    {
-      "src": "package.json",
-      "use": "@vercel/next",
-      "config": {
-        "installCommand": "npm run vercel-install",
-        "buildCommand": "next build --no-lint"
-      }
-    }
-  ],
+  "buildCommand": "next build",
+  "ignoreCommand": "next lint",
+  "framework": "nextjs",
+  "outputDirectory": ".next",
   "github": {
     "silent": true
   }
