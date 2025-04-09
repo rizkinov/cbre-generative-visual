@@ -19,7 +19,8 @@
     "clean": "rimraf dist",
     "build:lib": "npm run clean && rollup -c",
     "generateComp": "node scripts/generate-component.js",
-    "test": "jest"
+    "test": "jest",
+    "vercel-install": "npm --legacy-peer-deps ci"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.0.1",
