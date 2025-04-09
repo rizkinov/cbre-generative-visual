@@ -6,7 +6,7 @@
       "use": "@vercel/next",
       "config": {
         "installCommand": "npm run vercel-install",
-        "buildCommand": "npm run build --no-lint"
+        "buildCommand": "next build --no-lint"
       }
     }
   ],
