@@ -193,9 +193,10 @@ export default function HoverCardExamplePage() {
   </CBREHoverCardContent>
 </CBREHoverCard>`}
             </pre>
-          
+          </div>
+        </div>
 
-                {/* Component API */}
+        {/* Component API */}
         <div className="mb-16">
           <h2 className="text-4xl font-financier text-cbre-green mb-5">Component API</h2>
           <div className="bg-[var(--lighter-grey)] p-4 md:p-8">
@@ -248,20 +249,11 @@ export default function HoverCardExamplePage() {
             </div>
           </div>
         </div>
-
-<div className="mt-16 flex justify-center">
-          <Link href="/elements-example">
-            <CBREButton variant="outline">Back to UI Elements</CBREButton>
-          </Link>
-        </div>
-      </div>
-        </div>
-
         <div className="mt-16 flex justify-center">
-          <Link href="/elements-example">
-            <CBREButton variant="outline">Back to Elements</CBREButton>
-          </Link>
-        </div>
+        <Link href="/elements-example">
+          <CBREButton variant="outline">Back to UI Elements</CBREButton>
+        </Link>
+      </div>
       </div>
     </div>
   );
