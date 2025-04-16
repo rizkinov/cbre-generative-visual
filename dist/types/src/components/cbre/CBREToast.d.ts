@@ -12,4 +12,4 @@ interface CBREToastOptions {
     duration?: number;
 }
 export declare function toast({ title, description, variant, action, duration, }: CBREToastOptions): string | number;
-export { useToast } from "sonner";
+export { useSonner as useToast } from "sonner";

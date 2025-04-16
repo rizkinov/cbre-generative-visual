@@ -4872,7 +4872,7 @@ var index$1 = /*#__PURE__*/Object.freeze({
   chartConfig: chartConfig,
   toast: toast,
   useSidebar: useSidebar,
-  useToast: sonner.useToast
+  useToast: sonner.useSonner
 });
 
 /**

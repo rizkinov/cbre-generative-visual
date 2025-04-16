@@ -25,7 +25,7 @@ import * as SeparatorPrimitive from '@radix-ui/react-separator';
 import * as TooltipPrimitive from '@radix-ui/react-tooltip';
 import * as SliderPrimitive from '@radix-ui/react-slider';
 import { useTheme, ThemeProvider } from 'next-themes';
-import { Toaster as Toaster$1, toast as toast$1, useToast } from 'sonner';
+import { Toaster as Toaster$1, toast as toast$1, useSonner } from 'sonner';
 import * as SwitchPrimitives from '@radix-ui/react-switch';
 import * as TabsPrimitive from '@radix-ui/react-tabs';
 import * as TogglePrimitive from '@radix-ui/react-toggle';
@@ -4832,7 +4832,7 @@ var index$1 = /*#__PURE__*/Object.freeze({
   chartConfig: chartConfig,
   toast: toast,
   useSidebar: useSidebar,
-  useToast: useToast
+  useToast: useSonner
 });
 
 /**
