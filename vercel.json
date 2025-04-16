@@ -6,5 +6,9 @@
   "devCommand": "npm run dev",
   "github": {
     "silent": true
+  },
+  "regions": ["sfo1"],
+  "env": {
+    "NEXT_TELEMETRY_DISABLED": "1"
   }
 } 
