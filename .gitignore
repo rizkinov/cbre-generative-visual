@@ -42,3 +42,6 @@ next-env.d.ts
 
 # Screenshot files
 *.png
+
+# Rollup cache
+.rollup.cache
