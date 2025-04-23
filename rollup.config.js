@@ -1,13 +1,14 @@
-const resolve = require('@rollup/plugin-node-resolve');
-const commonjs = require('@rollup/plugin-commonjs');
-const typescript = require('@rollup/plugin-typescript');
-const peerDepsExternal = require('rollup-plugin-peer-deps-external');
-const postcss = require('rollup-plugin-postcss');
-const { defineConfig } = require('rollup');
-const babel = require('@rollup/plugin-babel');
+import resolve from '@rollup/plugin-node-resolve';
+import commonjs from '@rollup/plugin-commonjs';
+import typescript from '@rollup/plugin-typescript';
+import dts from 'rollup-plugin-dts';
+import postcss from 'rollup-plugin-postcss';
+import peerDepsExternal from 'rollup-plugin-peer-deps-external';
+import babel from '@rollup/plugin-babel';
+
 const packageJson = require('./package.json');
 
-module.exports = defineConfig([
+const config = [
   {
     input: 'src/index.ts',
     output: [
@@ -24,54 +25,32 @@ module.exports = defineConfig([
     ],
     plugins: [
       peerDepsExternal(),
-      resolve({
-        extensions: ['.js', '.jsx', '.ts', '.tsx']
-      }),
+      resolve(),
       commonjs(),
-      typescript({
-        tsconfig: './tsconfig.lib.json',
-        exclude: [
-          'app/**/*',
-          'components/**/*',
-          'config/**/*',
-          '**/*.stories.tsx',
-          '**/*.test.tsx',
-          'node_modules/**/*',
-          '.next/**/*'
-        ],
-        declarationDir: './dist/types',
-        declaration: true,
+      typescript({ tsconfig: './tsconfig.lib.json' }),
+      postcss({
+        extract: true,
+        minimize: true,
+        use: {
+          sass: null,
+          stylus: null,
+          less: { javascriptEnabled: true }
+        },
       }),
       babel({
         babelHelpers: 'bundled',
         exclude: 'node_modules/**',
-        extensions: ['.js', '.jsx', '.ts', '.tsx'],
-        presets: [
-          '@babel/preset-env',
-          '@babel/preset-react',
-          '@babel/preset-typescript'
-        ]
-      }),
-      postcss({
-        config: {
-          path: './postcss.config.cjs',
-        },
-        extensions: ['.css'],
-        minimize: true,
-        inject: {
-          insertAt: 'top',
-        },
-      }),
+        presets: ['@babel/preset-react']
+      })
     ],
-    external: [
-      'react',
-      'react-dom',
-      'next',
-      'next-themes',
-      'next/link',
-      'next/image',
-      ...Object.keys(packageJson.dependencies || {}),
-      ...Object.keys(packageJson.peerDependencies || {}),
-    ],
-  }
-]); 
+    external: ['react', 'react-dom', 'next'] 
+  },
+  {
+    input: 'dist/index.d.ts',
+    output: [{ file: 'dist/index.d.ts', format: 'esm' }],
+    plugins: [dts()],
+    external: [/.css$/], 
+  },
+];
+
+export default config; 
