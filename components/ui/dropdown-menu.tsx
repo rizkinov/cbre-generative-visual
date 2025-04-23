@@ -41,13 +41,14 @@ function DropdownMenuContent({
       <DropdownMenuPrimitive.Content
         data-slot="dropdown-menu-content"
         sideOffset={sideOffset}
+        side="bottom"
+        align="center"
         className={cn(
           "bg-popover text-popover-foreground data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 z-[9999] !important max-h-[var(--radix-dropdown-menu-content-available-height)] min-w-[8rem] origin-[var(--radix-dropdown-menu-content-transform-origin)] overflow-x-hidden overflow-y-auto rounded-none border border-light-grey p-1 shadow-md pointer-events-auto !important visibility-visible !important opacity-100 !important",
           className
         )}
         style={{
           zIndex: 9999,
-          position: 'absolute',
           pointerEvents: 'auto',
           visibility: 'visible',
           opacity: 1
@@ -242,7 +243,6 @@ function DropdownMenuSubContent({
       )}
       style={{
         zIndex: 9999,
-        position: 'absolute',
         pointerEvents: 'auto',
         visibility: 'visible',
         opacity: 1
