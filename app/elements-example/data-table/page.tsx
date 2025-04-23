@@ -113,6 +113,7 @@ export default function DataTableExamplePage() {
       ),
       cell: ({ row }) => (
         <Checkbox
+          key={`select-${row.id}`}
           checked={row.getIsSelected()}
           onCheckedChange={(value) => row.toggleSelected(!!value)}
           aria-label="Select row"
@@ -196,7 +197,7 @@ export default function DataTableExamplePage() {
       cell: ({ row }) => {
         const property = row.original;
         return (
-          <DropdownMenu>
+          <DropdownMenu key={`actions-${row.id}`}>
             <DropdownMenuTrigger asChild>
               <Button variant="ghost" className="h-8 w-8 p-0">
                 <span className="sr-only">Open menu</span>
