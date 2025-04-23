@@ -196,6 +196,7 @@ export default function DataTableExamplePage() {
       id: "actions",
       cell: ({ row }) => {
         const property = row.original;
+        
         return (
           <DropdownMenu key={`actions-${row.id}`}>
             <DropdownMenuTrigger asChild>
@@ -204,10 +205,14 @@ export default function DataTableExamplePage() {
                 <MoreHorizontal className="h-4 w-4" />
               </Button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent align="end" side="bottom">
+            <DropdownMenuContent align="end" forceMount>
               <DropdownMenuLabel>Actions</DropdownMenuLabel>
               <DropdownMenuItem
-                onClick={() => navigator.clipboard.writeText(property.id)}
+                onClick={() => {
+                  if (navigator.clipboard) {
+                    navigator.clipboard.writeText(property.id);
+                  }
+                }}
               >
                 Copy property ID
               </DropdownMenuItem>
