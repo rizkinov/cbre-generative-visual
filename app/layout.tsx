@@ -13,11 +13,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
+      <head />
       <body
         className={`${financierDisplay.variable} ${calibre.variable} antialiased`}
       >
         {children}
+        <div id="dropdown-portal-container" style={{ position: 'fixed', zIndex: 9999 }}></div>
       </body>
     </html>
   );

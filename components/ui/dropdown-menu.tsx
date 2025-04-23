@@ -3,8 +3,31 @@
 import * as React from "react"
 import * as DropdownMenuPrimitive from "@radix-ui/react-dropdown-menu"
 import { CheckIcon, ChevronRightIcon, CircleIcon } from "lucide-react"
+import { createPortal } from "react-dom"
 
 import { cn } from "@/lib/utils"
+
+// Custom Portal component that uses a specific container
+function CustomPortal({ children }: { children: React.ReactNode }) {
+  const [portalContainer, setPortalContainer] = React.useState<HTMLElement | null>(null);
+  
+  React.useEffect(() => {
+    // Find or create portal container
+    let container = document.getElementById('dropdown-portal-container');
+    if (!container) {
+      container = document.createElement('div');
+      container.id = 'dropdown-portal-container';
+      container.style.position = 'fixed';
+      container.style.zIndex = '9999';
+      document.body.appendChild(container);
+    }
+    setPortalContainer(container);
+  }, []);
+  
+  if (!portalContainer) return null;
+  
+  return createPortal(children, portalContainer);
+}
 
 function DropdownMenu({
   ...props
@@ -13,10 +36,11 @@ function DropdownMenu({
 }
 
 function DropdownMenuPortal({
+  children,
   ...props
 }: React.ComponentProps<typeof DropdownMenuPrimitive.Portal>) {
   return (
-    <DropdownMenuPrimitive.Portal data-slot="dropdown-menu-portal" {...props} />
+    <CustomPortal>{children}</CustomPortal>
   )
 }
 
@@ -37,7 +61,7 @@ function DropdownMenuContent({
   ...props
 }: React.ComponentProps<typeof DropdownMenuPrimitive.Content>) {
   return (
-    <DropdownMenuPrimitive.Portal>
+    <CustomPortal>
       <DropdownMenuPrimitive.Content
         data-slot="dropdown-menu-content"
         sideOffset={sideOffset}
@@ -53,7 +77,7 @@ function DropdownMenuContent({
         }}
         {...props}
       />
-    </DropdownMenuPrimitive.Portal>
+    </CustomPortal>
   )
 }
 
