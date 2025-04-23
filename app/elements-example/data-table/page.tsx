@@ -208,7 +208,11 @@ export default function DataTableExamplePage() {
             <DropdownMenuContent align="end" side="bottom">
               <DropdownMenuLabel>Actions</DropdownMenuLabel>
               <DropdownMenuItem
-                onClick={() => alert('Clicked: ' + property.id)}
+                onClick={() => {
+                  if (navigator.clipboard) {
+                    navigator.clipboard.writeText(property.id);
+                  }
+                }}
               >
                 Copy property ID
               </DropdownMenuItem>
