@@ -2,6 +2,8 @@
 
 A modern React component library styled according to CBRE's design system. Built on top of shadcn/ui and Tailwind CSS, this library provides a consistent, accessible, and customizable UI toolkit for CBRE web applications.
 
+**Built with Next.js 15 and React 19.**
+
 ## Features
 
 - **CBRE Design System**: Components adhering to CBRE's brand guidelines
@@ -49,9 +51,13 @@ npm install github:rizkinov/cbre-web-elements
 
 ### Required Peer Dependencies
 
+Ensure you have the necessary peer dependencies installed:
+
 ```bash
-npm install react react-dom next tailwindcss
+npm install react@^19 react-dom@^19 next@^15 tailwindcss@^4
 ```
+
+**Note:** Due to current dependency compatibility with React 19, you might need to use the `--legacy-peer-deps` flag when installing dependencies in your project if you encounter peer dependency conflicts (e.g., `npm install --legacy-peer-deps`).
 
 ## Usage
 
@@ -72,25 +78,29 @@ function App() {
 
 ### Tailwind CSS Configuration
 
-Add the CBRE theme to your Tailwind configuration:
+Add the CBRE theme to your Tailwind configuration. Note that this example uses ES Module syntax, which is required since the library uses `"type": "module"`.
 
 ```js
 // tailwind.config.js
-const { cbreTheme } = require('cbre-web-elements/theme');
+import { cbreTheme } from 'cbre-web-elements/theme'; // Assuming theme is exported this way
 
-module.exports = {
+/** @type {import('tailwindcss').Config} */
+const config = {
   content: [
     './pages/**/*.{js,ts,jsx,tsx}',
     './components/**/*.{js,ts,jsx,tsx}',
+    './app/**/*.{js,ts,jsx,tsx}', // Include if using Next.js App Router
     './node_modules/cbre-web-elements/dist/**/*.js',
   ],
   theme: {
     extend: {
-      ...cbreTheme,
+      ...cbreTheme, // Ensure cbreTheme is compatible with Tailwind v4 structure if needed
     },
   },
   plugins: [],
 };
+
+export default config;
 ```
 
 ### Namespace Organization
@@ -176,7 +186,7 @@ cbre-web-elements/
 │   ├── lib/              # Utility functions
 │   ├── hooks/            # Custom React hooks
 │   └── styles/           # Global styles and theme
-├── app/                  # Demo application
+├── app/                  # Demo application (Next.js App Router)
 │   └── elements-example/ # Component examples
 ├── config/               # Configuration files
 ├── scripts/              # Build and utility scripts
@@ -233,23 +243,26 @@ This project adheres to a [Code of Conduct](CONDUCT.md). By participating, you a
 
 ## Development
 
+This project uses ES Modules (`"type": "module"`). Ensure your configuration files (like `next.config.js`, `tailwind.config.js`) use ES Module syntax (`import`/`export default`).
+
 ### Setup
 
 1. Clone the repository:
    ```bash
    git clone https://github.com/rizkinov/cbre-web-elements.git
-cd cbre-web-elements
-```
+   cd cbre-web-elements
+   ```
 
 2. Install dependencies:
-```bash
-npm install
-```
+   ```bash
+   npm install --legacy-peer-deps
+   ```
+   *(The `--legacy-peer-deps` flag is currently needed due to `react-day-picker`'s peer dependency requirements with React 19.)*
 
 3. Start the development server:
-```bash
-npm run dev
-```
+   ```bash
+   npm run dev
+   ```
 
 ### Building the Library
 
@@ -271,4 +284,4 @@ npm test
 
 ## License
 
-MIT © [CBRE](LICENSE)
+MIT © CBRE
