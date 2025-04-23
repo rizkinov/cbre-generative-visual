@@ -238,18 +238,18 @@ This project adheres to a [Code of Conduct](CONDUCT.md). By participating, you a
 1. Clone the repository:
    ```bash
    git clone https://github.com/rizkinov/cbre-web-elements.git
-   cd cbre-web-elements
-   ```
+cd cbre-web-elements
+```
 
 2. Install dependencies:
-   ```bash
-   npm install
-   ```
+```bash
+npm install
+```
 
 3. Start the development server:
-   ```bash
-   npm run dev
-   ```
+```bash
+npm run dev
+```
 
 ### Building the Library
 

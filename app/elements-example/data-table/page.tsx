@@ -242,11 +242,11 @@ export default function DataTableExamplePage() {
             <div className="border border-light-grey bg-white p-8 max-w-full mx-auto space-y-6">
               <div className="space-y-2">
                 <p className="text-dark-grey font-calibre mb-2">Interactive Data Table with Search, Pagination, and Sorting</p>
-                <CBREDataTable
-                  columns={columns}
-                  data={properties}
-                  searchKey="name"
-                />
+              <CBREDataTable
+                columns={columns}
+                data={properties}
+                searchKey="name"
+              />
               </div>
             </div>
           </div>
@@ -308,7 +308,7 @@ const data = [/* Your data array */];
           </div>
         </div>
 
-        {/* Component API */}
+                {/* Component API */}
         <div className="mb-16">
           <h2 className="text-4xl font-financier text-cbre-green mb-5">Component API</h2>
           <div className="bg-[var(--lighter-grey)] p-4 md:p-8">
@@ -362,7 +362,7 @@ const data = [/* Your data array */];
           </div>
         </div>
 
-        <div className="mt-16 flex justify-center">
+<div className="mt-16 flex justify-center">
           <Link href="/elements-example">
             <CBREButton variant="outline">Back to UI Elements</CBREButton>
           </Link>
