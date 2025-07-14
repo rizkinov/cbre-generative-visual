@@ -27,7 +27,7 @@ import {
   SidebarMenuSubButton as BaseSidebarMenuSubButton,
   SidebarSeparator as BaseSidebarSeparator,
   useSidebar
-} from "@/components/ui/sidebar"
+} from "@/src/components/ui/sidebar"
 
 /**
  * CBRESidebarProvider - A CBRE-styled sidebar provider component

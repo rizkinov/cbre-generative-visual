@@ -1,7 +1,7 @@
 import React from 'react';
-import { Button } from "@/components/ui/button";
+import { Button } from "@/src/components/ui/button";
 type ButtonVariant = "primary" | "outline" | "accent" | "text" | "action" | "view-more";
-interface CBREButtonProps extends Omit<React.ComponentProps<typeof Button>, 'variant'> {
+export interface CBREButtonProps extends Omit<React.ComponentProps<typeof Button>, 'variant'> {
     variant?: ButtonVariant;
 }
 /**

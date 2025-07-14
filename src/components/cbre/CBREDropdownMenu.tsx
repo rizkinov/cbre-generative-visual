@@ -1,7 +1,7 @@
 "use client";
 
 import React from 'react';
-import { Button } from "@/components/ui/button";
+import { Button } from "@/src/components/ui/button";
 import { cn } from "@/lib/utils";
 import {
   DropdownMenu,
@@ -18,7 +18,7 @@ import {
   DropdownMenuSubTrigger,
   DropdownMenuSubContent,
   DropdownMenuPortal,
-} from "@/components/ui/dropdown-menu";
+} from "@/src/components/ui/dropdown-menu";
 import { ChevronDown } from "lucide-react";
 
 // Define type for menu items with support for various item types
@@ -30,7 +30,7 @@ export type CBREDropdownMenuItemType =
   | { type: "label"; label: string }
   | { type: "separator" };
 
-interface CBREDropdownMenuProps {
+export interface CBREDropdownMenuProps {
   trigger: React.ReactNode;
   items: CBREDropdownMenuItemType[];
   className?: string;

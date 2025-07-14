@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import Link from "next/link";
-import { CBREButton } from "@/components/cbre-button";
+import { CBREButton } from "@/src/components/cbre/CBREButton";
 import {
   Pagination,
   PaginationContent,
@@ -11,11 +11,11 @@ import {
   PaginationLink,
   PaginationNext,
   PaginationPrevious,
-} from "@/components/ui/pagination";
+} from "@/src/components/ui/pagination";
 
 export default function PaginationExamplePage() {
   // Basic pagination state
-  const [basicPage, setBasicPage] = React.useState(1);
+  const [basicPage, setBasicPage] = React.useState(5);
   const basicTotalPages = 10;
 
   // Advanced pagination state with items
@@ -152,27 +152,55 @@ export default function PaginationExamplePage() {
                       />
                     </PaginationItem>
                     
-                    <PaginationItem>
-                      <PaginationLink isActive={basicPage === 1} onClick={() => setBasicPage(1)}>
-                        1
-                      </PaginationLink>
-                    </PaginationItem>
+                    {/* Show page 1 if not in visible range */}
+                    {basicPage > 2 && (
+                      <>
+                        <PaginationItem>
+                          <PaginationLink onClick={() => setBasicPage(1)}>
+                            1
+                          </PaginationLink>
+                        </PaginationItem>
+                        {basicPage > 3 && (
+                          <PaginationItem>
+                            <PaginationEllipsis />
+                          </PaginationItem>
+                        )}
+                      </>
+                    )}
                     
-                    <PaginationItem>
-                      <PaginationLink isActive={basicPage === 2} onClick={() => setBasicPage(2)}>
-                        2
-                      </PaginationLink>
-                    </PaginationItem>
+                    {/* Show pages around current page */}
+                    {Array.from({ length: 3 }, (_, i) => {
+                      const pageNum = basicPage - 1 + i;
+                      if (pageNum >= 1 && pageNum <= basicTotalPages) {
+                        return (
+                          <PaginationItem key={pageNum}>
+                            <PaginationLink 
+                              isActive={basicPage === pageNum} 
+                              onClick={() => setBasicPage(pageNum)}
+                            >
+                              {pageNum}
+                            </PaginationLink>
+                          </PaginationItem>
+                        );
+                      }
+                      return null;
+                    })}
                     
-                    <PaginationItem>
-                      <PaginationLink isActive={basicPage === 3} onClick={() => setBasicPage(3)}>
-                        3
-                      </PaginationLink>
-                    </PaginationItem>
-                    
-                    <PaginationItem>
-                      <PaginationEllipsis />
-                    </PaginationItem>
+                    {/* Show ellipsis and last page if not in visible range */}
+                    {basicPage < basicTotalPages - 1 && (
+                      <>
+                        {basicPage < basicTotalPages - 2 && (
+                          <PaginationItem>
+                            <PaginationEllipsis />
+                          </PaginationItem>
+                        )}
+                        <PaginationItem>
+                          <PaginationLink onClick={() => setBasicPage(basicTotalPages)}>
+                            {basicTotalPages}
+                          </PaginationLink>
+                        </PaginationItem>
+                      </>
+                    )}
                     
                     <PaginationItem>
                       <PaginationNext 
@@ -195,25 +223,57 @@ export default function PaginationExamplePage() {
           <div className="bg-white p-6 border border-light-grey mt-6">
             <h3 className="text-lg font-calibre font-medium text-dark-grey mb-3">Implementation</h3>
             <pre className="bg-gray-100 p-4 rounded overflow-x-auto text-sm">
-{`<Pagination>
+{`const [currentPage, setCurrentPage] = useState(5);
+const totalPages = 10;
+
+<Pagination>
   <PaginationContent>
     <PaginationItem>
-      <PaginationPrevious onClick={() => setPage(page - 1)} />
+      <PaginationPrevious 
+        onClick={() => setCurrentPage(prev => Math.max(1, prev - 1))}
+        aria-disabled={currentPage === 1}
+      />
     </PaginationItem>
+    
+    {/* Show page 1 if not in visible range */}
+    {currentPage > 2 && (
+      <PaginationItem>
+        <PaginationLink onClick={() => setCurrentPage(1)}>1</PaginationLink>
+      </PaginationItem>
+    )}
+    
+    {/* Show pages around current page */}
+    {Array.from({ length: 3 }, (_, i) => {
+      const pageNum = currentPage - 1 + i;
+      if (pageNum >= 1 && pageNum <= totalPages) {
+        return (
+          <PaginationItem key={pageNum}>
+            <PaginationLink 
+              isActive={currentPage === pageNum} 
+              onClick={() => setCurrentPage(pageNum)}
+            >
+              {pageNum}
+            </PaginationLink>
+          </PaginationItem>
+        );
+      }
+      return null;
+    })}
+    
+    {/* Show last page if not in visible range */}
+    {currentPage < totalPages - 1 && (
+      <PaginationItem>
+        <PaginationLink onClick={() => setCurrentPage(totalPages)}>
+          {totalPages}
+        </PaginationLink>
+      </PaginationItem>
+    )}
+    
     <PaginationItem>
-      <PaginationLink isActive={page === 1} onClick={() => setPage(1)}>1</PaginationLink>
-    </PaginationItem>
-    <PaginationItem>
-      <PaginationLink onClick={() => setPage(2)}>2</PaginationLink>
-    </PaginationItem>
-    <PaginationItem>
-      <PaginationLink onClick={() => setPage(3)}>3</PaginationLink>
-    </PaginationItem>
-    <PaginationItem>
-      <PaginationEllipsis />
-    </PaginationItem>
-    <PaginationItem>
-      <PaginationNext onClick={() => setPage(page + 1)} />
+      <PaginationNext 
+        onClick={() => setCurrentPage(prev => Math.min(totalPages, prev + 1))}
+        aria-disabled={currentPage === totalPages}
+      />
     </PaginationItem>
   </PaginationContent>
 </Pagination>`}

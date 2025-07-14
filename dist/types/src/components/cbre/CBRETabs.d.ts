@@ -1,5 +1,9 @@
 import React from 'react';
-interface CBRETabsProps {
+export interface CBRETabsContextProps {
+    variant: "underline" | "boxed";
+    size: "sm" | "md" | "lg";
+}
+export interface CBRETabsProps {
     defaultValue: string;
     value?: string;
     onValueChange?: (value: string) => void;
@@ -17,14 +21,14 @@ interface CBRETabsProps {
  * - Three size options
  */
 export declare function CBRETabs({ defaultValue, value, onValueChange, className, children, variant, size, ...props }: CBRETabsProps): React.JSX.Element;
-interface CBRETabsListProps {
+export interface CBRETabsListProps {
     className?: string;
     children?: React.ReactNode;
     variant?: "underline" | "boxed";
     size?: "sm" | "md" | "lg";
 }
 export declare function CBRETabsList({ className, children, variant: propVariant, size: propSize, ...props }: CBRETabsListProps): React.JSX.Element;
-interface CBRETabsTriggerProps {
+export interface CBRETabsTriggerProps {
     value: string;
     className?: string;
     children?: React.ReactNode;
@@ -33,7 +37,7 @@ interface CBRETabsTriggerProps {
     disabled?: boolean;
 }
 export declare function CBRETabsTrigger({ value, className, children, variant: propVariant, size: propSize, disabled, ...props }: CBRETabsTriggerProps): React.JSX.Element;
-interface CBRETabsContentProps {
+export interface CBRETabsContentProps {
     value: string;
     className?: string;
     children?: React.ReactNode;

@@ -2,10 +2,10 @@
 
 import * as React from "react";
 import { DateRange } from "react-day-picker";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Calendar } from "@/components/ui/calendar";
+import { Card, CardContent, CardHeader, CardTitle } from "@/src/components/ui/card";
+import { Calendar } from "@/src/components/ui/calendar";
 import Link from "next/link";
-import { CBREButton } from "@/components/cbre-button";
+import { CBREButton } from "@/src/components/cbre/CBREButton";
 
 export default function CalendarExamplePage() {
   // State for basic calendar
@@ -90,7 +90,7 @@ export default function CalendarExamplePage() {
           <div className="bg-white p-6 border border-light-grey mt-6">
             <h3 className="text-lg font-calibre font-medium text-dark-grey mb-3">Implementation</h3>
             <pre className="bg-gray-100 p-4 rounded overflow-x-auto text-sm">
-{`import { Calendar } from "@/components/ui/calendar";
+{`import { Calendar } from "@/src/components/ui/calendar";
 
 // State for selected date
 const [date, setDate] = React.useState<Date | undefined>(new Date());
@@ -138,7 +138,7 @@ const [date, setDate] = React.useState<Date | undefined>(new Date());
           <div className="bg-white p-6 border border-light-grey mt-6">
             <h3 className="text-lg font-calibre font-medium text-dark-grey mb-3">Implementation</h3>
             <pre className="bg-gray-100 p-4 rounded overflow-x-auto text-sm">
-{`import { Calendar } from "@/components/ui/calendar";
+{`import { Calendar } from "@/src/components/ui/calendar";
 
 // State for multiple dates
 const [multiDates, setMultiDates] = React.useState<Date[] | undefined>([]);
@@ -199,7 +199,7 @@ const [multiDates, setMultiDates] = React.useState<Date[] | undefined>([]);
             <h3 className="text-lg font-calibre font-medium text-dark-grey mb-3">Implementation</h3>
             <pre className="bg-gray-100 p-4 rounded overflow-x-auto text-sm">
 {`import { DateRange } from "react-day-picker";
-import { Calendar } from "@/components/ui/calendar";
+import { Calendar } from "@/src/components/ui/calendar";
 
 // State for date range
 const [dateRange, setDateRange] = React.useState<DateRange | undefined>({
@@ -265,7 +265,7 @@ React.useEffect(() => {
           <div className="bg-white p-6 border border-light-grey mt-6">
             <h3 className="text-lg font-calibre font-medium text-dark-grey mb-3">Implementation</h3>
             <pre className="bg-gray-100 p-4 rounded overflow-x-auto text-sm">
-{`import { Calendar } from "@/components/ui/calendar";
+{`import { Calendar } from "@/src/components/ui/calendar";
 
 <Calendar
   mode="single"

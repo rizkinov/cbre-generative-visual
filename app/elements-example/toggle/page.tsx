@@ -1,8 +1,8 @@
 "use client";
 
 import React, { useState } from 'react';
-import { CBREToggle } from '@/components/cbre-toggle';
-import { CBREButton } from '@/components/cbre-button';
+import { CBREToggle } from '@/src/components/cbre/CBREToggle';
+import { CBREButton } from '@/src/components/cbre/CBREButton';
 import Link from "next/link";
 
 

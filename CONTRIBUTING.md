@@ -21,7 +21,7 @@ We are committed to providing a welcoming and inclusive environment. All partici
 
 1. Fork the repository
 2. Clone your fork: `git clone https://github.com/YOUR-USERNAME/cbre-web-elements.git`
-3. Add the upstream repository: `git remote add upstream https://github.com/cbre/cbre-web-elements.git`
+3. Add the upstream repository: `git remote add upstream https://github.com/YOUR-USERNAME/cbre-web-elements.git`
 4. Install dependencies: `npm install`
 5. Create a branch for your changes: `git checkout -b feature/your-feature-name`
 
@@ -30,7 +30,10 @@ We are committed to providing a welcoming and inclusive environment. All partici
 1. Start the development server: `npm run dev`
 2. Visit http://localhost:3000 to see the example pages
 3. Make your changes to components or documentation
-4. Test your changes thoroughly
+4. Test your changes thoroughly:
+   - Run type checking: `npm run type-check`
+   - Build the library: `npm run build:lib`
+   - Run validation: `npm run validate`
 5. Commit your changes with descriptive commit messages
 
 ## Pull Request Process
@@ -77,9 +80,13 @@ All components should:
    ```
 
 3. Follow the naming conventions:
-   - UI components: PascalCase (e.g., `Button.tsx`)
+   - UI components: PascalCase (e.g., `button.tsx`)
    - CBRE components: PascalCase with CBRE prefix (e.g., `CBREButton.tsx`)
-   - Block components: PascalCase with CBRE prefix and Block suffix (e.g., `CBREHeroBlock.tsx`)
+   - Block components: PascalCase with CBRE prefix and Block suffix (e.g., `CBRECtaBlock.tsx`)
+
+4. Ensure all components are properly exported:
+   - Update the respective `index.ts` file in the component directory
+   - Export prop interfaces with the `export` keyword for TypeScript support
 
 ### Component Requirements
 
@@ -111,5 +118,9 @@ We encourage writing tests for all components:
 1. Unit tests for components using React Testing Library
 2. Basic tests that verify rendering and prop handling
 3. Run tests before submitting a PR: `npm test`
+4. Additional validation:
+   - Run type checking: `npm run type-check`
+   - Test the build process: `npm run build:lib`
+   - Run complete validation: `npm run validate`
 
 Thank you for contributing to CBRE Web Elements! 

@@ -1,8 +1,8 @@
 "use client";
 
 import React, { useState } from 'react';
-import { CBREToggleGroup, CBREToggleGroupItem } from '@/components/cbre-toggle-group';
-import { CBREButton } from '@/components/cbre-button';
+import { CBREToggleGroup, CBREToggleGroupItem } from '@/src/components/cbre/CBREToggleGroup';
+import { CBREButton } from '@/src/components/cbre/CBREButton';
 import Link from "next/link";
 
 
@@ -36,7 +36,7 @@ export default function ToggleGroupExamplePage() {
               <CBREToggleGroup 
                 type="single" 
                 value={singleValue}
-                onValueChange={(value) => value && setSingleValue(value)}
+                onValueChange={(value: string) => value && setSingleValue(value)}
                 aria-label="Text alignment"
               >
                 <CBREToggleGroupItem value="left">Left</CBREToggleGroupItem>
@@ -118,7 +118,7 @@ export default function ToggleGroupExamplePage() {
               <CBREToggleGroup 
                 type="single" 
                 value={outlineValue}
-                onValueChange={(value) => value && setOutlineValue(value)}
+                onValueChange={(value: string) => value && setOutlineValue(value)}
                 aria-label="Billing frequency"
               >
                 <CBREToggleGroupItem value="monthly" variant="outline">Monthly</CBREToggleGroupItem>
@@ -154,7 +154,7 @@ export default function ToggleGroupExamplePage() {
                 <CBREToggleGroup 
                   type="single" 
                   value={sizeValue.small}
-                  onValueChange={(value) => value && setSizeValue({...sizeValue, small: value})}
+                  onValueChange={(value: string) => value && setSizeValue({...sizeValue, small: value})}
                 >
                   <CBREToggleGroupItem value="sm" size="sm">Small</CBREToggleGroupItem>
                   <CBREToggleGroupItem value="md" size="sm">Medium</CBREToggleGroupItem>
@@ -167,7 +167,7 @@ export default function ToggleGroupExamplePage() {
                 <CBREToggleGroup 
                   type="single" 
                   value={sizeValue.medium}
-                  onValueChange={(value) => value && setSizeValue({...sizeValue, medium: value})}
+                  onValueChange={(value: string) => value && setSizeValue({...sizeValue, medium: value})}
                 >
                   <CBREToggleGroupItem value="sm">Small</CBREToggleGroupItem>
                   <CBREToggleGroupItem value="md">Medium</CBREToggleGroupItem>
@@ -180,7 +180,7 @@ export default function ToggleGroupExamplePage() {
                 <CBREToggleGroup 
                   type="single" 
                   value={sizeValue.large}
-                  onValueChange={(value) => value && setSizeValue({...sizeValue, large: value})}
+                  onValueChange={(value: string) => value && setSizeValue({...sizeValue, large: value})}
                 >
                   <CBREToggleGroupItem value="sm" size="lg">Small</CBREToggleGroupItem>
                   <CBREToggleGroupItem value="md" size="lg">Medium</CBREToggleGroupItem>

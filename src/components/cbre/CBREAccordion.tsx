@@ -7,9 +7,9 @@ import {
   AccordionItem, 
   AccordionTrigger, 
   AccordionContent 
-} from "@/components/ui/accordion";
+} from "@/src/components/ui/accordion";
 
-interface CBREAccordionProps {
+export interface CBREAccordionProps {
   items: {
     title: string;
     content: React.ReactNode;

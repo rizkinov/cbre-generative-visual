@@ -1,7 +1,7 @@
 "use client";
 
 import React from 'react';
-import { CBREButton } from '@/components/cbre-button';
+import { CBREButton } from '@/src/components/cbre/CBREButton';
 import Link from 'next/link';
 
 // Group UI elements by category for better organization

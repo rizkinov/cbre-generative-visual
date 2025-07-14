@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import Link from "next/link";
-import { CBREButton } from "@/components/cbre-button";
+import { CBREButton } from "@/src/components/cbre/CBREButton";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -13,8 +13,8 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-} from "@/components/ui/alert-dialog";
-import { Button } from "@/components/ui/button";
+} from "@/src/components/ui/alert-dialog";
+import { Button } from "@/src/components/ui/button";
 import { Trash, AlertTriangle, FileQuestion, Save, X } from "lucide-react";
 
 export default function AlertDialogExamplePage() {

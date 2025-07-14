@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import { cn } from "@/lib/utils";
 
-interface CBREArrowButtonProps {
+export interface CBREArrowButtonProps {
   children: React.ReactNode;
   href?: string;
   className?: string;

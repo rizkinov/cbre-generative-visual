@@ -2,10 +2,10 @@
 
 import * as React from "react";
 import Link from "next/link";
-import { CBREButton } from "@/components/cbre-button";
-import { CBREDataTable } from "@/components/cbre-data-table";
+import { CBREButton } from "@/src/components/cbre/CBREButton";
+import { CBREDataTable } from "@/src/components/cbre/CBREDataTable";
 import { ColumnDef } from "@tanstack/react-table";
-import { Checkbox } from "@/components/ui/checkbox";
+import { Checkbox } from "@/src/components/ui/checkbox";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -13,10 +13,10 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { Button } from "@/components/ui/button";
+} from "@/src/components/ui/dropdown-menu";
+import { Button } from "@/src/components/ui/button";
 import { ArrowUpDown, MoreHorizontal } from "lucide-react";
-import { CBREBadge } from "@/components/cbre-badge";
+import { CBREBadge } from "@/src/components/cbre/CBREBadge";
 
 // Sample data types
 interface Property {

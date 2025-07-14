@@ -1,9 +1,9 @@
 "use client";
 
 import React from 'react';
-import { CBREQuoteBlock } from '@/components/cbre-quote-block';
-import { CBRECTABlock } from '@/components/cbre-cta-block';
-import { CBREButton } from '@/components/cbre-button';
+import { CBREQuoteBlock } from '@/src/components/blocks/CBREQuoteBlock';
+import { CBRECTABlock } from '@/src/components/blocks/CBRECtaBlock';
+import { CBREButton } from '@/src/components/cbre/CBREButton';
 import Link from 'next/link';
 
 export default function BlocksExamplePage() {

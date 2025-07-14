@@ -1,5 +1,5 @@
 import React from 'react';
-interface CBREToggleProps {
+export interface CBREToggleProps {
     checked?: boolean;
     onCheckedChange?: (checked: boolean) => void;
     disabled?: boolean;
@@ -17,4 +17,3 @@ interface CBREToggleProps {
  * - Three size variants (sm, md, lg)
  */
 export declare function CBREToggle({ checked, onCheckedChange, disabled, label, description, className, size }: CBREToggleProps): React.JSX.Element;
-export {};

@@ -2,18 +2,18 @@
 
 import * as React from "react";
 import { DateRange } from "react-day-picker";
-import { Calendar } from "@/components/ui/calendar";
+import { Calendar } from "@/src/components/ui/calendar";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "@/components/ui/popover";
-import { Button } from "@/components/ui/button";
+} from "@/src/components/ui/popover";
+import { Button } from "@/src/components/ui/button";
 import { cn } from "@/lib/utils";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/src/components/ui/card";
 import { CalendarIcon } from "lucide-react";
 import Link from "next/link";
-import { CBREButton } from "@/components/cbre-button";
+import { CBREButton } from "@/src/components/cbre/CBREButton";
 
 export default function DatePickerExamplePage() {
   // State for basic date picker
@@ -123,13 +123,13 @@ export default function DatePickerExamplePage() {
           <div className="bg-white p-6 border border-light-grey mt-6">
             <h3 className="text-lg font-calibre font-medium text-dark-grey mb-3">Implementation</h3>
             <pre className="bg-gray-100 p-4 rounded overflow-x-auto text-sm">
-{`import { Calendar } from "@/components/ui/calendar";
+{`import { Calendar } from "@/src/components/ui/calendar";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "@/components/ui/popover";
-import { Button } from "@/components/ui/button";
+} from "@/src/components/ui/popover";
+import { Button } from "@/src/components/ui/button";
 import { CalendarIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -248,9 +248,9 @@ const formatDate = (date: Date): string => {
             <h3 className="text-lg font-calibre font-medium text-dark-grey mb-3">Implementation</h3>
             <pre className="bg-gray-100 p-4 rounded overflow-x-auto text-sm">
 {`import { DateRange } from "react-day-picker";
-import { Calendar } from "@/components/ui/calendar";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
-import { Button } from "@/components/ui/button";
+import { Calendar } from "@/src/components/ui/calendar";
+import { Popover, PopoverContent, PopoverTrigger } from "@/src/components/ui/popover";
+import { Button } from "@/src/components/ui/button";
 import { CalendarIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -393,9 +393,9 @@ React.useEffect(() => {
           <div className="bg-white p-6 border border-light-grey mt-6">
             <h3 className="text-lg font-calibre font-medium text-dark-grey mb-3">Implementation</h3>
             <pre className="bg-gray-100 p-4 rounded overflow-x-auto text-sm">
-{`import { Calendar } from "@/components/ui/calendar";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
-import { Button } from "@/components/ui/button";
+{`import { Calendar } from "@/src/components/ui/calendar";
+import { Popover, PopoverContent, PopoverTrigger } from "@/src/components/ui/popover";
+import { Button } from "@/src/components/ui/button";
 import { CalendarIcon } from "lucide-react";
 
 // State for form date and submission status

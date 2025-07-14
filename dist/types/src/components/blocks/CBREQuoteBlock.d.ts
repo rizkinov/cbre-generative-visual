@@ -1,5 +1,5 @@
 import React from 'react';
-interface CBREQuoteBlockProps {
+export interface CBREQuoteBlockProps {
     quote: string;
     author: string;
     role: string;
@@ -15,4 +15,3 @@ interface CBREQuoteBlockProps {
  * - Quote with executive photo
  */
 export declare function CBREQuoteBlock({ quote, author, role, imageSrc, className }: CBREQuoteBlockProps): React.JSX.Element;
-export {};

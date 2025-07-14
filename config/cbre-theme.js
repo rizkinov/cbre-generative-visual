@@ -3,7 +3,7 @@
  * This file centralizes all CBRE design tokens for consistent application across the project.
  */
 
-module.exports = {
+const cbreTheme = {
   // Main brand colors
   colors: {
     // Primary Colors
@@ -79,4 +79,7 @@ module.exports = {
     "3xl": "0",
     full: "0",
   }
-}; 
+};
+
+module.exports = cbreTheme;
+export default cbreTheme; 

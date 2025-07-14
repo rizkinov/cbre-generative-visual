@@ -2,14 +2,14 @@
 
 import * as React from "react"
 import { cn } from "@/lib/utils"
-import { Label } from "@/components/ui/label"
-import { Checkbox } from "@/components/ui/checkbox"
+import { Label } from "@/src/components/ui/label"
+import { Checkbox } from "@/src/components/ui/checkbox"
 import { type CheckedState } from "@radix-ui/react-checkbox"
 
 /**
  * CBRECheckboxGroup - A group of checkboxes with a shared title
  */
-interface CheckboxGroupProps {
+export interface CheckboxGroupProps {
   title?: string
   description?: string
   className?: string

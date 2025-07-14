@@ -2,11 +2,11 @@
 
 import * as React from "react";
 import { DateRange } from "react-day-picker";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { CBREDatePicker, CBREDateRangePicker } from "@/components/cbre-date-picker";
+import { Card, CardContent, CardHeader, CardTitle } from "@/src/components/ui/card";
+import { Button } from "@/src/components/ui/button";
+import { CBREDatePicker, CBREDateRangePicker } from "@/src/components/cbre/CBREDatePicker";
 import Link from "next/link";
-import { CBREButton } from "@/components/cbre-button";
+import { CBREButton } from "@/src/components/cbre/CBREButton";
 
 export default function CBREDatePickerExamplePage() {
   // State for basic date picker

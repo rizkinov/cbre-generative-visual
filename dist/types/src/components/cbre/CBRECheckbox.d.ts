@@ -1,9 +1,9 @@
 import * as React from "react";
-import { Checkbox } from "@/components/ui/checkbox";
+import { Checkbox } from "@/src/components/ui/checkbox";
 /**
  * CBRECheckboxGroup - A group of checkboxes with a shared title
  */
-interface CheckboxGroupProps {
+export interface CheckboxGroupProps {
     title?: string;
     description?: string;
     className?: string;

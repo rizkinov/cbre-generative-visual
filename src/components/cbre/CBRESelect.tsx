@@ -11,8 +11,8 @@ import {
   SelectTrigger,
   SelectValue,
   SelectSeparator,
-} from "@/components/ui/select";
-import { Label } from "@/components/ui/label";
+} from "@/src/components/ui/select";
+import { Label } from "@/src/components/ui/label";
 
 // Define the props for CBRESelect component
 export interface CBRESelectProps extends React.ComponentPropsWithoutRef<typeof Select> {

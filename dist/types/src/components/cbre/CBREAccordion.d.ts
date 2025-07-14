@@ -1,5 +1,5 @@
 import React from 'react';
-interface CBREAccordionProps {
+export interface CBREAccordionProps {
     items: {
         title: string;
         content: React.ReactNode;
@@ -18,4 +18,3 @@ interface CBREAccordionProps {
  * - Custom arrow icon with CBRE styling
  */
 export declare function CBREAccordion({ items, className, type, defaultValue, collapsible, }: CBREAccordionProps): React.JSX.Element;
-export {};

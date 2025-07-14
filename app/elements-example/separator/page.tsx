@@ -1,8 +1,8 @@
 "use client";
 
 import React, { useEffect, useState } from 'react';
-import { CBRESeparator } from '@/components/cbre-separator';
-import { CBREButton } from '@/components/cbre-button';
+import { CBRESeparator } from '@/src/components/cbre/CBRESeparator';
+import { CBREButton } from '@/src/components/cbre/CBREButton';
 import Link from "next/link";
 
 

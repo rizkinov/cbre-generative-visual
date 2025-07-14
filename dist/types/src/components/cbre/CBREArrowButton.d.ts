@@ -1,5 +1,5 @@
 import React from 'react';
-interface CBREArrowButtonProps {
+export interface CBREArrowButtonProps {
     children: React.ReactNode;
     href?: string;
     className?: string;
@@ -12,4 +12,3 @@ interface CBREArrowButtonProps {
  * on hover, following CBRE's design language.
  */
 export declare const CBREArrowButton: ({ children, href, className, onClick, }: CBREArrowButtonProps) => React.JSX.Element;
-export {};

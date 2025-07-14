@@ -8,8 +8,8 @@ import {
   CBRECardDescription, 
   CBRECardContent, 
   CBRECardFooter 
-} from '@/components/cbre-card';
-import { CBREButton } from '@/components/cbre-button';
+} from '@/src/components/cbre/CBRECard';
+import { CBREButton } from '@/src/components/cbre/CBREButton';
 import Link from 'next/link';
 
 export default function CardExamplePage() {

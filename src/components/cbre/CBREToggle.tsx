@@ -4,7 +4,7 @@ import React from 'react';
 import { cn } from "@/lib/utils";
 import * as SwitchPrimitives from "@radix-ui/react-switch";
 
-interface CBREToggleProps {
+export interface CBREToggleProps {
   checked?: boolean;
   onCheckedChange?: (checked: boolean) => void;
   disabled?: boolean;

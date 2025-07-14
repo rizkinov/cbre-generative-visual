@@ -2,16 +2,16 @@
 
 import * as React from "react";
 import Link from "next/link";
-import { CBREButton } from "@/components/cbre-button";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+import { CBREButton } from "@/src/components/cbre/CBREButton";
+import { Button } from "@/src/components/ui/button";
+import { Input } from "@/src/components/ui/input";
+import { Label } from "@/src/components/ui/label";
 import { 
   Popover,
   PopoverContent,
   PopoverTrigger,
   PopoverAnchor
-} from "@/components/ui/popover";
+} from "@/src/components/ui/popover";
 import { Settings, Check, CreditCard, X, Calendar, Info, HelpCircle } from "lucide-react";
 import { 
   Card,
@@ -20,7 +20,7 @@ import {
   CardFooter,
   CardHeader,
   CardTitle
-} from "@/components/ui/card";
+} from "@/src/components/ui/card";
 
 export default function PopoverExamplePage() {
   // State for form example
@@ -88,8 +88,8 @@ export default function PopoverExamplePage() {
   Popover,
   PopoverContent,
   PopoverTrigger 
-} from "@/components/ui/popover";
-import { Button } from "@/components/ui/button";
+} from "@/src/components/ui/popover";
+import { Button } from "@/src/components/ui/button";
 import { Info } from "lucide-react";
 
 <Popover>
@@ -186,10 +186,10 @@ import { Info } from "lucide-react";
   Popover,
   PopoverContent,
   PopoverTrigger 
-} from "@/components/ui/popover";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+} from "@/src/components/ui/popover";
+import { Button } from "@/src/components/ui/button";
+import { Input } from "@/src/components/ui/input";
+import { Label } from "@/src/components/ui/label";
 import { Settings, Check } from "lucide-react";
 import { useState } from "react";
 
@@ -367,11 +367,11 @@ const handleSubmit = () => {
   Popover,
   PopoverContent,
   PopoverTrigger 
-} from "@/components/ui/popover";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+} from "@/src/components/ui/popover";
+import { Button } from "@/src/components/ui/button";
+import { Input } from "@/src/components/ui/input";
+import { Label } from "@/src/components/ui/label";
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/src/components/ui/card";
 import { CreditCard, HelpCircle } from "lucide-react";
 
 <Card className="w-[450px]">
@@ -476,8 +476,8 @@ import { CreditCard, HelpCircle } from "lucide-react";
   Popover,
   PopoverContent,
   PopoverTrigger 
-} from "@/components/ui/popover";
-import { Button } from "@/components/ui/button";
+} from "@/src/components/ui/popover";
+import { Button } from "@/src/components/ui/button";
 
 // Top popover
 <Popover>

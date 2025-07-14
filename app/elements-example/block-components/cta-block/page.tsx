@@ -1,8 +1,8 @@
 "use client";
 
 import React from 'react';
-import { CBRECTABlock } from '@/components/cbre-cta-block';
-import { CBREButton } from '@/components/cbre-button';
+import { CBRECTABlock } from '@/src/components/blocks/CBRECtaBlock';
+import { CBREButton } from '@/src/components/cbre/CBREButton';
 import Link from 'next/link';
 
 export default function CTABlockPage() {

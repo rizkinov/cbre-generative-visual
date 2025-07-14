@@ -1,8 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { CBREButton } from "@/components/cbre-button";
-import { CBREArrowButton } from "@/components/cbre-arrow-button";
+import { CBREButton } from "@/src/components/cbre/CBREButton";
+import { CBREArrowButton } from "@/src/components/cbre/CBREArrowButton";
 import Link from "next/link";
 
 export default function ButtonExamplePage() {

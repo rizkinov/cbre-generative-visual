@@ -2,9 +2,9 @@
 
 import * as React from "react";
 import Link from "next/link";
-import { Label } from "@/components/ui/label";
-import { Input } from "@/components/ui/input";
-import { CBREButton } from "@/components/cbre-button";
+import { Label } from "@/src/components/ui/label";
+import { Input } from "@/src/components/ui/input";
+import { CBREButton } from "@/src/components/cbre/CBREButton";
 import {
   Select,
   SelectContent,
@@ -14,7 +14,7 @@ import {
   SelectSeparator,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select";
+} from "@/src/components/ui/select";
 
 export default function SelectExamplePage() {
   // Basic select example state
@@ -107,7 +107,7 @@ export default function SelectExamplePage() {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select";
+} from "@/src/components/ui/select";
 
 const [language, setLanguage] = React.useState("");
 

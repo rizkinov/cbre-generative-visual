@@ -28,7 +28,6 @@
     "node_modules",
     "dist",
     "app",
-    "components",
     ".next",
     "**/*.stories.tsx",
     "**/*.test.tsx"

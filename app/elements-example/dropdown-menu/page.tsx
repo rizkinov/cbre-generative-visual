@@ -1,8 +1,8 @@
 "use client";
 
 import React, { useState } from 'react';
-import { CBREDropdownMenu, CBREDropdownMenuItemType } from '@/components/cbre-dropdown-menu';
-import { CBREButton } from '@/components/cbre-button';
+import { CBREDropdownMenu, CBREDropdownMenuItemType } from '@/src/components/cbre/CBREDropdownMenu';
+import { CBREButton } from '@/src/components/cbre/CBREButton';
 import Link from 'next/link';
 import { Settings } from 'lucide-react';
 

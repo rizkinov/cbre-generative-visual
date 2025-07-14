@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import Link from "next/link";
-import { CBREButton } from "@/components/cbre-button";
+import { CBREButton } from "@/src/components/cbre/CBREButton";
 import {
   CBRETable,
   CBRETableBody,
@@ -12,8 +12,8 @@ import {
   CBRETableHead,
   CBRETableHeader,
   CBRETableRow,
-} from "@/components/cbre-table";
-import { CBREBadge } from "@/components/cbre-badge";
+} from "@/src/components/cbre/CBRETable";
+import { CBREBadge } from "@/src/components/cbre/CBREBadge";
 
 // Sample data for the tables
 const propertyData = [

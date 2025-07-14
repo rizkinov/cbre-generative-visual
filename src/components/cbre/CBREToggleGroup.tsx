@@ -2,9 +2,9 @@
 
 import React from 'react';
 import { cn } from "@/lib/utils";
-import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
+import { ToggleGroup, ToggleGroupItem } from "@/src/components/ui/toggle-group";
 
-interface CBREToggleGroupSingleProps {
+export interface CBREToggleGroupSingleProps {
   type: "single";
   value?: string;
   onValueChange?: (value: string) => void;
@@ -16,7 +16,7 @@ interface CBREToggleGroupSingleProps {
   children?: React.ReactNode;
 }
 
-interface CBREToggleGroupMultipleProps {
+export interface CBREToggleGroupMultipleProps {
   type: "multiple";
   value?: string[];
   onValueChange?: (value: string[]) => void;
@@ -40,24 +40,42 @@ type CBREToggleGroupProps = CBREToggleGroupSingleProps | CBREToggleGroupMultiple
  * - Three size variants (sm, md, lg)
  */
 export function CBREToggleGroup(props: CBREToggleGroupProps) {
-  return (
-    <ToggleGroup
-      type={props.type}
-      value={props.value}
-      onValueChange={props.onValueChange as any}
-      defaultValue={props.defaultValue}
-      disabled={props.disabled}
-      className={cn(
-        "inline-flex items-center justify-center gap-1",
-        props.className
-      )}
-    >
-      {props.children}
-    </ToggleGroup>
-  );
+  if (props.type === "single") {
+    return (
+      <ToggleGroup
+        type="single"
+        value={props.value}
+        onValueChange={props.onValueChange}
+        defaultValue={props.defaultValue}
+        disabled={props.disabled}
+        className={cn(
+          "inline-flex items-center justify-center gap-1",
+          props.className
+        )}
+      >
+        {props.children}
+      </ToggleGroup>
+    );
+  } else {
+    return (
+      <ToggleGroup
+        type="multiple"
+        value={props.value}
+        onValueChange={props.onValueChange}
+        defaultValue={props.defaultValue}
+        disabled={props.disabled}
+        className={cn(
+          "inline-flex items-center justify-center gap-1",
+          props.className
+        )}
+      >
+        {props.children}
+      </ToggleGroup>
+    );
+  }
 }
 
-interface CBREToggleGroupItemProps {
+export interface CBREToggleGroupItemProps {
   value: string;
   disabled?: boolean;
   className?: string;

@@ -2,9 +2,10 @@
 
 import React from 'react';
 import { cn } from "@/lib/utils";
-import Image from 'next/image';
+// Note: This component requires Next.js Image component when used in a Next.js app
+// For non-Next.js environments, replace with a regular img tag
 
-interface CBREQuoteBlockProps {
+export interface CBREQuoteBlockProps {
   quote: string;
   author: string;
   role: string;
@@ -45,11 +46,10 @@ export function CBREQuoteBlock({
         <div className="md:w-1/3 relative">
           <div className="h-full">
             {imageSrc ? (
-              <Image 
+              <img 
                 src={imageSrc} 
                 alt={author} 
-                fill 
-                className="object-cover object-center" 
+                className="object-cover object-center w-full h-full" 
               />
             ) : (
               <div className="bg-light-grey w-full h-full flex items-center justify-center">

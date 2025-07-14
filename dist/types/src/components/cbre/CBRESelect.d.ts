@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Select } from "@/components/ui/select";
+import { Select } from "@/src/components/ui/select";
 export interface CBRESelectProps extends React.ComponentPropsWithoutRef<typeof Select> {
     label?: string;
     labelClassName?: string;

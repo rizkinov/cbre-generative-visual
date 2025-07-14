@@ -1,22 +1,22 @@
 "use client";
 
 import * as React from "react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/src/components/ui/card";
+import { Button } from "@/src/components/ui/button";
 import {
   CBRESelect,
   CBREGroupedSelect,
   SelectGroupItem
-} from "@/components/cbre-select";
+} from "@/src/components/cbre/CBRESelect";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select";
+} from "@/src/components/ui/select";
 import Link from "next/link";
-import { CBREButton } from "@/components/cbre-button";
+import { CBREButton } from "@/src/components/cbre/CBREButton";
 
 export default function CBRESelectExamplePage() {
   // Basic select example state

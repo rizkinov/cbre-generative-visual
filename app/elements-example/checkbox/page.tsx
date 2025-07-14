@@ -3,9 +3,9 @@
 import React from 'react';
 import Link from "next/link";
 
-import { Label } from "@/components/ui/label";
-import { Checkbox, CheckboxGroup } from '@/components/cbre-checkbox';
-import { CBREButton } from '@/components/cbre-button';
+import { Label } from "@/src/components/ui/label";
+import { Checkbox, CheckboxGroup } from '@/src/components/cbre/CBRECheckbox';
+import { CBREButton } from '@/src/components/cbre/CBREButton';
 import { type CheckedState } from "@radix-ui/react-checkbox";
 
 
@@ -56,7 +56,7 @@ export default function CheckboxExamplePage() {
           <div className="bg-white p-6 border border-light-grey mt-6">
             <h3 className="text-lg font-calibre font-medium text-dark-grey mb-3">Implementation</h3>
             <pre className="bg-gray-100 p-4 rounded overflow-x-auto text-sm">
-{`import { Checkbox } from '@/components/ui/checkbox';
+{`import { Checkbox } from '@/src/components/ui/checkbox';
 
 <Checkbox id="basic-checkbox" />
 `}
@@ -94,8 +94,8 @@ export default function CheckboxExamplePage() {
           <div className="bg-white p-6 border border-light-grey mt-6">
             <h3 className="text-lg font-calibre font-medium text-dark-grey mb-3">Implementation</h3>
             <pre className="bg-gray-100 p-4 rounded overflow-x-auto text-sm">
-{`import { Checkbox } from '@/components/ui/checkbox';
-import { Label } from '@/components/ui/label';
+{`import { Checkbox } from '@/src/components/ui/checkbox';
+import { Label } from '@/src/components/ui/label';
 import { type CheckedState } from "@radix-ui/react-checkbox";
 
 const [acceptTerms, setAcceptTerms] = React.useState(false);
@@ -304,8 +304,8 @@ const handleCheckedChange = (checked: CheckedState) => {
           <div className="bg-white p-6 border border-light-grey mt-6">
             <h3 className="text-lg font-calibre font-medium text-dark-grey mb-3">Implementation</h3>
             <pre className="bg-gray-100 p-4 rounded overflow-x-auto text-sm">
-{`import { Checkbox, CheckboxGroup } from '@/components/cbre-checkbox';
-import { Label } from '@/components/ui/label';
+{`import { Checkbox, CheckboxGroup } from '@/src/components/cbre/CBRECheckbox';
+import { Label } from '@/src/components/ui/label';
 import { type CheckedState } from "@radix-ui/react-checkbox";
 
 const [newsletterOptions, setNewsletterOptions] = React.useState({

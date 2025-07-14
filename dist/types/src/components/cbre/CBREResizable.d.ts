@@ -1,12 +1,12 @@
 import * as React from "react";
 import * as ResizablePrimitive from "react-resizable-panels";
-interface CBREResizablePanelGroupProps extends React.ComponentProps<typeof ResizablePrimitive.PanelGroup> {
+export interface CBREResizablePanelGroupProps extends React.ComponentProps<typeof ResizablePrimitive.PanelGroup> {
     variant?: 'default' | 'bordered';
 }
-interface CBREResizablePanelProps extends React.ComponentProps<typeof ResizablePrimitive.Panel> {
+export interface CBREResizablePanelProps extends React.ComponentProps<typeof ResizablePrimitive.Panel> {
     variant?: 'default' | 'bordered';
 }
-interface CBREResizableHandleProps extends React.ComponentProps<typeof ResizablePrimitive.PanelResizeHandle> {
+export interface CBREResizableHandleProps extends React.ComponentProps<typeof ResizablePrimitive.PanelResizeHandle> {
     withHandle?: boolean;
     handleColor?: 'cbre-green' | 'accent-green' | 'dark-grey' | 'light-grey';
 }

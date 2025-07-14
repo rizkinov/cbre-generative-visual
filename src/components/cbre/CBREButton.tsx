@@ -1,14 +1,14 @@
 "use client";
 
 import React from 'react';
-import { Button } from "@/components/ui/button";
+import { Button } from "@/src/components/ui/button";
 import { cn } from "@/lib/utils";
 import { VariantProps } from "class-variance-authority";
-import { buttonVariants } from "@/components/ui/button";
+import { buttonVariants } from "@/src/components/ui/button";
 
 type ButtonVariant = "primary" | "outline" | "accent" | "text" | "action" | "view-more";
 
-interface CBREButtonProps extends Omit<React.ComponentProps<typeof Button>, 'variant'> {
+export interface CBREButtonProps extends Omit<React.ComponentProps<typeof Button>, 'variant'> {
   variant?: ButtonVariant;
 }
 

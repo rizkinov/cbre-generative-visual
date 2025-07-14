@@ -1,6 +1,6 @@
 import React from 'react';
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-interface CBRECardProps {
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/src/components/ui/card";
+export interface CBRECardProps {
     children?: React.ReactNode;
     className?: string;
     variant?: "default" | "outline" | "secondary";
@@ -14,27 +14,27 @@ interface CBRECardProps {
  * - Three variants: default, outline, and secondary
  */
 export declare function CBRECard({ children, className, variant, ...props }: CBRECardProps & React.ComponentPropsWithoutRef<typeof Card>): React.JSX.Element;
-interface CBRECardHeaderProps {
+export interface CBRECardHeaderProps {
     children?: React.ReactNode;
     className?: string;
 }
 export declare function CBRECardHeader({ children, className, ...props }: CBRECardHeaderProps & React.ComponentPropsWithoutRef<typeof CardHeader>): React.JSX.Element;
-interface CBRECardTitleProps {
+export interface CBRECardTitleProps {
     children?: React.ReactNode;
     className?: string;
 }
 export declare function CBRECardTitle({ children, className, ...props }: CBRECardTitleProps & React.ComponentPropsWithoutRef<typeof CardTitle>): React.JSX.Element;
-interface CBRECardDescriptionProps {
+export interface CBRECardDescriptionProps {
     children?: React.ReactNode;
     className?: string;
 }
 export declare function CBRECardDescription({ children, className, ...props }: CBRECardDescriptionProps & React.ComponentPropsWithoutRef<typeof CardDescription>): React.JSX.Element;
-interface CBRECardContentProps {
+export interface CBRECardContentProps {
     children?: React.ReactNode;
     className?: string;
 }
 export declare function CBRECardContent({ children, className, ...props }: CBRECardContentProps & React.ComponentPropsWithoutRef<typeof CardContent>): React.JSX.Element;
-interface CBRECardFooterProps {
+export interface CBRECardFooterProps {
     children?: React.ReactNode;
     className?: string;
 }

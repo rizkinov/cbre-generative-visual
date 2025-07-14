@@ -1,5 +1,5 @@
 import React from 'react';
-interface CBREToggleGroupSingleProps {
+export interface CBREToggleGroupSingleProps {
     type: "single";
     value?: string;
     onValueChange?: (value: string) => void;
@@ -10,7 +10,7 @@ interface CBREToggleGroupSingleProps {
     className?: string;
     children?: React.ReactNode;
 }
-interface CBREToggleGroupMultipleProps {
+export interface CBREToggleGroupMultipleProps {
     type: "multiple";
     value?: string[];
     onValueChange?: (value: string[]) => void;
@@ -32,7 +32,7 @@ type CBREToggleGroupProps = CBREToggleGroupSingleProps | CBREToggleGroupMultiple
  * - Three size variants (sm, md, lg)
  */
 export declare function CBREToggleGroup(props: CBREToggleGroupProps): React.JSX.Element;
-interface CBREToggleGroupItemProps {
+export interface CBREToggleGroupItemProps {
     value: string;
     disabled?: boolean;
     className?: string;

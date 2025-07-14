@@ -1,8 +1,8 @@
 "use client";
 
 import React from 'react';
-import { DesignSystemColors } from '@/components/ui/design-system';
-import { CBREButton } from '@/components/cbre-button';
+import { DesignSystemColors } from '@/src/components/ui/design-system';
+import { CBREButton } from '@/src/components/cbre/CBREButton';
 import Link from 'next/link';
 
 export default function DesignSystemPage() {

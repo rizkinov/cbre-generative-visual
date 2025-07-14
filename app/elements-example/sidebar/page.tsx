@@ -6,7 +6,7 @@ import Link from "next/link";
 import { HomeIcon, MailIcon, CalendarIcon, SearchIcon, Settings2Icon, FolderIcon, UsersIcon, BriefcaseIcon, BarChartIcon, ShieldIcon } from 'lucide-react';
 
 
-import { CBREButton } from '@/components/cbre-button';
+import { CBREButton } from '@/src/components/cbre/CBREButton';
 import {
   CBRESidebarProvider,
   CBRESidebar,
@@ -26,7 +26,7 @@ import {
   CBRESidebarMenuBadge,
   CBRESidebarSeparator,
   useSidebar
-} from '@/components/cbre-sidebar';
+} from '@/src/components/cbre/CBRESidebar';
 
 // Menu items for the example
 const mainMenuItems = [

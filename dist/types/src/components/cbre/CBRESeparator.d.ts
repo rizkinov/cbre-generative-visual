@@ -1,6 +1,6 @@
 import * as React from "react";
 import * as SeparatorPrimitive from "@radix-ui/react-separator";
-interface CBRESeparatorProps extends React.ComponentProps<typeof SeparatorPrimitive.Root> {
+export interface CBRESeparatorProps extends React.ComponentProps<typeof SeparatorPrimitive.Root> {
     variant?: "default" | "thin" | "thick" | "accent";
     className?: string;
     color?: "cbre-green" | "accent-green" | "dark-green" | "midnight" | "sage" | "celadon" | "wheat" | "negative-red";

@@ -11,9 +11,9 @@ import {
   BreadcrumbList,
   BreadcrumbPage,
   BreadcrumbSeparator,
-} from "@/components/ui/breadcrumb";
+} from "@/src/components/ui/breadcrumb";
 import { ChevronRight, Home, SlashIcon } from "lucide-react";
-import { CBREButton } from "@/components/cbre-button";
+import { CBREButton } from "@/src/components/cbre/CBREButton";
 
 export default function BreadcrumbExamplePage() {
   return (

@@ -12,8 +12,8 @@ import {
   NavigationMenuList,
   NavigationMenuTrigger,
   navigationMenuTriggerStyle,
-} from "@/components/ui/navigation-menu";
-import { CBREButton } from "@/components/cbre-button";
+} from "@/src/components/ui/navigation-menu";
+import { CBREButton } from "@/src/components/cbre/CBREButton";
 
 export default function NavigationMenuExamplePage() {
   return (
@@ -50,7 +50,7 @@ export default function NavigationMenuExamplePage() {
   NavigationMenuList,
   NavigationMenuTrigger,
   navigationMenuTriggerStyle,
-} from "@/components/ui/navigation-menu";
+} from "@/src/components/ui/navigation-menu";
 
 <NavigationMenu>
   <NavigationMenuList>
@@ -112,11 +112,9 @@ export default function NavigationMenuExamplePage() {
       </NavigationMenuContent>
     </NavigationMenuItem>
     <NavigationMenuItem>
-      <Link href="/docs" legacyBehavior passHref>
-        <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-          Documentation
-        </NavigationMenuLink>
-      </Link>
+      <NavigationMenuLink href="/docs" className={navigationMenuTriggerStyle()}>
+        Documentation
+      </NavigationMenuLink>
     </NavigationMenuItem>
   </NavigationMenuList>
 </NavigationMenu>`}
@@ -139,32 +137,24 @@ export default function NavigationMenuExamplePage() {
 {`<NavigationMenu>
   <NavigationMenuList>
     <NavigationMenuItem>
-      <Link href="/about" legacyBehavior passHref>
-        <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-          About
-        </NavigationMenuLink>
-      </Link>
+      <NavigationMenuLink href="/about" className={navigationMenuTriggerStyle()}>
+        About
+      </NavigationMenuLink>
     </NavigationMenuItem>
     <NavigationMenuItem>
-      <Link href="/services" legacyBehavior passHref>
-        <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-          Services
-        </NavigationMenuLink>
-      </Link>
+      <NavigationMenuLink href="/services" className={navigationMenuTriggerStyle()}>
+        Services
+      </NavigationMenuLink>
     </NavigationMenuItem>
     <NavigationMenuItem>
-      <Link href="/properties" legacyBehavior passHref>
-        <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-          Properties
-        </NavigationMenuLink>
-      </Link>
+      <NavigationMenuLink href="/properties" className={navigationMenuTriggerStyle()}>
+        Properties
+      </NavigationMenuLink>
     </NavigationMenuItem>
     <NavigationMenuItem>
-      <Link href="/contact" legacyBehavior passHref>
-        <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-          Contact
-        </NavigationMenuLink>
-      </Link>
+      <NavigationMenuLink href="/contact" className={navigationMenuTriggerStyle()}>
+        Contact
+      </NavigationMenuLink>
     </NavigationMenuItem>
   </NavigationMenuList>
 </NavigationMenu>`}
@@ -385,11 +375,9 @@ function BasicExample() {
           </NavigationMenuContent>
         </NavigationMenuItem>
         <NavigationMenuItem>
-          <Link href="/docs" legacyBehavior passHref>
-            <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-              Documentation
-            </NavigationMenuLink>
-          </Link>
+          <NavigationMenuLink href="/docs" className={navigationMenuTriggerStyle()}>
+            Documentation
+          </NavigationMenuLink>
         </NavigationMenuItem>
       </NavigationMenuList>
     </NavigationMenu>
@@ -401,32 +389,24 @@ function HorizontalExample() {
     <NavigationMenu>
       <NavigationMenuList>
         <NavigationMenuItem>
-          <Link href="/about" legacyBehavior passHref>
-            <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-              About
-            </NavigationMenuLink>
-          </Link>
+          <NavigationMenuLink href="/about" className={navigationMenuTriggerStyle()}>
+            About
+          </NavigationMenuLink>
         </NavigationMenuItem>
         <NavigationMenuItem>
-          <Link href="/services" legacyBehavior passHref>
-            <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-              Services
-            </NavigationMenuLink>
-          </Link>
+          <NavigationMenuLink href="/services" className={navigationMenuTriggerStyle()}>
+            Services
+          </NavigationMenuLink>
         </NavigationMenuItem>
         <NavigationMenuItem>
-          <Link href="/properties" legacyBehavior passHref>
-            <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-              Properties
-            </NavigationMenuLink>
-          </Link>
+          <NavigationMenuLink href="/properties" className={navigationMenuTriggerStyle()}>
+            Properties
+          </NavigationMenuLink>
         </NavigationMenuItem>
         <NavigationMenuItem>
-          <Link href="/contact" legacyBehavior passHref>
-            <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-              Contact
-            </NavigationMenuLink>
-          </Link>
+          <NavigationMenuLink href="/contact" className={navigationMenuTriggerStyle()}>
+            Contact
+          </NavigationMenuLink>
         </NavigationMenuItem>
       </NavigationMenuList>
     </NavigationMenu>

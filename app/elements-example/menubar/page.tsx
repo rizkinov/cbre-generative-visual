@@ -52,8 +52,8 @@ import {
   MenubarSubContent,
   MenubarSubTrigger,
   MenubarTrigger,
-} from "@/components/ui/menubar";
-import { CBREButton } from "@/components/cbre-button";
+} from "@/src/components/ui/menubar";
+import { CBREButton } from "@/src/components/cbre/CBREButton";
 
 export default function MenubarExamplePage() {
   const [checkedItems, setCheckedItems] = React.useState({

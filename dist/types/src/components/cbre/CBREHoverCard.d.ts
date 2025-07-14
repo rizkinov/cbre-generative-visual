@@ -1,5 +1,5 @@
 import * as React from "react";
-import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/hover-card";
+import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/src/components/ui/hover-card";
 export interface CBREHoverCardProps extends React.ComponentPropsWithoutRef<typeof HoverCard> {
     contentClassName?: string;
     children: React.ReactNode;

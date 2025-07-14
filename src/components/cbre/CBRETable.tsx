@@ -8,7 +8,7 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table";
+} from "@/src/components/ui/table";
 
 // Re-export all table components with CBRE prefix
 export {

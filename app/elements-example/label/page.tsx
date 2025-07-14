@@ -2,18 +2,18 @@
 
 import * as React from "react";
 import Link from "next/link";
-import { Label } from "@/components/ui/label";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { Checkbox } from "@/components/ui/checkbox";
+import { Label } from "@/src/components/ui/label";
+import { Input } from "@/src/components/ui/input";
+import { Textarea } from "@/src/components/ui/textarea";
+import { Checkbox } from "@/src/components/ui/checkbox";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select";
-import { CBREButton } from "@/components/cbre-button";
+} from "@/src/components/ui/select";
+import { CBREButton } from "@/src/components/cbre/CBREButton";
 
 export default function LabelExamplePage() {
   // State for form controls
@@ -54,8 +54,8 @@ export default function LabelExamplePage() {
           <div className="bg-white p-6 border border-light-grey mt-6">
             <h3 className="text-lg font-calibre font-medium text-dark-grey mb-3">Implementation</h3>
             <pre className="bg-gray-100 p-4 rounded overflow-x-auto text-sm">
-{`import { Label } from "@/components/ui/label";
-import { Input } from "@/components/ui/input";
+{`import { Label } from "@/src/components/ui/label";
+import { Input } from "@/src/components/ui/input";
 
 <div className="grid w-full gap-1.5">
   <Label htmlFor="basic-input">Email Address</Label>

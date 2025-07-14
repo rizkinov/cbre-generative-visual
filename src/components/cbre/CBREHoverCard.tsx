@@ -6,7 +6,7 @@ import {
   HoverCard,
   HoverCardContent,
   HoverCardTrigger,
-} from "@/components/ui/hover-card";
+} from "@/src/components/ui/hover-card";
 
 // Define the props for CBREHoverCard component
 export interface CBREHoverCardProps extends React.ComponentPropsWithoutRef<typeof HoverCard> {

@@ -1,8 +1,8 @@
 "use client";
 
 import React from 'react';
-import { CBREAccordion } from '@/components/cbre-accordion';
-import { CBREButton } from '@/components/cbre-button';
+import { CBREAccordion } from '@/src/components/cbre/CBREAccordion';
+import { CBREButton } from '@/src/components/cbre/CBREButton';
 import Link from "next/link";
 
 

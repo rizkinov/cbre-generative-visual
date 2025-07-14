@@ -2,12 +2,12 @@
 
 import * as React from "react";
 import Link from "next/link";
-import { CBREButton } from "@/components/cbre-button";
+import { CBREButton } from "@/src/components/cbre/CBREButton";
 import {
   Alert,
   AlertDescription,
   AlertTitle,
-} from "@/components/ui/alert";
+} from "@/src/components/ui/alert";
 import { 
   Terminal, 
   AlertCircle, 

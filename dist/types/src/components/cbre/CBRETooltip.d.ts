@@ -1,5 +1,5 @@
 import * as React from "react";
-import { TooltipProvider } from "@/components/ui/tooltip";
+import { TooltipProvider } from "@/src/components/ui/tooltip";
 export interface CBRETooltipProps {
     children: React.ReactNode;
     content: React.ReactNode;

@@ -2,9 +2,9 @@
 
 import * as React from "react";
 import Link from "next/link";
-import { CBREButton } from "@/components/cbre-button";
-import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
-import { Card, CardContent } from "@/components/ui/card";
+import { CBREButton } from "@/src/components/cbre/CBREButton";
+import { ScrollArea, ScrollBar } from "@/src/components/ui/scroll-area";
+import { Card, CardContent } from "@/src/components/ui/card";
 
 const tags = Array.from({ length: 50 }).map(
   (_, i, a) => `v1.2.0-beta.${a.length - i}`

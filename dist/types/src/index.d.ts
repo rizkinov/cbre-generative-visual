@@ -8,3 +8,4 @@ import * as Blocks from './components/blocks';
 export { UI, CBRE, Blocks };
 export * from './lib/utils';
 export * from './hooks/use-mobile';
+export { default as cbreTheme } from '../config/cbre-theme.js';

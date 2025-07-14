@@ -2,10 +2,10 @@
 
 import * as React from "react";
 import Link from "next/link";
-import { Label } from "@/components/ui/label";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { CBREButton } from "@/components/cbre-button";
+import { Label } from "@/src/components/ui/label";
+import { Input } from "@/src/components/ui/input";
+import { Textarea } from "@/src/components/ui/textarea";
+import { CBREButton } from "@/src/components/cbre/CBREButton";
 
 export default function TextareaExamplePage() {
   // Basic textarea example
@@ -83,7 +83,7 @@ export default function TextareaExamplePage() {
           <div className="bg-white p-6 border border-light-grey mt-6">
             <h3 className="text-lg font-calibre font-medium text-dark-grey mb-3">Implementation</h3>
             <pre className="bg-gray-100 p-4 rounded overflow-x-auto text-sm">
-{`import { Textarea } from "@/components/ui/textarea";
+{`import { Textarea } from "@/src/components/ui/textarea";
 
 const [value, setValue] = React.useState("");
 
@@ -120,8 +120,8 @@ const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
           <div className="bg-white p-6 border border-light-grey mt-6">
             <h3 className="text-lg font-calibre font-medium text-dark-grey mb-3">Implementation</h3>
             <pre className="bg-gray-100 p-4 rounded overflow-x-auto text-sm">
-{`import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
+{`import { Label } from "@/src/components/ui/label";
+import { Textarea } from "@/src/components/ui/textarea";
 
 <div className="grid w-full gap-1.5">
   <Label htmlFor="message">Your message</Label>

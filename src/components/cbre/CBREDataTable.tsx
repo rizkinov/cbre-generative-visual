@@ -21,19 +21,19 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table";
+} from "@/src/components/ui/table";
 
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
+import { Button } from "@/src/components/ui/button";
+import { Input } from "@/src/components/ui/input";
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
   DropdownMenuContent,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+} from "@/src/components/ui/dropdown-menu";
 import { ChevronDown } from "lucide-react";
 
-interface DataTableProps<TData, TValue> {
+export interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
   searchKey?: string;

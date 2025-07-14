@@ -2,10 +2,10 @@
 
 import React, { createContext, useContext } from 'react';
 import { cn } from "@/lib/utils";
-import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
+import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/src/components/ui/tabs";
 
 // Create context for CBRE Tabs
-interface CBRETabsContextProps {
+export interface CBRETabsContextProps {
   variant: "underline" | "boxed";
   size: "sm" | "md" | "lg";
 }
@@ -15,7 +15,7 @@ const CBRETabsContext = createContext<CBRETabsContextProps>({
   size: "md"
 });
 
-interface CBRETabsProps {
+export interface CBRETabsProps {
   defaultValue: string;
   value?: string;
   onValueChange?: (value: string) => void;
@@ -61,7 +61,7 @@ export function CBRETabs({
   );
 }
 
-interface CBRETabsListProps {
+export interface CBRETabsListProps {
   className?: string;
   children?: React.ReactNode;
   variant?: "underline" | "boxed";
@@ -109,7 +109,7 @@ export function CBRETabsList({
   );
 }
 
-interface CBRETabsTriggerProps {
+export interface CBRETabsTriggerProps {
   value: string;
   className?: string;
   children?: React.ReactNode;
@@ -176,7 +176,7 @@ export function CBRETabsTrigger({
   );
 }
 
-interface CBRETabsContentProps {
+export interface CBRETabsContentProps {
   value: string;
   className?: string;
   children?: React.ReactNode;

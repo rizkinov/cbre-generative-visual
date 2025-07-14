@@ -2,10 +2,10 @@
 
 import * as React from "react";
 import Link from "next/link";
-import { Label } from "@/components/ui/label";
-import { Input } from "@/components/ui/input";
-import { CBREButton } from "@/components/cbre-button";
-import { CBREDatePicker } from "@/components/cbre-date-picker";
+import { Label } from "@/src/components/ui/label";
+import { Input } from "@/src/components/ui/input";
+import { CBREButton } from "@/src/components/cbre/CBREButton";
+import { CBREDatePicker } from "@/src/components/cbre/CBREDatePicker";
 
 export default function InputExamplePage() {
   // State for regular input
@@ -80,7 +80,7 @@ export default function InputExamplePage() {
           <div className="bg-white p-6 border border-light-grey mt-6">
             <h3 className="text-lg font-calibre font-medium text-dark-grey mb-3">Implementation</h3>
             <pre className="bg-gray-100 p-4 rounded overflow-x-auto text-sm">
-{`import { Input } from "@/components/ui/input";
+{`import { Input } from "@/src/components/ui/input";
 
 const [inputValue, setInputValue] = React.useState("");
 
@@ -118,8 +118,8 @@ const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
           <div className="bg-white p-6 border border-light-grey mt-6">
             <h3 className="text-lg font-calibre font-medium text-dark-grey mb-3">Implementation</h3>
             <pre className="bg-gray-100 p-4 rounded overflow-x-auto text-sm">
-{`import { Label } from "@/components/ui/label";
-import { Input } from "@/components/ui/input";
+{`import { Label } from "@/src/components/ui/label";
+import { Input } from "@/src/components/ui/input";
 
 <div className="grid w-full gap-1.5">
   <Label htmlFor="email">Email</Label>
@@ -225,9 +225,9 @@ import { Input } from "@/components/ui/input";
           <div className="bg-white p-6 border border-light-grey mt-6">
             <h3 className="text-lg font-calibre font-medium text-dark-grey mb-3">Implementation</h3>
             <pre className="bg-gray-100 p-4 rounded overflow-x-auto text-sm">
-{`import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { CBREDatePicker } from "@/components/cbre-date-picker";
+{`import { Input } from "@/src/components/ui/input";
+import { Label } from "@/src/components/ui/label";
+import { CBREDatePicker } from "@/src/components/cbre/CBREDatePicker";
 import { useState } from "react";
 
 // For date picker

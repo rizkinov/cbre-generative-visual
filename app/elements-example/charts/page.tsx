@@ -2,14 +2,14 @@
 
 import * as React from "react";
 import Link from "next/link";
-import { CBREButton } from "@/components/cbre-button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { CBREButton } from "@/src/components/cbre/CBREButton";
+import { Card, CardContent, CardHeader, CardTitle } from "@/src/components/ui/card";
 import {
   CBRESimpleBarChart,
   CBRESimpleLineChart,
   CBRESimplePieChart,
   CBREHorizontalBarChart,
-} from "@/components/cbre-chart";
+} from "@/src/components/cbre/CBREChart";
 
 // Sample data for charts
 const barData = [

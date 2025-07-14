@@ -6,8 +6,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 
-import { CBREButton } from "@/components/cbre-button";
-import { Checkbox } from "@/components/ui/checkbox";
+import { CBREButton } from "@/src/components/cbre/CBREButton";
+import { Checkbox } from "@/src/components/ui/checkbox";
 import {
   Form,
   FormControl,
@@ -16,16 +16,16 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
+} from "@/src/components/ui/form";
+import { Input } from "@/src/components/ui/input";
+import { Textarea } from "@/src/components/ui/textarea";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select";
+} from "@/src/components/ui/select";
 
 // Define validation schema using zod
 const formSchema = z.object({

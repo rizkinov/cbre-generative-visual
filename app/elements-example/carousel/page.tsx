@@ -2,15 +2,15 @@
 
 import * as React from "react";
 import Link from "next/link";
-import { Card, CardContent } from "@/components/ui/card";
-import { CBREButton } from "@/components/cbre-button";
+import { Card, CardContent } from "@/src/components/ui/card";
+import { CBREButton } from "@/src/components/cbre/CBREButton";
 import {
   Carousel,
   CarouselContent,
   CarouselItem,
   CarouselNext,
   CarouselPrevious,
-} from "@/components/ui/carousel";
+} from "@/src/components/ui/carousel";
 import Autoplay from "embla-carousel-autoplay";
 
 export default function CarouselExamplePage() {

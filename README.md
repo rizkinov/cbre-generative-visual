@@ -46,7 +46,7 @@ pnpm add cbre-web-elements
 ### Installing from GitHub
 
 ```bash
-npm install github:rizkinov/cbre-web-elements
+npm install git+https://github.com/rizkinov/cbre-web-elements.git
 ```
 
 ### Required Peer Dependencies
@@ -82,7 +82,7 @@ Add the CBRE theme to your Tailwind configuration. Note that this example uses E
 
 ```js
 // tailwind.config.js
-import { cbreTheme } from 'cbre-web-elements/theme'; // Assuming theme is exported this way
+import { cbreTheme } from 'cbre-web-elements/theme';
 
 /** @type {import('tailwindcss').Config} */
 const config = {
@@ -94,7 +94,9 @@ const config = {
   ],
   theme: {
     extend: {
-      ...cbreTheme, // Ensure cbreTheme is compatible with Tailwind v4 structure if needed
+      colors: cbreTheme.colors,
+      fontFamily: cbreTheme.typography.fonts,
+      borderRadius: cbreTheme.borderRadius,
     },
   },
   plugins: [],

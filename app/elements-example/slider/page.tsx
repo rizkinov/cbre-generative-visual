@@ -6,8 +6,8 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 
-import { CBREButton } from "@/components/cbre-button";
-import { Slider } from "@/components/ui/slider";
+import { CBREButton } from "@/src/components/cbre/CBREButton";
+import { Slider } from "@/src/components/ui/slider";
 import {
   Form,
   FormControl,
@@ -16,8 +16,8 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
+} from "@/src/components/ui/form";
+import { Input } from "@/src/components/ui/input";
 
 // Form schema for the price range example
 const priceRangeSchema = z.object({
@@ -102,7 +102,7 @@ export default function SliderExamplePage() {
           <div className="bg-white p-6 border border-light-grey mt-6">
             <h3 className="text-lg font-calibre font-medium text-dark-grey mb-3">Implementation</h3>
             <pre className="bg-gray-100 p-4 rounded overflow-x-auto text-sm">
-{`import { Slider } from "@/components/ui/slider";
+{`import { Slider } from "@/src/components/ui/slider";
 
 const [value, setValue] = React.useState(50);
 
@@ -143,7 +143,7 @@ const [value, setValue] = React.useState(50);
           <div className="bg-white p-6 border border-light-grey mt-6">
             <h3 className="text-lg font-calibre font-medium text-dark-grey mb-3">Implementation</h3>
             <pre className="bg-gray-100 p-4 rounded overflow-x-auto text-sm">
-{`import { Slider } from "@/components/ui/slider";
+{`import { Slider } from "@/src/components/ui/slider";
 
 const [rangeValue, setRangeValue] = React.useState([25, 75]);
 
@@ -323,7 +323,7 @@ const progressPercentage = Math.round(progressValue);
 {`import * as z from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/src/components/ui/form";
 
 // Form schema
 const priceRangeSchema = z.object({

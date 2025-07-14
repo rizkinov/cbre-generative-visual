@@ -2,10 +2,10 @@
 
 import * as React from "react";
 import Link from "next/link";
-import { CBREButton } from "@/components/cbre-button";
-import { CBREHoverCard, CBREHoverCardContent, CBREHoverCardTrigger } from "@/components/cbre-hover-card";
-import { Button } from "@/components/ui/button";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { CBREButton } from "@/src/components/cbre/CBREButton";
+import { CBREHoverCard, CBREHoverCardContent, CBREHoverCardTrigger } from "@/src/components/cbre/CBREHoverCard";
+import { Button } from "@/src/components/ui/button";
+import { Avatar, AvatarFallback, AvatarImage } from "@/src/components/ui/avatar";
 import { CalendarDays, Info, User, ChevronRight } from "lucide-react";
 
 export default function HoverCardExamplePage() {

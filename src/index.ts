@@ -15,7 +15,5 @@ export { UI, CBRE, Blocks };
 export * from './lib/utils';
 export * from './hooks/use-mobile';
 
-// Re-export the theme directly from the config directory
-// Note: In a proper package setup, we would move this file to src/lib
-// and import it from there, but for now we're keeping the original structure
-// export { default as cbreTheme } from '../config/cbre-theme'; 
+// Export the theme configuration
+export { default as cbreTheme } from '../config/cbre-theme.js'; 

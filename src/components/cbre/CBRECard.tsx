@@ -9,9 +9,9 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card";
+} from "@/src/components/ui/card";
 
-interface CBRECardProps {
+export interface CBRECardProps {
   children?: React.ReactNode;
   className?: string;
   variant?: "default" | "outline" | "secondary";
@@ -56,7 +56,7 @@ export function CBRECard({
   );
 }
 
-interface CBRECardHeaderProps {
+export interface CBRECardHeaderProps {
   children?: React.ReactNode;
   className?: string;
 }
@@ -79,7 +79,7 @@ export function CBRECardHeader({
   );
 }
 
-interface CBRECardTitleProps {
+export interface CBRECardTitleProps {
   children?: React.ReactNode;
   className?: string;
 }
@@ -102,7 +102,7 @@ export function CBRECardTitle({
   );
 }
 
-interface CBRECardDescriptionProps {
+export interface CBRECardDescriptionProps {
   children?: React.ReactNode;
   className?: string;
 }
@@ -125,7 +125,7 @@ export function CBRECardDescription({
   );
 }
 
-interface CBRECardContentProps {
+export interface CBRECardContentProps {
   children?: React.ReactNode;
   className?: string;
 }
@@ -148,7 +148,7 @@ export function CBRECardContent({
   );
 }
 
-interface CBRECardFooterProps {
+export interface CBRECardFooterProps {
   children?: React.ReactNode;
   className?: string;
 }

@@ -4,7 +4,7 @@ import {
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from "@/components/ui/tooltip";
+} from "@/src/components/ui/tooltip";
 
 export interface CBRETooltipProps {
   children: React.ReactNode;

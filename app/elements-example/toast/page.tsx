@@ -2,9 +2,9 @@
 
 import * as React from "react";
 import Link from "next/link";
-import { CBREButton } from "@/components/cbre-button";
-import { CBREToaster, toast } from "@/components/cbre-toast";
-import { Button } from "@/components/ui/button";
+import { CBREButton } from "@/src/components/cbre/CBREButton";
+import { CBREToaster, toast } from "@/src/components/cbre/CBREToast";
+import { Button } from "@/src/components/ui/button";
 import { Info, Check, X, Bell, Loader2 } from "lucide-react";
 
 export default function ToastExamplePage() {

@@ -1,12 +1,12 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
-  output: 'standalone',
+  // Remove development-only settings for production library
   eslint: {
-    ignoreDuringBuilds: true,
+    ignoreDuringBuilds: false,
   },
   typescript: {
-    ignoreBuildErrors: true
+    ignoreBuildErrors: false
   }
 };
 

@@ -3,12 +3,12 @@
 import React from 'react';
 import Link from "next/link";
 
-import { CBREButton } from '@/components/cbre-button';
+import { CBREButton } from '@/src/components/cbre/CBREButton';
 import { 
   CBREResizablePanelGroup, 
   CBREResizablePanel, 
   CBREResizableHandle 
-} from '@/components/cbre-resizable';
+} from '@/src/components/cbre/CBREResizable';
 
 
 export default function ResizableExamplePage() {

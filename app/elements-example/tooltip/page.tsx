@@ -2,9 +2,9 @@
 
 import * as React from "react";
 import Link from "next/link";
-import { CBREButton } from "@/components/cbre-button";
-import { CBRETooltip, CBRETooltipProvider } from "@/components/cbre-tooltip";
-import { Button } from "@/components/ui/button";
+import { CBREButton } from "@/src/components/cbre/CBREButton";
+import { CBRETooltip, CBRETooltipProvider } from "@/src/components/cbre/CBRETooltip";
+import { Button } from "@/src/components/ui/button";
 import { Info, Settings, HelpCircle, Plus, Calendar } from "lucide-react";
 
 export default function TooltipExamplePage() {

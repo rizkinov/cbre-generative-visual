@@ -1,5 +1,5 @@
 import React from 'react';
-interface CBRECTABlockProps {
+export interface CBRECTABlockProps {
     title: string;
     buttonText?: string;
     onButtonClick?: () => void;
@@ -13,4 +13,3 @@ interface CBRECTABlockProps {
  * - Title with Get in Touch button
  */
 export declare function CBRECTABlock({ title, buttonText, onButtonClick, className }: CBRECTABlockProps): React.JSX.Element;
-export {};

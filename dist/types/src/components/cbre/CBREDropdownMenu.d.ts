@@ -27,7 +27,7 @@ export type CBREDropdownMenuItemType = {
 } | {
     type: "separator";
 };
-interface CBREDropdownMenuProps {
+export interface CBREDropdownMenuProps {
     trigger: React.ReactNode;
     items: CBREDropdownMenuItemType[];
     className?: string;
@@ -45,4 +45,3 @@ interface CBREDropdownMenuProps {
  * - Customizable trigger element
  */
 export declare function CBREDropdownMenu({ trigger, items, className, align, side, radioValue, onRadioValueChange }: CBREDropdownMenuProps): React.JSX.Element;
-export {};

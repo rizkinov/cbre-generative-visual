@@ -1,5 +1,5 @@
 import * as React from "react";
-import { type ThemeProviderProps } from "next-themes/dist/types";
+import { type ThemeProviderProps } from "next-themes";
 /**
  * CBRE Theme Provider
  *

@@ -1,5 +1,5 @@
 import React from 'react';
-interface CBREStyledCardProps {
+export interface CBREStyledCardProps {
     title: string;
     description?: string;
     children?: React.ReactNode;
@@ -19,4 +19,3 @@ interface CBREStyledCardProps {
  * using shadcn/ui components as a foundation.
  */
 export declare function CBREStyledCard({ title, description, children, className, headerClassName, footerClassName, accentColor, footerAction }: CBREStyledCardProps): React.JSX.Element;
-export {};

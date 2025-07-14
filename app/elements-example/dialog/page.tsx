@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import Link from "next/link";
-import { CBREButton } from "@/components/cbre-button";
+import { CBREButton } from "@/src/components/cbre/CBREButton";
 import {
   Dialog,
   DialogClose,
@@ -12,12 +12,12 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+} from "@/src/components/ui/dialog";
+import { Button } from "@/src/components/ui/button";
+import { Input } from "@/src/components/ui/input";
+import { Label } from "@/src/components/ui/label";
 import { Settings, User, CreditCard, X, Mail, BellRing, Loader2 } from "lucide-react";
-import { Checkbox } from "@/components/ui/checkbox";
+import { Checkbox } from "@/src/components/ui/checkbox";
 
 export default function DialogExamplePage() {
   // State for controlled dialog example
@@ -253,7 +253,7 @@ export default function DialogExamplePage() {
               <div className="bg-white p-6 border border-light-grey mt-6 mb-10">
                 <h3 className="text-lg font-calibre font-medium text-dark-grey mb-3">Notification Dialog Implementation</h3>
                 <pre className="bg-gray-100 p-4 rounded overflow-x-auto text-sm">
-{`import { Checkbox } from "@/components/ui/checkbox";
+{`import { Checkbox } from "@/src/components/ui/checkbox";
 
 <Dialog>
   <DialogTrigger asChild>
