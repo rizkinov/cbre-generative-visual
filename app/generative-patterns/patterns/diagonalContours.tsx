@@ -1,0 +1,79 @@
+/**
+ * Diagonal Contours Pattern Generator
+ * Creates roofline/mountain patterns with diagonal lines
+ */
+
+import React from 'react';
+import type { DiagonalContoursParams, GlobalState } from '../lib/types';
+
+export function generateDiagonalContours(
+  params: DiagonalContoursParams,
+  globals: GlobalState
+): React.ReactElement {
+  const { width, height, padding } = globals.canvas;
+  const { lineWeight } = globals;
+
+  const lines: React.ReactElement[] = [];
+
+  // Calculate peak X positions
+  const peakX1 = padding + params.peakPosition * (width - 2 * padding);
+  const peakX2 = padding + params.peakPosition2 * (width - 2 * padding);
+
+  // Convert slope angle to rise/run
+  const slopeRad = (params.slopeAngle * Math.PI) / 180;
+  const slopeRise = Math.tan(slopeRad);
+
+  for (let i = 0; i < params.lineCount; i++) {
+    const offset = i * params.gapBetweenLines;
+
+    // Calculate opacity with step
+    const opacity = Math.max(0.1, 1 - i * params.opacityStep);
+
+    // Apply skew factor (horizontal offset based on Y position)
+    const skewOffset = params.skewFactor * offset;
+
+    // Apply line length extension (percentage of canvas width)
+    const extension = ((params.lineLength - 1) * width) / 2;
+
+    // Define the contour path with 2 peaks (creating a jagged pattern)
+    const leftStartY = padding + offset;
+    const peak1Y = leftStartY + (peakX1 - padding) * slopeRise;
+    const peak2Y = peak1Y + Math.abs(peakX2 - peakX1) * slopeRise;
+    const rightEndY = peak2Y + (width - padding - peakX2) * slopeRise;
+
+    const pathData = `
+      M ${padding + skewOffset - extension} ${leftStartY}
+      L ${peakX1 + skewOffset} ${peak1Y}
+      L ${peakX2 + skewOffset} ${peak2Y}
+      L ${width - padding + skewOffset + extension} ${rightEndY}
+    `;
+
+    lines.push(
+      <path
+        key={i}
+        d={pathData.trim()}
+        fill="none"
+        stroke="currentColor"
+        strokeWidth={lineWeight}
+        strokeLinecap={params.cornerStyle === 'round' ? 'round' : 'butt'}
+        strokeLinejoin={params.cornerStyle}
+        opacity={opacity}
+      />
+    );
+  }
+
+  return <g>{lines}</g>;
+}
+
+// Default parameters
+export const defaultDiagonalContoursParams: DiagonalContoursParams = {
+  lineCount: 25,
+  gapBetweenLines: 15,
+  slopeAngle: 30,
+  peakPosition: 0.4,
+  peakPosition2: 0.7,
+  skewFactor: 0.1,
+  lineLength: 1.0,
+  cornerStyle: 'miter',
+  opacityStep: 0.02,
+};
