@@ -20,16 +20,9 @@ export function generateHorizontalBands(
   const tiltRad = (params.tiltAngle * Math.PI) / 180;
 
   for (let i = 0; i < params.bandCount && y < height - padding; i++) {
-    // Calculate thickness with variation
-    const thicknessVar = rng() * params.thicknessVariation * params.bandThickness;
-    const thickness = params.bandThickness + thicknessVar - (params.thicknessVariation * params.bandThickness) / 2;
-
-    // Calculate gap with variation
-    const gapVar = rng() * params.gapVariation * params.bandGap;
-    const gap = params.bandGap + gapVar - (params.gapVariation * params.bandGap) / 2;
-
-    // Add Y jitter
-    const jitterY = (rng() - 0.5) * 2 * params.yJitter;
+    // Use consistent thickness and gap
+    const thickness = params.bandThickness;
+    const gap = params.bandGap;
 
     // Calculate vignette opacity
     const distFromCenter = Math.abs(y + thickness / 2 - height / 2) / (height / 2);
@@ -44,7 +37,7 @@ export function generateHorizontalBands(
       <rect
         key={i}
         x={padding}
-        y={y + jitterY}
+        y={y}
         width={width - 2 * padding}
         height={Math.max(lineWeight, thickness)}
         fill="currentColor"
@@ -63,10 +56,7 @@ export function generateHorizontalBands(
 export const defaultHorizontalBandsParams: HorizontalBandsParams = {
   bandCount: 40,
   bandThickness: 10,
-  thicknessVariation: 0.3,
   bandGap: 8,
-  gapVariation: 0.3,
   vignetteDepth: 0.4,
-  yJitter: 1,
   tiltAngle: 0,
 };

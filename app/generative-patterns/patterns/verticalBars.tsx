@@ -48,8 +48,7 @@ export function generateVerticalBars(
       const densityRaw = params.direction === 'LTR' ? tCurved : 1 - tCurved;
       const density = densityRaw * params.curveIntensity;
 
-      const widthVar = (rng() - 0.5) * 2 * params.widthVariation * params.barWidth;
-      const barWidth = Math.max(lineWeight, params.barWidth + widthVar);
+      const barWidth = Math.max(lineWeight, params.barWidth);
       const gap = params.gapWidth * (1 - density * 0.8);
 
       bars.push(
@@ -75,8 +74,7 @@ export function generateVerticalBars(
       const densityRaw = params.direction === 'TTB' ? tCurved : 1 - tCurved;
       const density = densityRaw * params.curveIntensity;
 
-      const widthVar = (rng() - 0.5) * 2 * params.widthVariation * params.barWidth;
-      const barHeight = Math.max(lineWeight, params.barWidth + widthVar);
+      const barHeight = Math.max(lineWeight, params.barWidth);
       const gap = params.gapWidth * (1 - density * 0.8);
 
       bars.push(
@@ -101,7 +99,6 @@ export function generateVerticalBars(
 export const defaultVerticalBarsParams: VerticalBarsParams = {
   barCount: 30,
   barWidth: 20,
-  widthVariation: 0.3,
   gapWidth: 15,
   densityCurve: 'easeInOut',
   curveIntensity: 1.0,

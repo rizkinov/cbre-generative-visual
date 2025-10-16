@@ -97,22 +97,6 @@ export function ControlsPanel({
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="thickness-var" className="font-calibre">
-              Thickness Variation: {horizontalBandsParams.thicknessVariation.toFixed(2)}
-            </Label>
-            <Slider
-              id="thickness-var"
-              min={0}
-              max={0.6}
-              step={0.05}
-              value={[horizontalBandsParams.thicknessVariation]}
-              onValueChange={(v) =>
-                onHorizontalBandsChange({ ...horizontalBandsParams, thicknessVariation: v[0] })
-              }
-            />
-          </div>
-
-          <div className="space-y-2">
             <Label htmlFor="band-gap" className="font-calibre">
               Band Gap: {horizontalBandsParams.bandGap}px
             </Label>
@@ -129,22 +113,6 @@ export function ControlsPanel({
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="gap-var" className="font-calibre">
-              Gap Variation: {horizontalBandsParams.gapVariation.toFixed(2)}
-            </Label>
-            <Slider
-              id="gap-var"
-              min={0}
-              max={0.6}
-              step={0.05}
-              value={[horizontalBandsParams.gapVariation]}
-              onValueChange={(v) =>
-                onHorizontalBandsChange({ ...horizontalBandsParams, gapVariation: v[0] })
-              }
-            />
-          </div>
-
-          <div className="space-y-2">
             <Label htmlFor="vignette" className="font-calibre">
               Vignette Depth: {horizontalBandsParams.vignetteDepth.toFixed(2)}
             </Label>
@@ -156,22 +124,6 @@ export function ControlsPanel({
               value={[horizontalBandsParams.vignetteDepth]}
               onValueChange={(v) =>
                 onHorizontalBandsChange({ ...horizontalBandsParams, vignetteDepth: v[0] })
-              }
-            />
-          </div>
-
-          <div className="space-y-2">
-            <Label htmlFor="y-jitter" className="font-calibre">
-              Y Jitter: {horizontalBandsParams.yJitter}px
-            </Label>
-            <Slider
-              id="y-jitter"
-              min={0}
-              max={2}
-              step={0.1}
-              value={[horizontalBandsParams.yJitter]}
-              onValueChange={(v) =>
-                onHorizontalBandsChange({ ...horizontalBandsParams, yJitter: v[0] })
               }
             />
           </div>
@@ -223,22 +175,6 @@ export function ControlsPanel({
               value={[verticalBarsParams.barWidth]}
               onValueChange={(v) =>
                 onVerticalBarsChange({ ...verticalBarsParams, barWidth: v[0] })
-              }
-            />
-          </div>
-
-          <div className="space-y-2">
-            <Label htmlFor="width-var" className="font-calibre">
-              Width Variation: {verticalBarsParams.widthVariation.toFixed(2)}
-            </Label>
-            <Slider
-              id="width-var"
-              min={0}
-              max={0.5}
-              step={0.05}
-              value={[verticalBarsParams.widthVariation]}
-              onValueChange={(v) =>
-                onVerticalBarsChange({ ...verticalBarsParams, widthVariation: v[0] })
               }
             />
           </div>

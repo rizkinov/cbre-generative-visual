@@ -3,8 +3,8 @@ import "./globals.css";
 import { financierDisplay, calibre } from "./fonts";
 
 export const metadata: Metadata = {
-  title: "CBRE Web Elements",
-  description: "A modern web application template with CBRE styling",
+  title: "CBRE Generative Patterns",
+  description: "Create brand-consistent line, stripe, and contour motifs for CBRE",
 };
 
 export default function RootLayout({

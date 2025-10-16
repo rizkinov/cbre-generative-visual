@@ -27,11 +27,8 @@ export interface GlobalState {
 export interface HorizontalBandsParams {
   bandCount: number;
   bandThickness: number;
-  thicknessVariation: number;
   bandGap: number;
-  gapVariation: number;
   vignetteDepth: number;
-  yJitter: number;
   tiltAngle: number;
 }
 
@@ -42,7 +39,6 @@ export type Direction = 'LTR' | 'RTL' | 'TTB' | 'BTT';
 export interface VerticalBarsParams {
   barCount: number;
   barWidth: number;
-  widthVariation: number;
   gapWidth: number;
   densityCurve: DensityCurve;
   curveIntensity: number;
