@@ -55,8 +55,8 @@ export function generateDiagonalContours(
         fill="none"
         stroke="currentColor"
         strokeWidth={lineWeight}
-        strokeLinecap={params.cornerStyle === 'round' ? 'round' : 'butt'}
-        strokeLinejoin={params.cornerStyle}
+        strokeLinecap="butt"
+        strokeLinejoin="miter"
         opacity={opacity}
       />
     );
@@ -74,6 +74,5 @@ export const defaultDiagonalContoursParams: DiagonalContoursParams = {
   peakPosition2: 0.7,
   skewFactor: 0.1,
   lineLength: 1.0,
-  cornerStyle: 'miter',
   opacityStep: 0.02,
 };

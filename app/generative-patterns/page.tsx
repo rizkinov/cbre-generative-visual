@@ -31,7 +31,7 @@ export default function GenerativePatternsPage() {
 
   // Global state
   const [globals, setGlobals] = useState<GlobalState>({
-    canvas: { width: 2000, height: 2000, padding: 100 },
+    canvas: { width: 2000, height: 2000, padding: 0 },
     brand: { bg: cbreColors['dark-green'], fg: cbreColors['accent-green'] },
     lineWeight: 2,
     seed: 12345,
@@ -64,36 +64,38 @@ export default function GenerativePatternsPage() {
   }, [globals, horizontalBandsParams, verticalBarsParams, diagonalContoursParams]);
 
   return (
-    <div className="min-h-screen bg-lighter-grey">
-      <div className="py-8 px-4 md:px-8 max-w-[1800px] mx-auto">
+    <div className="h-screen bg-lighter-grey flex flex-col overflow-hidden">
+      <div className="flex-1 py-8 px-4 md:px-8 max-w-[1800px] mx-auto w-full flex flex-col overflow-hidden">
         {/* Header */}
-        <div className="mb-8">
-          <h1 className="text-5xl md:text-6xl font-financier text-cbre-green mb-4">
+        <div className="mb-6 flex-shrink-0">
+          <h1 className="text-4xl md:text-5xl font-financier text-cbre-green mb-2">
             CBRE Generative Patterns
           </h1>
-          <p className="text-dark-grey font-calibre text-lg max-w-3xl">
+          <p className="text-dark-grey font-calibre text-base max-w-3xl">
             Create brand-consistent line, stripe, and contour motifs for reports, motion
             backgrounds, or brand experiments.
           </p>
         </div>
 
         {/* Global Controls */}
-        <GlobalControls
-          seed={globals.seed}
-          onSeedChange={(seed) => setGlobals({ ...globals, seed })}
-          brandPair={globals.brand}
-          onBrandPairChange={(brand) => setGlobals({ ...globals, brand })}
-          canvas={globals.canvas}
-          onCanvasChange={(canvas) => setGlobals({ ...globals, canvas })}
-          lineWeight={globals.lineWeight}
-          onLineWeightChange={(lineWeight) => setGlobals({ ...globals, lineWeight })}
-          currentPattern={globals.pattern}
-        />
+        <div className="flex-shrink-0 mb-4">
+          <GlobalControls
+            seed={globals.seed}
+            onSeedChange={(seed) => setGlobals({ ...globals, seed })}
+            brandPair={globals.brand}
+            onBrandPairChange={(brand) => setGlobals({ ...globals, brand })}
+            canvas={globals.canvas}
+            onCanvasChange={(canvas) => setGlobals({ ...globals, canvas })}
+            lineWeight={globals.lineWeight}
+            onLineWeightChange={(lineWeight) => setGlobals({ ...globals, lineWeight })}
+            currentPattern={globals.pattern}
+          />
+        </div>
 
         {/* Main Layout */}
-        <div className="grid grid-cols-1 lg:grid-cols-[400px_1fr] gap-6">
+        <div className="grid grid-cols-1 lg:grid-cols-[400px_1fr] gap-6 flex-1 min-h-0">
           {/* Left Panel: Controls */}
-          <div>
+          <div className="overflow-y-auto">
             <CBRECard className="p-6">
               <h2 className="text-2xl font-financier text-cbre-green mb-4">Pattern Controls</h2>
               <ControlsPanel
@@ -112,20 +114,15 @@ export default function GenerativePatternsPage() {
           </div>
 
           {/* Right Panel: Preview */}
-          <div className="space-y-4">
-            <div className="flex justify-between items-center">
+          <div className="flex flex-col min-h-0">
+            <div className="flex justify-between items-center mb-4 flex-shrink-0">
               <h2 className="text-2xl font-financier text-cbre-green">Live Preview</h2>
               <ExportMenu svgRef={svgRef} />
             </div>
-            <PreviewSurface ref={svgRef} globals={globals} patternContent={patternContent} />
+            <div className="flex-1 min-h-0">
+              <PreviewSurface ref={svgRef} globals={globals} patternContent={patternContent} />
+            </div>
           </div>
-        </div>
-
-        {/* Footer Info */}
-        <div className="mt-8 text-center">
-          <p className="text-sm text-dark-grey font-calibre">
-            All patterns use CBRE brand tokens and are fully deterministic with seeded randomization.
-          </p>
         </div>
       </div>
     </div>

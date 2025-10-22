@@ -99,9 +99,9 @@ export function generateVerticalBars(
 export const defaultVerticalBarsParams: VerticalBarsParams = {
   barCount: 30,
   barWidth: 20,
-  gapWidth: 15,
+  gapWidth: 40,
   densityCurve: 'easeInOut',
   curveIntensity: 1.0,
   direction: 'LTR',
-  edgePadding: 50,
+  edgePadding: 0,
 };

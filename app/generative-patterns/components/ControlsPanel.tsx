@@ -1,20 +1,20 @@
 "use client";
 
 import { Label } from '@/src/components/ui/label';
+import { Slider } from '@/src/components/ui/slider';
 import {
-  Select,
+  CBRETabs,
+  CBRETabsContent,
+  CBRETabsList,
+  CBRETabsTrigger,
+} from '@/src/components/cbre/CBRETabs';
+import { CBRESelect } from '@/src/components/cbre/CBRESelect';
+import {
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
 } from '@/src/components/ui/select';
-import { Slider } from '@/src/components/ui/slider';
-import {
-  Tabs,
-  TabsContent,
-  TabsList,
-  TabsTrigger,
-} from '@/src/components/ui/tabs';
 import type {
   PatternType,
   HorizontalBandsParams,
@@ -49,21 +49,26 @@ export function ControlsPanel({
 }: ControlsPanelProps) {
   return (
     <div className="space-y-4">
-      <Tabs value={pattern} onValueChange={(v) => onPatternChange(v as PatternType)}>
-        <TabsList className="grid w-full grid-cols-3">
-          <TabsTrigger value="horizontalBands" className="font-calibre">
+      <CBRETabs
+        value={pattern}
+        onValueChange={(v) => onPatternChange(v as PatternType)}
+        defaultValue="horizontalBands"
+        variant="boxed"
+      >
+        <CBRETabsList className="grid w-full grid-cols-3">
+          <CBRETabsTrigger value="horizontalBands">
             Bands
-          </TabsTrigger>
-          <TabsTrigger value="verticalBars" className="font-calibre">
+          </CBRETabsTrigger>
+          <CBRETabsTrigger value="verticalBars">
             Bars
-          </TabsTrigger>
-          <TabsTrigger value="diagonalContours" className="font-calibre">
+          </CBRETabsTrigger>
+          <CBRETabsTrigger value="diagonalContours">
             Contours
-          </TabsTrigger>
-        </TabsList>
+          </CBRETabsTrigger>
+        </CBRETabsList>
 
         {/* Horizontal Bands Controls */}
-        <TabsContent value="horizontalBands" className="space-y-4 mt-4">
+        <CBRETabsContent value="horizontalBands" className="space-y-4">
           <div className="space-y-2">
             <Label htmlFor="band-count" className="font-calibre">
               Band Count: {horizontalBandsParams.bandCount}
@@ -143,10 +148,10 @@ export function ControlsPanel({
               }
             />
           </div>
-        </TabsContent>
+        </CBRETabsContent>
 
         {/* Vertical Bars Controls */}
-        <TabsContent value="verticalBars" className="space-y-4 mt-4">
+        <CBRETabsContent value="verticalBars" className="space-y-4">
           <div className="space-y-2">
             <Label htmlFor="bar-count" className="font-calibre">
               Bar Count: {verticalBarsParams.barCount}
@@ -195,31 +200,28 @@ export function ControlsPanel({
             />
           </div>
 
-          <div className="space-y-2">
-            <Label htmlFor="density-curve" className="font-calibre">
-              Density Curve
-            </Label>
-            <Select
-              value={verticalBarsParams.densityCurve}
-              onValueChange={(v) =>
-                onVerticalBarsChange({
-                  ...verticalBarsParams,
-                  densityCurve: v as typeof verticalBarsParams.densityCurve,
-                })
-              }
-            >
-              <SelectTrigger id="density-curve">
-                <SelectValue />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="linear">Linear</SelectItem>
-                <SelectItem value="easeIn">Ease In</SelectItem>
-                <SelectItem value="easeOut">Ease Out</SelectItem>
-                <SelectItem value="easeInOut">Ease In Out</SelectItem>
-                <SelectItem value="exp">Exponential</SelectItem>
-              </SelectContent>
-            </Select>
-          </div>
+          <CBRESelect
+            label="Density Curve"
+            id="density-curve"
+            value={verticalBarsParams.densityCurve}
+            onValueChange={(v) =>
+              onVerticalBarsChange({
+                ...verticalBarsParams,
+                densityCurve: v as typeof verticalBarsParams.densityCurve,
+              })
+            }
+          >
+            <SelectTrigger>
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="linear">Linear</SelectItem>
+              <SelectItem value="easeIn">Ease In</SelectItem>
+              <SelectItem value="easeOut">Ease Out</SelectItem>
+              <SelectItem value="easeInOut">Ease In Out</SelectItem>
+              <SelectItem value="exp">Exponential</SelectItem>
+            </SelectContent>
+          </CBRESelect>
 
           <div className="space-y-2">
             <Label htmlFor="curve-intensity" className="font-calibre">
@@ -237,30 +239,27 @@ export function ControlsPanel({
             />
           </div>
 
-          <div className="space-y-2">
-            <Label htmlFor="direction" className="font-calibre">
-              Direction
-            </Label>
-            <Select
-              value={verticalBarsParams.direction}
-              onValueChange={(v) =>
-                onVerticalBarsChange({
-                  ...verticalBarsParams,
-                  direction: v as typeof verticalBarsParams.direction,
-                })
-              }
-            >
-              <SelectTrigger id="direction">
-                <SelectValue />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="LTR">Left to Right</SelectItem>
-                <SelectItem value="RTL">Right to Left</SelectItem>
-                <SelectItem value="TTB">Top to Bottom</SelectItem>
-                <SelectItem value="BTT">Bottom to Top</SelectItem>
-              </SelectContent>
-            </Select>
-          </div>
+          <CBRESelect
+            label="Direction"
+            id="direction"
+            value={verticalBarsParams.direction}
+            onValueChange={(v) =>
+              onVerticalBarsChange({
+                ...verticalBarsParams,
+                direction: v as typeof verticalBarsParams.direction,
+              })
+            }
+          >
+            <SelectTrigger>
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="LTR">Left to Right</SelectItem>
+              <SelectItem value="RTL">Right to Left</SelectItem>
+              <SelectItem value="TTB">Top to Bottom</SelectItem>
+              <SelectItem value="BTT">Bottom to Top</SelectItem>
+            </SelectContent>
+          </CBRESelect>
 
           <div className="space-y-2">
             <Label htmlFor="edge-padding" className="font-calibre">
@@ -277,10 +276,10 @@ export function ControlsPanel({
               }
             />
           </div>
-        </TabsContent>
+        </CBRETabsContent>
 
         {/* Diagonal Contours Controls */}
-        <TabsContent value="diagonalContours" className="space-y-4 mt-4">
+        <CBRETabsContent value="diagonalContours" className="space-y-4">
           <div className="space-y-2">
             <Label htmlFor="line-count" className="font-calibre">
               Line Count: {diagonalContoursParams.lineCount}
@@ -394,29 +393,6 @@ export function ControlsPanel({
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="corner-style" className="font-calibre">
-              Corner Style
-            </Label>
-            <Select
-              value={diagonalContoursParams.cornerStyle}
-              onValueChange={(v) =>
-                onDiagonalContoursChange({
-                  ...diagonalContoursParams,
-                  cornerStyle: v as typeof diagonalContoursParams.cornerStyle,
-                })
-              }
-            >
-              <SelectTrigger id="corner-style">
-                <SelectValue />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="miter">Miter</SelectItem>
-                <SelectItem value="round">Round</SelectItem>
-              </SelectContent>
-            </Select>
-          </div>
-
-          <div className="space-y-2">
             <Label htmlFor="opacity-step" className="font-calibre">
               Opacity Step: {diagonalContoursParams.opacityStep.toFixed(3)}
             </Label>
@@ -445,8 +421,8 @@ export function ControlsPanel({
               onValueChange={(v) => onLineWeightChange(v[0])}
             />
           </div>
-        </TabsContent>
-      </Tabs>
+        </CBRETabsContent>
+      </CBRETabs>
     </div>
   );
 }

@@ -47,8 +47,6 @@ export interface VerticalBarsParams {
 }
 
 // Diagonal Contours Parameters
-export type CornerStyle = 'miter' | 'round';
-
 export interface DiagonalContoursParams {
   lineCount: number;
   gapBetweenLines: number;
@@ -57,7 +55,6 @@ export interface DiagonalContoursParams {
   peakPosition2: number;
   skewFactor: number;
   lineLength: number;
-  cornerStyle: CornerStyle;
   opacityStep: number;
 }
 

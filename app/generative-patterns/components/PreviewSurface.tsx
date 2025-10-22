@@ -15,8 +15,8 @@ export const PreviewSurface = forwardRef<SVGSVGElement, PreviewSurfaceProps>(
     const { bg, fg } = globals.brand;
 
     return (
-      <CBRECard className="flex items-center justify-center p-8">
-        <div className="max-w-full max-h-[80vh] overflow-auto">
+      <CBRECard className="flex items-center justify-center p-8 h-full overflow-hidden">
+        <div className="w-full h-full flex items-center justify-center">
           <svg
             ref={ref}
             width={width}
@@ -27,7 +27,9 @@ export const PreviewSurface = forwardRef<SVGSVGElement, PreviewSurfaceProps>(
               backgroundColor: bg,
               color: fg,
               maxWidth: '100%',
+              maxHeight: '100%',
               height: 'auto',
+              width: 'auto',
             }}
           >
             <title>CBRE Generative Pattern</title>

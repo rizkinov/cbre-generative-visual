@@ -54,9 +54,9 @@ export function generateHorizontalBands(
 
 // Default parameters
 export const defaultHorizontalBandsParams: HorizontalBandsParams = {
-  bandCount: 40,
-  bandThickness: 10,
-  bandGap: 8,
-  vignetteDepth: 0.4,
+  bandCount: 45,
+  bandThickness: 25,
+  bandGap: 20,
+  vignetteDepth: 0.20,
   tiltAngle: 0,
 };
