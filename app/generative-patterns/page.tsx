@@ -2,6 +2,8 @@
 
 import { useState, useRef, useMemo } from 'react';
 import { CBRECard } from '@/src/components/cbre/CBRECard';
+import { CBREButton } from '@/src/components/cbre/CBREButton';
+import { Slider } from '@/src/components/ui/slider';
 import { cbreColors } from './lib/colors';
 import { GlobalControls } from './components/GlobalControls';
 import { ControlsPanel } from './components/ControlsPanel';
@@ -33,10 +35,13 @@ export default function GenerativePatternsPage() {
   const [globals, setGlobals] = useState<GlobalState>({
     canvas: { width: 2000, height: 2000, padding: 0 },
     brand: { bg: cbreColors['dark-green'], fg: cbreColors['accent-green'] },
-    lineWeight: 2,
+    lineWeight: 7,
     seed: 12345,
     pattern: 'horizontalBands',
   });
+
+  // Zoom state
+  const [zoom, setZoom] = useState<number>(0.25);
 
   // Pattern-specific params
   const [horizontalBandsParams, setHorizontalBandsParams] = useState<HorizontalBandsParams>(
@@ -64,10 +69,10 @@ export default function GenerativePatternsPage() {
   }, [globals, horizontalBandsParams, verticalBarsParams, diagonalContoursParams]);
 
   return (
-    <div className="h-screen bg-lighter-grey flex flex-col overflow-hidden">
-      <div className="flex-1 py-8 px-4 md:px-8 max-w-[1800px] mx-auto w-full flex flex-col overflow-hidden">
+    <div className="min-h-screen bg-lighter-grey">
+      <div className="py-8 px-4 sm:px-6 lg:px-8 xl:px-12 max-w-[1800px] mx-auto w-full">
         {/* Header */}
-        <div className="mb-6 flex-shrink-0">
+        <div className="mb-6">
           <h1 className="text-4xl md:text-5xl font-financier text-cbre-green mb-2">
             CBRE Generative Patterns
           </h1>
@@ -78,7 +83,7 @@ export default function GenerativePatternsPage() {
         </div>
 
         {/* Global Controls */}
-        <div className="flex-shrink-0 mb-4">
+        <div className="mb-4">
           <GlobalControls
             seed={globals.seed}
             onSeedChange={(seed) => setGlobals({ ...globals, seed })}
@@ -93,9 +98,9 @@ export default function GenerativePatternsPage() {
         </div>
 
         {/* Main Layout */}
-        <div className="grid grid-cols-1 lg:grid-cols-[400px_1fr] gap-6 flex-1 min-h-0">
+        <div className="grid grid-cols-1 lg:grid-cols-[400px_1fr] gap-6">
           {/* Left Panel: Controls */}
-          <div className="overflow-y-auto">
+          <div>
             <CBRECard className="p-6">
               <h2 className="text-2xl font-financier text-cbre-green mb-4">Pattern Controls</h2>
               <ControlsPanel
@@ -114,14 +119,53 @@ export default function GenerativePatternsPage() {
           </div>
 
           {/* Right Panel: Preview */}
-          <div className="flex flex-col min-h-0">
-            <div className="flex justify-between items-center mb-4 flex-shrink-0">
+          <div className="min-w-0">
+            <div className="flex justify-between items-center mb-4">
               <h2 className="text-2xl font-financier text-cbre-green">Live Preview</h2>
               <ExportMenu svgRef={svgRef} />
             </div>
-            <div className="flex-1 min-h-0">
-              <PreviewSurface ref={svgRef} globals={globals} patternContent={patternContent} />
-            </div>
+
+            {/* Zoom Controls */}
+            <CBRECard className="w-full p-4 mb-4">
+              <div className="flex items-center gap-4">
+                <label className="font-calibre text-sm text-dark-grey whitespace-nowrap">
+                  Zoom: {Math.round(zoom * 100)}%
+                </label>
+                <Slider
+                  min={0.1}
+                  max={2}
+                  step={0.05}
+                  value={[zoom]}
+                  onValueChange={(v) => setZoom(v[0])}
+                  className="flex-1"
+                />
+                <div className="flex gap-2">
+                  <CBREButton
+                    variant="outline"
+                    size="sm"
+                    onClick={() => setZoom(0.25)}
+                  >
+                    Fit
+                  </CBREButton>
+                  <CBREButton
+                    variant="outline"
+                    size="sm"
+                    onClick={() => setZoom(0.5)}
+                  >
+                    50%
+                  </CBREButton>
+                  <CBREButton
+                    variant="outline"
+                    size="sm"
+                    onClick={() => setZoom(1)}
+                  >
+                    100%
+                  </CBREButton>
+                </div>
+              </div>
+            </CBRECard>
+
+            <PreviewSurface ref={svgRef} globals={globals} patternContent={patternContent} zoom={zoom} />
           </div>
         </div>
       </div>

@@ -7,29 +7,30 @@ import type { GlobalState } from '../lib/types';
 interface PreviewSurfaceProps {
   globals: GlobalState;
   patternContent: ReactElement;
+  zoom: number;
 }
 
 export const PreviewSurface = forwardRef<SVGSVGElement, PreviewSurfaceProps>(
-  ({ globals, patternContent }, ref) => {
+  ({ globals, patternContent, zoom }, ref) => {
     const { width, height } = globals.canvas;
     const { bg, fg } = globals.brand;
 
+    const displayWidth = width * zoom;
+    const displayHeight = height * zoom;
+
     return (
-      <CBRECard className="flex items-center justify-center p-8 h-full overflow-hidden">
-        <div className="w-full h-full flex items-center justify-center">
+      <CBRECard className="w-full h-[70vh] overflow-auto flex items-center justify-center">
+        <div className="p-8">
           <svg
             ref={ref}
-            width={width}
-            height={height}
+            width={displayWidth}
+            height={displayHeight}
             viewBox={`0 0 ${width} ${height}`}
             xmlns="http://www.w3.org/2000/svg"
             style={{
               backgroundColor: bg,
               color: fg,
-              maxWidth: '100%',
-              maxHeight: '100%',
-              height: 'auto',
-              width: 'auto',
+              display: 'block',
             }}
           >
             <title>CBRE Generative Pattern</title>
