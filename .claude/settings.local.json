@@ -1,0 +1,27 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm install)",
+      "Bash(npm run dev:*)",
+      "Bash(timeout:*)",
+      "Bash(ren:*)",
+      "Bash(git add:*)",
+      "Bash(git commit -m \"$(cat <<''EOF''\nfeat: Add CBRE Generative Patterns application\n\n- Implement three pattern types: Horizontal Bands, Vertical Bars, and Diagonal Contours\n- Add deterministic seeded randomization using mulberry32 algorithm\n- Support SVG and PNG export with 1×-4× scaling\n- Use only CBRE brand colors from theme\n- Global controls: seed, color palette with swap button, canvas size, padding\n- Pattern-specific controls with tabbed interface\n- Horizontal Bands: band count, thickness, variation, gap, vignette, jitter, tilt\n- Vertical Bars: bar count, width, variation, gap, density curve (with intensity), direction (LTR/RTL/TTB/BTT), edge padding\n- Diagonal Contours: line count, gap, slope angle, dual peak positions for jagged effect, skew factor, line length extension, corner style, line weight, opacity step\n- Conditional UI: Line Weight only appears for Contours pattern\n- Fully client-side with Next.js App Router + TypeScript\n\n🤖 Generated with [Claude Code](https://claude.com/claude-code)\n\nCo-Authored-By: Claude <noreply@anthropic.com>\nEOF\n)\")",
+      "Bash(git push:*)",
+      "Bash(vercel:*)",
+      "Bash(git commit:*)",
+      "Bash(git reset:*)",
+      "Bash(git checkout:*)",
+      "Bash(npm run build:*)",
+      "Bash(git remote remove:*)",
+      "Bash(git remote add:*)",
+      "Bash(gh:*)",
+      "Bash(cat:*)",
+      "Bash(git stash:*)",
+      "Bash(git log:*)",
+      "Bash(git fetch:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

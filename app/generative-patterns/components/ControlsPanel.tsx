@@ -280,146 +280,240 @@ export function ControlsPanel({
 
         {/* Diagonal Contours Controls */}
         <CBRETabsContent value="diagonalContours" className="space-y-4">
-          <div className="space-y-2">
-            <Label htmlFor="line-count" className="font-calibre">
-              Line Count: {diagonalContoursParams.lineCount}
-            </Label>
-            <Slider
-              id="line-count"
-              min={3}
-              max={60}
-              step={1}
-              value={[diagonalContoursParams.lineCount]}
-              onValueChange={(v) =>
-                onDiagonalContoursChange({ ...diagonalContoursParams, lineCount: v[0] })
-              }
-            />
+          {/* Basic Settings */}
+          <div>
+            <h3 className="text-sm font-calibre font-semibold text-cbre-green mb-3">Basic Settings</h3>
+            <div className="space-y-3">
+              <div className="space-y-2">
+                <Label htmlFor="line-count" className="font-calibre text-sm">
+                  Line Count: {diagonalContoursParams.lineCount}
+                </Label>
+                <Slider
+                  id="line-count"
+                  min={3}
+                  max={60}
+                  step={1}
+                  value={[diagonalContoursParams.lineCount]}
+                  onValueChange={(v) =>
+                    onDiagonalContoursChange({ ...diagonalContoursParams, lineCount: v[0] })
+                  }
+                />
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="gap-lines" className="font-calibre text-sm">
+                  Gap Between Lines: {diagonalContoursParams.gapBetweenLines}px
+                </Label>
+                <Slider
+                  id="gap-lines"
+                  min={4}
+                  max={40}
+                  step={1}
+                  value={[diagonalContoursParams.gapBetweenLines]}
+                  onValueChange={(v) =>
+                    onDiagonalContoursChange({ ...diagonalContoursParams, gapBetweenLines: v[0] })
+                  }
+                />
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="slope-angle" className="font-calibre text-sm">
+                  Slope Angle: {diagonalContoursParams.slopeAngle}°
+                </Label>
+                <Slider
+                  id="slope-angle"
+                  min={10}
+                  max={60}
+                  step={1}
+                  value={[diagonalContoursParams.slopeAngle]}
+                  onValueChange={(v) =>
+                    onDiagonalContoursChange({ ...diagonalContoursParams, slopeAngle: v[0] })
+                  }
+                />
+              </div>
+            </div>
           </div>
 
-          <div className="space-y-2">
-            <Label htmlFor="gap-lines" className="font-calibre">
-              Gap Between Lines: {diagonalContoursParams.gapBetweenLines}px
-            </Label>
-            <Slider
-              id="gap-lines"
-              min={4}
-              max={40}
-              step={1}
-              value={[diagonalContoursParams.gapBetweenLines]}
-              onValueChange={(v) =>
-                onDiagonalContoursChange({ ...diagonalContoursParams, gapBetweenLines: v[0] })
-              }
-            />
+          <div className="h-[1px] bg-light-grey my-6" />
+
+          {/* Peak Adjustments */}
+          <div>
+            <h3 className="text-sm font-calibre font-semibold text-cbre-green mb-3">Peak Adjustments</h3>
+            <div className="space-y-3">
+              <div className="space-y-2">
+                <Label htmlFor="peak-pos" className="font-calibre text-sm">
+                  Peak Position 1: {diagonalContoursParams.peakPosition.toFixed(2)}
+                </Label>
+                <Slider
+                  id="peak-pos"
+                  min={0}
+                  max={1}
+                  step={0.05}
+                  value={[diagonalContoursParams.peakPosition]}
+                  onValueChange={(v) =>
+                    onDiagonalContoursChange({ ...diagonalContoursParams, peakPosition: v[0] })
+                  }
+                />
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="peak-height-1" className="font-calibre text-sm">
+                  Peak Height 1: {diagonalContoursParams.peakHeight1}px
+                </Label>
+                <Slider
+                  id="peak-height-1"
+                  min={-200}
+                  max={200}
+                  step={10}
+                  value={[diagonalContoursParams.peakHeight1]}
+                  onValueChange={(v) =>
+                    onDiagonalContoursChange({ ...diagonalContoursParams, peakHeight1: v[0] })
+                  }
+                />
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="peak-pos-2" className="font-calibre text-sm">
+                  Peak Position 2: {diagonalContoursParams.peakPosition2.toFixed(2)}
+                </Label>
+                <Slider
+                  id="peak-pos-2"
+                  min={0}
+                  max={1}
+                  step={0.05}
+                  value={[diagonalContoursParams.peakPosition2]}
+                  onValueChange={(v) =>
+                    onDiagonalContoursChange({ ...diagonalContoursParams, peakPosition2: v[0] })
+                  }
+                />
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="peak-height-2" className="font-calibre text-sm">
+                  Peak Height 2: {diagonalContoursParams.peakHeight2}px
+                </Label>
+                <Slider
+                  id="peak-height-2"
+                  min={-200}
+                  max={200}
+                  step={10}
+                  value={[diagonalContoursParams.peakHeight2]}
+                  onValueChange={(v) =>
+                    onDiagonalContoursChange({ ...diagonalContoursParams, peakHeight2: v[0] })
+                  }
+                />
+              </div>
+            </div>
           </div>
 
-          <div className="space-y-2">
-            <Label htmlFor="slope-angle" className="font-calibre">
-              Slope Angle: {diagonalContoursParams.slopeAngle}°
-            </Label>
-            <Slider
-              id="slope-angle"
-              min={10}
-              max={60}
-              step={1}
-              value={[diagonalContoursParams.slopeAngle]}
-              onValueChange={(v) =>
-                onDiagonalContoursChange({ ...diagonalContoursParams, slopeAngle: v[0] })
-              }
-            />
+          <div className="h-[1px] bg-light-grey my-6" />
+
+          {/* Edge & Transform */}
+          <div>
+            <h3 className="text-sm font-calibre font-semibold text-cbre-green mb-3">Edge & Transform</h3>
+            <div className="space-y-3">
+              <div className="space-y-2">
+                <Label htmlFor="start-height" className="font-calibre text-sm">
+                  Start Height: {diagonalContoursParams.startHeight}px
+                </Label>
+                <Slider
+                  id="start-height"
+                  min={-200}
+                  max={200}
+                  step={10}
+                  value={[diagonalContoursParams.startHeight]}
+                  onValueChange={(v) =>
+                    onDiagonalContoursChange({ ...diagonalContoursParams, startHeight: v[0] })
+                  }
+                />
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="end-height" className="font-calibre text-sm">
+                  End Height: {diagonalContoursParams.endHeight}px
+                </Label>
+                <Slider
+                  id="end-height"
+                  min={-200}
+                  max={200}
+                  step={10}
+                  value={[diagonalContoursParams.endHeight]}
+                  onValueChange={(v) =>
+                    onDiagonalContoursChange({ ...diagonalContoursParams, endHeight: v[0] })
+                  }
+                />
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="skew" className="font-calibre text-sm">
+                  Skew Factor: {diagonalContoursParams.skewFactor.toFixed(2)}
+                </Label>
+                <Slider
+                  id="skew"
+                  min={-0.3}
+                  max={0.3}
+                  step={0.05}
+                  value={[diagonalContoursParams.skewFactor]}
+                  onValueChange={(v) =>
+                    onDiagonalContoursChange({ ...diagonalContoursParams, skewFactor: v[0] })
+                  }
+                />
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="line-length" className="font-calibre text-sm">
+                  Line Length: {diagonalContoursParams.lineLength.toFixed(2)}×
+                </Label>
+                <Slider
+                  id="line-length"
+                  min={1}
+                  max={2}
+                  step={0.1}
+                  value={[diagonalContoursParams.lineLength]}
+                  onValueChange={(v) =>
+                    onDiagonalContoursChange({ ...diagonalContoursParams, lineLength: v[0] })
+                  }
+                />
+              </div>
+            </div>
           </div>
 
-          <div className="space-y-2">
-            <Label htmlFor="peak-pos" className="font-calibre">
-              Peak Position 1: {diagonalContoursParams.peakPosition.toFixed(2)}
-            </Label>
-            <Slider
-              id="peak-pos"
-              min={0}
-              max={1}
-              step={0.05}
-              value={[diagonalContoursParams.peakPosition]}
-              onValueChange={(v) =>
-                onDiagonalContoursChange({ ...diagonalContoursParams, peakPosition: v[0] })
-              }
-            />
-          </div>
+          <div className="h-[1px] bg-light-grey my-6" />
 
-          <div className="space-y-2">
-            <Label htmlFor="peak-pos-2" className="font-calibre">
-              Peak Position 2: {diagonalContoursParams.peakPosition2.toFixed(2)}
-            </Label>
-            <Slider
-              id="peak-pos-2"
-              min={0}
-              max={1}
-              step={0.05}
-              value={[diagonalContoursParams.peakPosition2]}
-              onValueChange={(v) =>
-                onDiagonalContoursChange({ ...diagonalContoursParams, peakPosition2: v[0] })
-              }
-            />
-          </div>
+          {/* Appearance */}
+          <div>
+            <h3 className="text-sm font-calibre font-semibold text-cbre-green mb-3">Appearance</h3>
+            <div className="space-y-3">
+              <div className="space-y-2">
+                <Label htmlFor="opacity-step" className="font-calibre text-sm">
+                  Opacity Step: {diagonalContoursParams.opacityStep.toFixed(3)}
+                </Label>
+                <Slider
+                  id="opacity-step"
+                  min={0}
+                  max={0.03}
+                  step={0.001}
+                  value={[diagonalContoursParams.opacityStep]}
+                  onValueChange={(v) =>
+                    onDiagonalContoursChange({ ...diagonalContoursParams, opacityStep: v[0] })
+                  }
+                />
+              </div>
 
-          <div className="space-y-2">
-            <Label htmlFor="skew" className="font-calibre">
-              Skew Factor: {diagonalContoursParams.skewFactor.toFixed(2)}
-            </Label>
-            <Slider
-              id="skew"
-              min={-0.3}
-              max={0.3}
-              step={0.05}
-              value={[diagonalContoursParams.skewFactor]}
-              onValueChange={(v) =>
-                onDiagonalContoursChange({ ...diagonalContoursParams, skewFactor: v[0] })
-              }
-            />
-          </div>
-
-          <div className="space-y-2">
-            <Label htmlFor="line-length" className="font-calibre">
-              Line Length: {diagonalContoursParams.lineLength.toFixed(2)}×
-            </Label>
-            <Slider
-              id="line-length"
-              min={1}
-              max={2}
-              step={0.1}
-              value={[diagonalContoursParams.lineLength]}
-              onValueChange={(v) =>
-                onDiagonalContoursChange({ ...diagonalContoursParams, lineLength: v[0] })
-              }
-            />
-          </div>
-
-          <div className="space-y-2">
-            <Label htmlFor="opacity-step" className="font-calibre">
-              Opacity Step: {diagonalContoursParams.opacityStep.toFixed(3)}
-            </Label>
-            <Slider
-              id="opacity-step"
-              min={0}
-              max={0.03}
-              step={0.001}
-              value={[diagonalContoursParams.opacityStep]}
-              onValueChange={(v) =>
-                onDiagonalContoursChange({ ...diagonalContoursParams, opacityStep: v[0] })
-              }
-            />
-          </div>
-
-          <div className="space-y-2">
-            <Label htmlFor="line-weight" className="font-calibre">
-              Line Weight: {lineWeight}px
-            </Label>
-            <Slider
-              id="line-weight"
-              min={1}
-              max={8}
-              step={0.5}
-              value={[lineWeight]}
-              onValueChange={(v) => onLineWeightChange(v[0])}
-            />
+              <div className="space-y-2">
+                <Label htmlFor="line-weight" className="font-calibre text-sm">
+                  Line Weight: {lineWeight}px
+                </Label>
+                <Slider
+                  id="line-weight"
+                  min={1}
+                  max={8}
+                  step={0.5}
+                  value={[lineWeight]}
+                  onValueChange={(v) => onLineWeightChange(v[0])}
+                />
+              </div>
+            </div>
           </div>
         </CBRETabsContent>
       </CBRETabs>

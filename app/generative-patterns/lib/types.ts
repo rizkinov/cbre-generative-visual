@@ -53,6 +53,10 @@ export interface DiagonalContoursParams {
   slopeAngle: number;
   peakPosition: number;
   peakPosition2: number;
+  peakHeight1: number;
+  peakHeight2: number;
+  startHeight: number;
+  endHeight: number;
   skewFactor: number;
   lineLength: number;
   opacityStep: number;

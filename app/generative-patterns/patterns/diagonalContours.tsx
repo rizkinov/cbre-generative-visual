@@ -36,10 +36,10 @@ export function generateDiagonalContours(
     const extension = ((params.lineLength - 1) * width) / 2;
 
     // Define the contour path with 2 peaks (creating a jagged pattern)
-    const leftStartY = padding + offset;
-    const peak1Y = leftStartY + (peakX1 - padding) * slopeRise;
-    const peak2Y = peak1Y + Math.abs(peakX2 - peakX1) * slopeRise;
-    const rightEndY = peak2Y + (width - padding - peakX2) * slopeRise;
+    const leftStartY = padding + offset + params.startHeight;
+    const peak1Y = leftStartY + (peakX1 - padding) * slopeRise + params.peakHeight1;
+    const peak2Y = peak1Y + Math.abs(peakX2 - peakX1) * slopeRise + params.peakHeight2;
+    const rightEndY = peak2Y + (width - padding - peakX2) * slopeRise + params.endHeight;
 
     const pathData = `
       M ${padding + skewOffset - extension} ${leftStartY}
@@ -67,12 +67,16 @@ export function generateDiagonalContours(
 
 // Default parameters
 export const defaultDiagonalContoursParams: DiagonalContoursParams = {
-  lineCount: 25,
-  gapBetweenLines: 15,
-  slopeAngle: 30,
-  peakPosition: 0.4,
-  peakPosition2: 0.7,
-  skewFactor: 0.1,
+  lineCount: 50,
+  gapBetweenLines: 40,
+  slopeAngle: 10,
+  peakPosition: 0.25,
+  peakPosition2: 0.70,
+  peakHeight1: 200,
+  peakHeight2: -100,
+  startHeight: 10,
+  endHeight: 200,
+  skewFactor: 0.0,
   lineLength: 1.0,
-  opacityStep: 0.02,
+  opacityStep: 0.007,
 };
