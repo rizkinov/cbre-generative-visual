@@ -13,7 +13,7 @@ import {
 } from '@/src/components/ui/select';
 import { Slider } from '@/src/components/ui/slider';
 import { cbreColors } from '../lib/colors';
-import type { BrandPair, CanvasSpec } from '../lib/types';
+import type { BrandPair, CanvasSpec, PatternType } from '../lib/types';
 import { generateRandomSeed } from '../lib/seeding';
 
 interface GlobalControlsProps {
@@ -25,7 +25,7 @@ interface GlobalControlsProps {
   onCanvasChange: (canvas: CanvasSpec) => void;
   lineWeight: number;
   onLineWeightChange: (weight: number) => void;
-  currentPattern: 'horizontalBands' | 'verticalBars' | 'diagonalContours';
+  currentPattern: PatternType;
 }
 
 // Brand color pair presets
