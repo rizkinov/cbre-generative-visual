@@ -20,6 +20,7 @@ import type {
   HorizontalBandsParams,
   VerticalBarsParams,
   DiagonalContoursParams,
+  MultidimensionalLoSParams,
 } from '../lib/types';
 
 interface ControlsPanelProps {
@@ -31,6 +32,8 @@ interface ControlsPanelProps {
   onVerticalBarsChange: (params: VerticalBarsParams) => void;
   diagonalContoursParams: DiagonalContoursParams;
   onDiagonalContoursChange: (params: DiagonalContoursParams) => void;
+  multidimensionalLoSParams: MultidimensionalLoSParams;
+  onMultidimensionalLoSChange: (params: MultidimensionalLoSParams) => void;
   lineWeight: number;
   onLineWeightChange: (weight: number) => void;
 }
@@ -44,6 +47,8 @@ export function ControlsPanel({
   onVerticalBarsChange,
   diagonalContoursParams,
   onDiagonalContoursChange,
+  multidimensionalLoSParams,
+  onMultidimensionalLoSChange,
   lineWeight,
   onLineWeightChange,
 }: ControlsPanelProps) {
@@ -55,7 +60,7 @@ export function ControlsPanel({
         defaultValue="horizontalBands"
         variant="boxed"
       >
-        <CBRETabsList className="grid w-full grid-cols-3">
+        <CBRETabsList className="grid w-full grid-cols-4">
           <CBRETabsTrigger value="horizontalBands">
             Bands
           </CBRETabsTrigger>
@@ -64,6 +69,9 @@ export function ControlsPanel({
           </CBRETabsTrigger>
           <CBRETabsTrigger value="diagonalContours">
             Contours
+          </CBRETabsTrigger>
+          <CBRETabsTrigger value="multidimensionalLoS">
+            Dimensional
           </CBRETabsTrigger>
         </CBRETabsList>
 
@@ -513,6 +521,323 @@ export function ControlsPanel({
                   onValueChange={(v) => onLineWeightChange(v[0])}
                 />
               </div>
+            </div>
+          </div>
+        </CBRETabsContent>
+
+        {/* Multidimensional LoS Controls */}
+        <CBRETabsContent value="multidimensionalLoS" className="space-y-4">
+          {/* Basic Settings */}
+          <div>
+            <h3 className="text-sm font-calibre font-semibold text-cbre-green mb-3">Basic Settings</h3>
+            <div className="space-y-3">
+              <div className="space-y-2">
+                <Label htmlFor="los-line-count" className="font-calibre text-sm">
+                  Line Count: {multidimensionalLoSParams.lineCount}
+                </Label>
+                <Slider
+                  id="los-line-count"
+                  min={10}
+                  max={100}
+                  step={1}
+                  value={[multidimensionalLoSParams.lineCount]}
+                  onValueChange={(v) =>
+                    onMultidimensionalLoSChange({ ...multidimensionalLoSParams, lineCount: v[0] })
+                  }
+                />
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="los-gap" className="font-calibre text-sm">
+                  Gap Between Lines: {multidimensionalLoSParams.gapBetweenLines.toFixed(1)}px
+                </Label>
+                <Slider
+                  id="los-gap"
+                  min={1}
+                  max={30}
+                  step={0.5}
+                  value={[multidimensionalLoSParams.gapBetweenLines]}
+                  onValueChange={(v) =>
+                    onMultidimensionalLoSChange({ ...multidimensionalLoSParams, gapBetweenLines: v[0] })
+                  }
+                />
+              </div>
+            </div>
+          </div>
+
+          <div className="h-[1px] bg-light-grey my-6" />
+
+          {/* Master Position */}
+          <div>
+            <h3 className="text-sm font-calibre font-semibold text-cbre-green mb-3">Master Position</h3>
+            <div className="space-y-3">
+              <div className="space-y-2">
+                <Label htmlFor="master-position-x" className="font-calibre text-sm">
+                  Master Position X: {multidimensionalLoSParams.masterPositionX.toFixed(2)}
+                </Label>
+                <Slider
+                  id="master-position-x"
+                  min={0}
+                  max={1}
+                  step={0.01}
+                  value={[multidimensionalLoSParams.masterPositionX]}
+                  onValueChange={(v) =>
+                    onMultidimensionalLoSChange({ ...multidimensionalLoSParams, masterPositionX: v[0] })
+                  }
+                />
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="master-position-y" className="font-calibre text-sm">
+                  Master Position Y: {multidimensionalLoSParams.masterPositionY.toFixed(2)}
+                </Label>
+                <Slider
+                  id="master-position-y"
+                  min={0}
+                  max={1}
+                  step={0.01}
+                  value={[multidimensionalLoSParams.masterPositionY]}
+                  onValueChange={(v) =>
+                    onMultidimensionalLoSChange({ ...multidimensionalLoSParams, masterPositionY: v[0] })
+                  }
+                />
+              </div>
+            </div>
+          </div>
+
+          <div className="h-[1px] bg-light-grey my-6" />
+
+          {/* Corner Shape */}
+          <div>
+            <h3 className="text-sm font-calibre font-semibold text-cbre-green mb-3">Corner Shape</h3>
+            <div className="space-y-3">
+              <div className="space-y-2">
+                <Label htmlFor="corner-x" className="font-calibre text-sm">
+                  Corner Position X: {multidimensionalLoSParams.cornerPositionX.toFixed(2)}
+                </Label>
+                <Slider
+                  id="corner-x"
+                  min={0}
+                  max={1}
+                  step={0.01}
+                  value={[multidimensionalLoSParams.cornerPositionX]}
+                  onValueChange={(v) =>
+                    onMultidimensionalLoSChange({ ...multidimensionalLoSParams, cornerPositionX: v[0] })
+                  }
+                />
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="corner-y" className="font-calibre text-sm">
+                  Corner Position Y: {multidimensionalLoSParams.cornerPositionY.toFixed(2)}
+                </Label>
+                <Slider
+                  id="corner-y"
+                  min={0}
+                  max={1}
+                  step={0.01}
+                  value={[multidimensionalLoSParams.cornerPositionY]}
+                  onValueChange={(v) =>
+                    onMultidimensionalLoSChange({ ...multidimensionalLoSParams, cornerPositionY: v[0] })
+                  }
+                />
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="left-angle" className="font-calibre text-sm">
+                  Left Angle: {multidimensionalLoSParams.leftAngle}°
+                </Label>
+                <Slider
+                  id="left-angle"
+                  min={0}
+                  max={90}
+                  step={1}
+                  value={[multidimensionalLoSParams.leftAngle]}
+                  onValueChange={(v) =>
+                    onMultidimensionalLoSChange({ ...multidimensionalLoSParams, leftAngle: v[0] })
+                  }
+                />
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="right-angle" className="font-calibre text-sm">
+                  Right Angle: {multidimensionalLoSParams.rightAngle}°
+                </Label>
+                <Slider
+                  id="right-angle"
+                  min={0}
+                  max={90}
+                  step={1}
+                  value={[multidimensionalLoSParams.rightAngle]}
+                  onValueChange={(v) =>
+                    onMultidimensionalLoSChange({ ...multidimensionalLoSParams, rightAngle: v[0] })
+                  }
+                />
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="first-line-y" className="font-calibre text-sm">
+                  First Line Y: {multidimensionalLoSParams.firstLineY.toFixed(2)}
+                </Label>
+                <Slider
+                  id="first-line-y"
+                  min={0}
+                  max={1}
+                  step={0.01}
+                  value={[multidimensionalLoSParams.firstLineY]}
+                  onValueChange={(v) =>
+                    onMultidimensionalLoSChange({ ...multidimensionalLoSParams, firstLineY: v[0] })
+                  }
+                />
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="fold-line-y" className="font-calibre text-sm">
+                  Fold Line Y: {multidimensionalLoSParams.foldLineY.toFixed(2)}
+                </Label>
+                <Slider
+                  id="fold-line-y"
+                  min={0}
+                  max={1}
+                  step={0.01}
+                  value={[multidimensionalLoSParams.foldLineY]}
+                  onValueChange={(v) =>
+                    onMultidimensionalLoSChange({ ...multidimensionalLoSParams, foldLineY: v[0] })
+                  }
+                />
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="last-line-y" className="font-calibre text-sm">
+                  Last Line Y: {multidimensionalLoSParams.lastLineY.toFixed(2)}
+                </Label>
+                <Slider
+                  id="last-line-y"
+                  min={0}
+                  max={1}
+                  step={0.01}
+                  value={[multidimensionalLoSParams.lastLineY]}
+                  onValueChange={(v) =>
+                    onMultidimensionalLoSChange({ ...multidimensionalLoSParams, lastLineY: v[0] })
+                  }
+                />
+              </div>
+            </div>
+          </div>
+
+          <div className="h-[1px] bg-light-grey my-6" />
+
+          {/* Line Appearance */}
+          <div>
+            <h3 className="text-sm font-calibre font-semibold text-cbre-green mb-3">Line Appearance</h3>
+            <div className="space-y-3">
+              <div className="space-y-2">
+                <Label htmlFor="stroke-min" className="font-calibre text-sm">
+                  Stroke Width Min: {multidimensionalLoSParams.strokeWidthMin.toFixed(1)}px
+                </Label>
+                <Slider
+                  id="stroke-min"
+                  min={0.5}
+                  max={4}
+                  step={0.1}
+                  value={[multidimensionalLoSParams.strokeWidthMin]}
+                  onValueChange={(v) =>
+                    onMultidimensionalLoSChange({ ...multidimensionalLoSParams, strokeWidthMin: v[0] })
+                  }
+                />
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="stroke-max" className="font-calibre text-sm">
+                  Stroke Width Max: {multidimensionalLoSParams.strokeWidthMax.toFixed(1)}px
+                </Label>
+                <Slider
+                  id="stroke-max"
+                  min={0.5}
+                  max={4}
+                  step={0.1}
+                  value={[multidimensionalLoSParams.strokeWidthMax]}
+                  onValueChange={(v) =>
+                    onMultidimensionalLoSChange({ ...multidimensionalLoSParams, strokeWidthMax: v[0] })
+                  }
+                />
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="line-extension" className="font-calibre text-sm">
+                  Line Extension: {multidimensionalLoSParams.lineExtension.toFixed(2)}×
+                </Label>
+                <Slider
+                  id="line-extension"
+                  min={0.5}
+                  max={2}
+                  step={0.05}
+                  value={[multidimensionalLoSParams.lineExtension]}
+                  onValueChange={(v) =>
+                    onMultidimensionalLoSChange({ ...multidimensionalLoSParams, lineExtension: v[0] })
+                  }
+                />
+                <p className="text-xs text-dark-grey font-calibre">0.5 = sharper/shorter, 2.0 = extended/longer</p>
+              </div>
+            </div>
+          </div>
+
+          <div className="h-[1px] bg-light-grey my-6" />
+
+          {/* Color Gradient */}
+          <div>
+            <h3 className="text-sm font-calibre font-semibold text-cbre-green mb-3">Color Gradient</h3>
+            <div className="space-y-3">
+              <div className="flex items-center space-x-2">
+                <input
+                  type="checkbox"
+                  id="use-gradient"
+                  checked={multidimensionalLoSParams.useGradient}
+                  onChange={(e) =>
+                    onMultidimensionalLoSChange({ ...multidimensionalLoSParams, useGradient: e.target.checked })
+                  }
+                  className="w-4 h-4"
+                />
+                <Label htmlFor="use-gradient" className="font-calibre text-sm cursor-pointer">
+                  Use Gradient
+                </Label>
+              </div>
+
+              {multidimensionalLoSParams.useGradient && (
+                <>
+                  <div className="space-y-2">
+                    <Label htmlFor="gradient-from" className="font-calibre text-sm">
+                      Gradient Color From (optional)
+                    </Label>
+                    <input
+                      type="color"
+                      id="gradient-from"
+                      value={multidimensionalLoSParams.gradientColorFrom || '#17E88F'}
+                      onChange={(e) =>
+                        onMultidimensionalLoSChange({ ...multidimensionalLoSParams, gradientColorFrom: e.target.value })
+                      }
+                      className="w-full h-10 border border-light-grey cursor-pointer"
+                    />
+                    <p className="text-xs text-dark-grey font-calibre">Leave empty to use main foreground color</p>
+                  </div>
+
+                  <div className="space-y-2">
+                    <Label htmlFor="gradient-to" className="font-calibre text-sm">
+                      Gradient Color To (optional)
+                    </Label>
+                    <input
+                      type="color"
+                      id="gradient-to"
+                      value={multidimensionalLoSParams.gradientColorTo || '#003F2D'}
+                      onChange={(e) =>
+                        onMultidimensionalLoSChange({ ...multidimensionalLoSParams, gradientColorTo: e.target.value })
+                      }
+                      className="w-full h-10 border border-light-grey cursor-pointer"
+                    />
+                    <p className="text-xs text-dark-grey font-calibre">Leave empty to use main background color</p>
+                  </div>
+                </>
+              )}
             </div>
           </div>
         </CBRETabsContent>

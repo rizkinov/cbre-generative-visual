@@ -21,11 +21,16 @@ import {
   generateDiagonalContours,
   defaultDiagonalContoursParams,
 } from './patterns/diagonalContours';
+import {
+  generateMultidimensionalLoS,
+  defaultMultidimensionalLoSParams,
+} from './patterns/multidimensionalLoS';
 import type {
   GlobalState,
   HorizontalBandsParams,
   VerticalBarsParams,
   DiagonalContoursParams,
+  MultidimensionalLoSParams,
 } from './lib/types';
 
 export default function GenerativePatternsPage() {
@@ -53,6 +58,9 @@ export default function GenerativePatternsPage() {
   const [diagonalContoursParams, setDiagonalContoursParams] = useState<DiagonalContoursParams>(
     defaultDiagonalContoursParams
   );
+  const [multidimensionalLoSParams, setMultidimensionalLoSParams] = useState<MultidimensionalLoSParams>(
+    defaultMultidimensionalLoSParams
+  );
 
   // Generate current pattern
   const patternContent = useMemo(() => {
@@ -63,10 +71,12 @@ export default function GenerativePatternsPage() {
         return generateVerticalBars(verticalBarsParams, globals);
       case 'diagonalContours':
         return generateDiagonalContours(diagonalContoursParams, globals);
+      case 'multidimensionalLoS':
+        return generateMultidimensionalLoS(multidimensionalLoSParams, globals);
       default:
         return <g />;
     }
-  }, [globals, horizontalBandsParams, verticalBarsParams, diagonalContoursParams]);
+  }, [globals, horizontalBandsParams, verticalBarsParams, diagonalContoursParams, multidimensionalLoSParams]);
 
   return (
     <div className="min-h-screen bg-lighter-grey">
@@ -112,6 +122,8 @@ export default function GenerativePatternsPage() {
                 onVerticalBarsChange={setVerticalBarsParams}
                 diagonalContoursParams={diagonalContoursParams}
                 onDiagonalContoursChange={setDiagonalContoursParams}
+                multidimensionalLoSParams={multidimensionalLoSParams}
+                onMultidimensionalLoSChange={setMultidimensionalLoSParams}
                 lineWeight={globals.lineWeight}
                 onLineWeightChange={(lineWeight) => setGlobals({ ...globals, lineWeight })}
               />

@@ -24,3 +24,34 @@ export const cbreColors = {
   "cement": "#7F8480",
   "cement-tint": "#CBCDCB",
 };
+
+/**
+ * Interpolate between two hex colors
+ * @param fromHex - Starting color (e.g., "#012A2D")
+ * @param toHex - Ending color (e.g., "#FFFFFF")
+ * @param progress - Value between 0 and 1
+ * @returns Interpolated color as hex string
+ */
+export function interpolateColor(fromHex: string, toHex: string, progress: number): string {
+  // Parse hex colors
+  const parseHex = (hex: string): [number, number, number] => {
+    const cleaned = hex.replace('#', '');
+    return [
+      parseInt(cleaned.substring(0, 2), 16),
+      parseInt(cleaned.substring(2, 4), 16),
+      parseInt(cleaned.substring(4, 6), 16),
+    ];
+  };
+
+  const [r1, g1, b1] = parseHex(fromHex);
+  const [r2, g2, b2] = parseHex(toHex);
+
+  // Interpolate each channel
+  const r = Math.round(r1 + (r2 - r1) * progress);
+  const g = Math.round(g1 + (g2 - g1) * progress);
+  const b = Math.round(b1 + (b2 - b1) * progress);
+
+  // Convert back to hex
+  const toHexChannel = (value: number) => value.toString(16).padStart(2, '0');
+  return `#${toHexChannel(r)}${toHexChannel(g)}${toHexChannel(b)}`;
+}

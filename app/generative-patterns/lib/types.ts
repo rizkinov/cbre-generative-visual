@@ -2,7 +2,7 @@
  * Type definitions for CBRE Generative Patterns
  */
 
-export type PatternType = 'horizontalBands' | 'verticalBars' | 'diagonalContours';
+export type PatternType = 'horizontalBands' | 'verticalBars' | 'diagonalContours' | 'multidimensionalLoS';
 
 export interface CanvasSpec {
   width: number;
@@ -60,6 +60,27 @@ export interface DiagonalContoursParams {
   skewFactor: number;
   lineLength: number;
   opacityStep: number;
+}
+
+// Multidimensional LoS Parameters
+export interface MultidimensionalLoSParams {
+  lineCount: number;
+  gapBetweenLines: number;
+  masterPositionX: number;
+  masterPositionY: number;
+  cornerPositionX: number;
+  cornerPositionY: number;
+  firstLineY: number;
+  foldLineY: number;
+  lastLineY: number;
+  leftAngle: number;
+  rightAngle: number;
+  lineExtension: number;
+  strokeWidthMin: number;
+  strokeWidthMax: number;
+  useGradient: boolean;
+  gradientColorFrom: string;
+  gradientColorTo: string;
 }
 
 // Pattern render result

@@ -19,7 +19,9 @@
       "Bash(cat:*)",
       "Bash(git stash:*)",
       "Bash(git log:*)",
-      "Bash(git fetch:*)"
+      "Bash(git fetch:*)",
+      "Bash(npm run type-check:*)",
+      "Bash(awk:*)"
     ],
     "deny": [],
     "ask": []
