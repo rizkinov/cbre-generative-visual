@@ -69,7 +69,7 @@ export function ControlsPanel({
         defaultValue="horizontalBands"
         variant="boxed"
       >
-        <CBRETabsList className="!grid w-full !h-auto grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-2 !p-2">
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-2 w-full">
           <CBRETabsTrigger value="horizontalBands">
             Bands
           </CBRETabsTrigger>
@@ -85,7 +85,7 @@ export function ControlsPanel({
           <CBRETabsTrigger value="transformationalColorBackground">
             Transformational
           </CBRETabsTrigger>
-        </CBRETabsList>
+        </div>
 
         {/* Horizontal Bands Controls */}
         <CBRETabsContent value="horizontalBands" className="space-y-4">
