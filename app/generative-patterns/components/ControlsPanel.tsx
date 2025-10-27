@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from 'react';
 import { Label } from '@/src/components/ui/label';
 import { Slider } from '@/src/components/ui/slider';
 import {
@@ -58,6 +59,8 @@ export function ControlsPanel({
   lineWeight,
   onLineWeightChange,
 }: ControlsPanelProps) {
+  const [selectedPreset, setSelectedPreset] = useState<string>('sageHorizon');
+
   return (
     <div className="space-y-4">
       <CBRETabs
@@ -858,8 +861,9 @@ export function ControlsPanel({
             <CBRESelect
               label="Preset"
               id="transformational-preset"
-              value=""
+              value={selectedPreset}
               onValueChange={(presetKey) => {
+                setSelectedPreset(presetKey);
                 const preset = transformationalPresets[presetKey as keyof typeof transformationalPresets];
                 if (preset) {
                   onTransformationalColorBackgroundChange(preset.params);
