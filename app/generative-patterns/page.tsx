@@ -25,12 +25,17 @@ import {
   generateMultidimensionalLoS,
   defaultMultidimensionalLoSParams,
 } from './patterns/multidimensionalLoS';
+import {
+  generateTransformationalColorBackground,
+  defaultTransformationalColorBackgroundParams,
+} from './patterns/transformationalColorBackground';
 import type {
   GlobalState,
   HorizontalBandsParams,
   VerticalBarsParams,
   DiagonalContoursParams,
   MultidimensionalLoSParams,
+  TransformationalColorBackgroundParams,
 } from './lib/types';
 
 export default function GenerativePatternsPage() {
@@ -61,6 +66,9 @@ export default function GenerativePatternsPage() {
   const [multidimensionalLoSParams, setMultidimensionalLoSParams] = useState<MultidimensionalLoSParams>(
     defaultMultidimensionalLoSParams
   );
+  const [transformationalColorBackgroundParams, setTransformationalColorBackgroundParams] = useState<TransformationalColorBackgroundParams>(
+    defaultTransformationalColorBackgroundParams
+  );
 
   // Generate current pattern
   const patternContent = useMemo(() => {
@@ -73,10 +81,12 @@ export default function GenerativePatternsPage() {
         return generateDiagonalContours(diagonalContoursParams, globals);
       case 'multidimensionalLoS':
         return generateMultidimensionalLoS(multidimensionalLoSParams, globals);
+      case 'transformationalColorBackground':
+        return generateTransformationalColorBackground(transformationalColorBackgroundParams, globals);
       default:
         return <g />;
     }
-  }, [globals, horizontalBandsParams, verticalBarsParams, diagonalContoursParams, multidimensionalLoSParams]);
+  }, [globals, horizontalBandsParams, verticalBarsParams, diagonalContoursParams, multidimensionalLoSParams, transformationalColorBackgroundParams]);
 
   return (
     <div className="min-h-screen bg-lighter-grey">
@@ -124,6 +134,8 @@ export default function GenerativePatternsPage() {
                 onDiagonalContoursChange={setDiagonalContoursParams}
                 multidimensionalLoSParams={multidimensionalLoSParams}
                 onMultidimensionalLoSChange={setMultidimensionalLoSParams}
+                transformationalColorBackgroundParams={transformationalColorBackgroundParams}
+                onTransformationalColorBackgroundChange={setTransformationalColorBackgroundParams}
                 lineWeight={globals.lineWeight}
                 onLineWeightChange={(lineWeight) => setGlobals({ ...globals, lineWeight })}
               />

@@ -2,7 +2,7 @@
  * Type definitions for CBRE Generative Patterns
  */
 
-export type PatternType = 'horizontalBands' | 'verticalBars' | 'diagonalContours' | 'multidimensionalLoS';
+export type PatternType = 'horizontalBands' | 'verticalBars' | 'diagonalContours' | 'multidimensionalLoS' | 'transformationalColorBackground';
 
 export interface CanvasSpec {
   width: number;
@@ -81,6 +81,21 @@ export interface MultidimensionalLoSParams {
   useGradient: boolean;
   gradientColorFrom: string;
   gradientColorTo: string;
+}
+
+// Transformational Color Background Parameters
+export interface ColorPin {
+  enabled: boolean;
+  x: number;
+  y: number;
+  color: string;
+}
+
+export interface TransformationalColorBackgroundParams {
+  pins: [ColorPin, ColorPin, ColorPin, ColorPin, ColorPin];
+  blendStrength: number;
+  frameEnabled: boolean;
+  frameThickness: number;
 }
 
 // Pattern render result

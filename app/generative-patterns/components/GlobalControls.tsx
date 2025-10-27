@@ -161,8 +161,8 @@ export function GlobalControls({
           </div>
         </div>
 
-        {/* Seed Controls */}
-        <div className="flex items-end gap-4">
+        {/* Seed Controls - Hidden for now */}
+        {/* <div className="flex items-end gap-4">
           <div className="flex-1 space-y-2">
             <Label htmlFor="seed" className="font-calibre">
               Random Seed
@@ -181,7 +181,7 @@ export function GlobalControls({
           >
             Randomize
           </CBREButton>
-        </div>
+        </div> */}
       </div>
     </CBRECard>
   );

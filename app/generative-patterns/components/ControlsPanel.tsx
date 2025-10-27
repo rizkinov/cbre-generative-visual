@@ -21,7 +21,9 @@ import type {
   VerticalBarsParams,
   DiagonalContoursParams,
   MultidimensionalLoSParams,
+  TransformationalColorBackgroundParams,
 } from '../lib/types';
+import { transformationalPresets } from '../patterns/transformationalColorBackground';
 
 interface ControlsPanelProps {
   pattern: PatternType;
@@ -34,6 +36,8 @@ interface ControlsPanelProps {
   onDiagonalContoursChange: (params: DiagonalContoursParams) => void;
   multidimensionalLoSParams: MultidimensionalLoSParams;
   onMultidimensionalLoSChange: (params: MultidimensionalLoSParams) => void;
+  transformationalColorBackgroundParams: TransformationalColorBackgroundParams;
+  onTransformationalColorBackgroundChange: (params: TransformationalColorBackgroundParams) => void;
   lineWeight: number;
   onLineWeightChange: (weight: number) => void;
 }
@@ -49,6 +53,8 @@ export function ControlsPanel({
   onDiagonalContoursChange,
   multidimensionalLoSParams,
   onMultidimensionalLoSChange,
+  transformationalColorBackgroundParams,
+  onTransformationalColorBackgroundChange,
   lineWeight,
   onLineWeightChange,
 }: ControlsPanelProps) {
@@ -60,7 +66,7 @@ export function ControlsPanel({
         defaultValue="horizontalBands"
         variant="boxed"
       >
-        <CBRETabsList className="grid w-full grid-cols-4">
+        <CBRETabsList className="!grid w-full !h-auto auto-rows-auto gap-2 !p-2" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(140px, 1fr))' }}>
           <CBRETabsTrigger value="horizontalBands">
             Bands
           </CBRETabsTrigger>
@@ -72,6 +78,9 @@ export function ControlsPanel({
           </CBRETabsTrigger>
           <CBRETabsTrigger value="multidimensionalLoS">
             Dimensional
+          </CBRETabsTrigger>
+          <CBRETabsTrigger value="transformationalColorBackground">
+            Transformational
           </CBRETabsTrigger>
         </CBRETabsList>
 
@@ -837,6 +846,218 @@ export function ControlsPanel({
                     <p className="text-xs text-dark-grey font-calibre">Leave empty to use main background color</p>
                   </div>
                 </>
+              )}
+            </div>
+          </div>
+        </CBRETabsContent>
+
+        {/* Transformational Color Background Controls */}
+        <CBRETabsContent value="transformationalColorBackground" className="space-y-4">
+          {/* Preset Selector */}
+          <div>
+            <CBRESelect
+              label="Preset"
+              id="transformational-preset"
+              value=""
+              onValueChange={(presetKey) => {
+                const preset = transformationalPresets[presetKey as keyof typeof transformationalPresets];
+                if (preset) {
+                  onTransformationalColorBackgroundChange(preset.params);
+                }
+              }}
+            >
+              <SelectTrigger>
+                <SelectValue placeholder="Choose a preset..." />
+              </SelectTrigger>
+              <SelectContent>
+                {Object.entries(transformationalPresets).map(([key, preset]) => (
+                  <SelectItem key={key} value={key}>
+                    {preset.name}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </CBRESelect>
+          </div>
+
+          <div className="h-[1px] bg-light-grey my-6" />
+
+          {/* Blend Strength */}
+          <div>
+            <h3 className="text-sm font-calibre font-semibold text-cbre-green mb-3">Blend Settings</h3>
+            <div className="space-y-3">
+              <div className="space-y-2">
+                <Label htmlFor="blend-strength" className="font-calibre text-sm">
+                  Blend Strength: {transformationalColorBackgroundParams.blendStrength.toFixed(1)}
+                </Label>
+                <Slider
+                  id="blend-strength"
+                  min={0.1}
+                  max={3}
+                  step={0.1}
+                  value={[transformationalColorBackgroundParams.blendStrength]}
+                  onValueChange={(v) =>
+                    onTransformationalColorBackgroundChange({
+                      ...transformationalColorBackgroundParams,
+                      blendStrength: v[0],
+                    })
+                  }
+                />
+                <p className="text-xs text-dark-grey font-calibre">
+                  Lower = softer blend, Higher = sharper transitions
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div className="h-[1px] bg-light-grey my-6" />
+
+          {/* Color Pins */}
+          <div>
+            <h3 className="text-sm font-calibre font-semibold text-cbre-green mb-3">Color Pins</h3>
+            <div className="space-y-4">
+              {transformationalColorBackgroundParams.pins.map((pin, idx) => (
+                <div key={idx} className="border border-light-grey p-3 rounded space-y-3">
+                  <div className="flex items-center justify-between">
+                    <span className="font-calibre font-semibold text-sm text-cbre-green">
+                      Pin {idx + 1}
+                    </span>
+                    <div className="flex items-center gap-2">
+                      <input
+                        type="checkbox"
+                        id={`pin-${idx}-enabled`}
+                        checked={pin.enabled}
+                        onChange={(e) => {
+                          const newPins = [...transformationalColorBackgroundParams.pins];
+                          newPins[idx] = { ...newPins[idx], enabled: e.target.checked };
+                          onTransformationalColorBackgroundChange({
+                            ...transformationalColorBackgroundParams,
+                            pins: newPins as any,
+                          });
+                        }}
+                        className="w-4 h-4"
+                      />
+                      <Label htmlFor={`pin-${idx}-enabled`} className="font-calibre text-sm cursor-pointer">
+                        Enabled
+                      </Label>
+                    </div>
+                  </div>
+
+                  {pin.enabled && (
+                    <>
+                      <div className="space-y-2">
+                        <Label htmlFor={`pin-${idx}-color`} className="font-calibre text-sm">
+                          Color
+                        </Label>
+                        <input
+                          type="color"
+                          id={`pin-${idx}-color`}
+                          value={pin.color}
+                          onChange={(e) => {
+                            const newPins = [...transformationalColorBackgroundParams.pins];
+                            newPins[idx] = { ...newPins[idx], color: e.target.value };
+                            onTransformationalColorBackgroundChange({
+                              ...transformationalColorBackgroundParams,
+                              pins: newPins as any,
+                            });
+                          }}
+                          className="w-full h-10 border border-light-grey cursor-pointer"
+                        />
+                      </div>
+
+                      <div className="space-y-2">
+                        <Label htmlFor={`pin-${idx}-x`} className="font-calibre text-sm">
+                          X Position: {pin.x.toFixed(2)}
+                        </Label>
+                        <Slider
+                          id={`pin-${idx}-x`}
+                          min={0}
+                          max={1}
+                          step={0.01}
+                          value={[pin.x]}
+                          onValueChange={(v) => {
+                            const newPins = [...transformationalColorBackgroundParams.pins];
+                            newPins[idx] = { ...newPins[idx], x: v[0] };
+                            onTransformationalColorBackgroundChange({
+                              ...transformationalColorBackgroundParams,
+                              pins: newPins as any,
+                            });
+                          }}
+                        />
+                      </div>
+
+                      <div className="space-y-2">
+                        <Label htmlFor={`pin-${idx}-y`} className="font-calibre text-sm">
+                          Y Position: {pin.y.toFixed(2)}
+                        </Label>
+                        <Slider
+                          id={`pin-${idx}-y`}
+                          min={0}
+                          max={1}
+                          step={0.01}
+                          value={[pin.y]}
+                          onValueChange={(v) => {
+                            const newPins = [...transformationalColorBackgroundParams.pins];
+                            newPins[idx] = { ...newPins[idx], y: v[0] };
+                            onTransformationalColorBackgroundChange({
+                              ...transformationalColorBackgroundParams,
+                              pins: newPins as any,
+                            });
+                          }}
+                        />
+                      </div>
+                    </>
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="h-[1px] bg-light-grey my-6" />
+
+          {/* Frame Settings */}
+          <div>
+            <h3 className="text-sm font-calibre font-semibold text-cbre-green mb-3">Frame Settings</h3>
+            <div className="space-y-3">
+              <div className="flex items-center space-x-2">
+                <input
+                  type="checkbox"
+                  id="frame-enabled"
+                  checked={transformationalColorBackgroundParams.frameEnabled}
+                  onChange={(e) =>
+                    onTransformationalColorBackgroundChange({
+                      ...transformationalColorBackgroundParams,
+                      frameEnabled: e.target.checked,
+                    })
+                  }
+                  className="w-4 h-4"
+                />
+                <Label htmlFor="frame-enabled" className="font-calibre text-sm cursor-pointer">
+                  Enable Frame
+                </Label>
+              </div>
+
+              {transformationalColorBackgroundParams.frameEnabled && (
+                <div className="space-y-2">
+                  <Label htmlFor="frame-thickness" className="font-calibre text-sm">
+                    Frame Thickness: {transformationalColorBackgroundParams.frameThickness}px
+                  </Label>
+                  <Slider
+                    id="frame-thickness"
+                    min={20}
+                    max={300}
+                    step={10}
+                    value={[transformationalColorBackgroundParams.frameThickness]}
+                    onValueChange={(v) =>
+                      onTransformationalColorBackgroundChange({
+                        ...transformationalColorBackgroundParams,
+                        frameThickness: v[0],
+                      })
+                    }
+                  />
+                  <p className="text-xs text-dark-grey font-calibre">
+                    Frame uses inverted pin positions for gradient
+                  </p>
+                </div>
               )}
             </div>
           </div>
