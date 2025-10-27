@@ -69,7 +69,7 @@ export function ControlsPanel({
         defaultValue="horizontalBands"
         variant="boxed"
       >
-        <CBRETabsList className="[&]:!flex [&]:!flex-wrap">
+        <CBRETabsList className="!h-auto !flex !flex-wrap !gap-2 !py-2">
           <CBRETabsTrigger value="horizontalBands" className="flex-1 min-w-[140px]">
             Bands
           </CBRETabsTrigger>
