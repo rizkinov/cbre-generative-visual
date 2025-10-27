@@ -69,23 +69,23 @@ export function ControlsPanel({
         defaultValue="horizontalBands"
         variant="boxed"
       >
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-2 w-full">
-          <CBRETabsTrigger value="horizontalBands">
+        <CBRETabsList className="[&]:!flex [&]:!flex-wrap">
+          <CBRETabsTrigger value="horizontalBands" className="flex-1 min-w-[140px]">
             Bands
           </CBRETabsTrigger>
-          <CBRETabsTrigger value="verticalBars">
+          <CBRETabsTrigger value="verticalBars" className="flex-1 min-w-[140px]">
             Bars
           </CBRETabsTrigger>
-          <CBRETabsTrigger value="diagonalContours">
+          <CBRETabsTrigger value="diagonalContours" className="flex-1 min-w-[140px]">
             Contours
           </CBRETabsTrigger>
-          <CBRETabsTrigger value="multidimensionalLoS">
+          <CBRETabsTrigger value="multidimensionalLoS" className="flex-1 min-w-[140px]">
             Dimensional
           </CBRETabsTrigger>
-          <CBRETabsTrigger value="transformationalColorBackground">
+          <CBRETabsTrigger value="transformationalColorBackground" className="flex-1 min-w-[140px]">
             Transformational
           </CBRETabsTrigger>
-        </div>
+        </CBRETabsList>
 
         {/* Horizontal Bands Controls */}
         <CBRETabsContent value="horizontalBands" className="space-y-4">
