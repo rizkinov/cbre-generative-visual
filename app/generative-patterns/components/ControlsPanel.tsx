@@ -69,7 +69,7 @@ export function ControlsPanel({
         defaultValue="horizontalBands"
         variant="boxed"
       >
-        <CBRETabsList className="!grid w-full !h-auto auto-rows-auto gap-2 !p-2" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(140px, 1fr))' }}>
+        <CBRETabsList className="!grid w-full !h-auto grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-2 !p-2">
           <CBRETabsTrigger value="horizontalBands">
             Bands
           </CBRETabsTrigger>
