@@ -228,7 +228,7 @@ export const transformationalPresets = {
         { enabled: true, x: 0.1, y: 0.2, color: cbreColors['sage-tint'] },
         { enabled: true, x: 0.9, y: 0.3, color: cbreColors['celadon'] },
         { enabled: true, x: 0.5, y: 0.8, color: cbreColors['wheat-tint'] },
-        { enabled: true, x: 0.2, y: 0.6, color: cbreColors['midnight'] },
+        { enabled: true, x: 0.2, y: 0.6, color: cbreColors['sage'] },
         { enabled: false, x: 0.5, y: 0.5, color: cbreColors['accent-green'] },
       ],
       blendStrength: 0.1,
@@ -236,12 +236,12 @@ export const transformationalPresets = {
       frameThickness: 100,
     } as TransformationalColorBackgroundParams,
   },
-  'midnightBloom': {
-    name: 'Midnight Bloom',
+  'greenBloom': {
+    name: 'Green Bloom',
     params: {
       pins: [
         { enabled: true, x: 0.15, y: 0.15, color: cbreColors['accent-green'] },
-        { enabled: true, x: 0.85, y: 0.2, color: cbreColors['midnight'] },
+        { enabled: true, x: 0.85, y: 0.2, color: cbreColors['cbre-green'] },
         { enabled: true, x: 0.5, y: 0.9, color: cbreColors['sage'] },
         { enabled: true, x: 0.8, y: 0.75, color: cbreColors['celadon-tint'] },
         { enabled: false, x: 0.5, y: 0.5, color: '#FFFFFF' },
@@ -258,7 +258,7 @@ export const transformationalPresets = {
         { enabled: true, x: 0.2, y: 0.3, color: cbreColors['celadon-tint'] },
         { enabled: true, x: 0.7, y: 0.25, color: cbreColors['sage'] },
         { enabled: true, x: 0.4, y: 0.7, color: cbreColors['wheat-tint'] },
-        { enabled: true, x: 0.85, y: 0.8, color: cbreColors['midnight-tint'] },
+        { enabled: true, x: 0.85, y: 0.8, color: cbreColors['wheat'] },
         { enabled: false, x: 0.5, y: 0.5, color: '#FFFFFF' },
       ],
       blendStrength: 0.1,
@@ -270,13 +270,88 @@ export const transformationalPresets = {
     name: 'Celadon Dream',
     params: {
       pins: [
-        { enabled: true, x: 0.25, y: 0.25, color: cbreColors['midnight'] },
+        { enabled: true, x: 0.25, y: 0.25, color: cbreColors['celadon-shade-1'] },
         { enabled: true, x: 0.75, y: 0.35, color: cbreColors['celadon'] },
         { enabled: true, x: 0.5, y: 0.75, color: cbreColors['wheat-tint'] },
         { enabled: true, x: 0.15, y: 0.65, color: cbreColors['sage-tint'] },
         { enabled: true, x: 0.85, y: 0.85, color: cbreColors['cement-tint'] },
       ],
       blendStrength: 0.1,
+      frameEnabled: false,
+      frameThickness: 100,
+    } as TransformationalColorBackgroundParams,
+  },
+  'forestMist': {
+    name: 'Forest Mist',
+    params: {
+      pins: [
+        { enabled: true, x: 0.3, y: 0.2, color: cbreColors['dark-green-shade-2'] },
+        { enabled: true, x: 0.7, y: 0.3, color: cbreColors['sage-shade-1'] },
+        { enabled: true, x: 0.5, y: 0.7, color: cbreColors['celadon-tint'] },
+        { enabled: true, x: 0.1, y: 0.8, color: cbreColors['sage-tint'] },
+        { enabled: false, x: 0.5, y: 0.5, color: cbreColors['accent-green'] },
+      ],
+      blendStrength: 0.15,
+      frameEnabled: false,
+      frameThickness: 100,
+    } as TransformationalColorBackgroundParams,
+  },
+  'accentGlow': {
+    name: 'Accent Glow',
+    params: {
+      pins: [
+        { enabled: true, x: 0.5, y: 0.5, color: cbreColors['accent-green'] },
+        { enabled: true, x: 0.15, y: 0.15, color: cbreColors['accent-green-shade-1'] },
+        { enabled: true, x: 0.85, y: 0.15, color: cbreColors['accent-green-shade-2'] },
+        { enabled: true, x: 0.15, y: 0.85, color: cbreColors['celadon'] },
+        { enabled: true, x: 0.85, y: 0.85, color: cbreColors['accent-green-shade-3'] },
+      ],
+      blendStrength: 0.2,
+      frameEnabled: false,
+      frameThickness: 100,
+    } as TransformationalColorBackgroundParams,
+  },
+  'earthyTones': {
+    name: 'Earthy Tones',
+    params: {
+      pins: [
+        { enabled: true, x: 0.2, y: 0.2, color: cbreColors['cement'] },
+        { enabled: true, x: 0.8, y: 0.25, color: cbreColors['wheat'] },
+        { enabled: true, x: 0.5, y: 0.6, color: cbreColors['sage-shade-2'] },
+        { enabled: true, x: 0.15, y: 0.75, color: cbreColors['cement-tint'] },
+        { enabled: true, x: 0.85, y: 0.8, color: cbreColors['wheat-tint'] },
+      ],
+      blendStrength: 0.12,
+      frameEnabled: false,
+      frameThickness: 100,
+    } as TransformationalColorBackgroundParams,
+  },
+  'oceanBreeze': {
+    name: 'Ocean Breeze',
+    params: {
+      pins: [
+        { enabled: true, x: 0.3, y: 0.3, color: cbreColors['celadon'] },
+        { enabled: true, x: 0.7, y: 0.2, color: cbreColors['sage-shade-3'] },
+        { enabled: true, x: 0.5, y: 0.7, color: cbreColors['celadon-shade-3'] },
+        { enabled: true, x: 0.1, y: 0.6, color: cbreColors['sage-tint'] },
+        { enabled: true, x: 0.9, y: 0.8, color: cbreColors['celadon-tint'] },
+      ],
+      blendStrength: 0.08,
+      frameEnabled: false,
+      frameThickness: 100,
+    } as TransformationalColorBackgroundParams,
+  },
+  'subtleElegance': {
+    name: 'Subtle Elegance',
+    params: {
+      pins: [
+        { enabled: true, x: 0.25, y: 0.35, color: cbreColors['sage-shade-2'] },
+        { enabled: true, x: 0.75, y: 0.3, color: cbreColors['celadon-shade-2'] },
+        { enabled: true, x: 0.5, y: 0.65, color: cbreColors['cement-tint'] },
+        { enabled: true, x: 0.2, y: 0.7, color: cbreColors['sage-shade-3'] },
+        { enabled: true, x: 0.8, y: 0.75, color: cbreColors['celadon-shade-3'] },
+      ],
+      blendStrength: 0.05,
       frameEnabled: false,
       frameThickness: 100,
     } as TransformationalColorBackgroundParams,
