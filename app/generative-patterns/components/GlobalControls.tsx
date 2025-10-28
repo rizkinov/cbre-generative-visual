@@ -44,7 +44,7 @@ const colorPairs: Array<{ name: string; pair: BrandPair }> = [
   },
   {
     name: 'Light Grey / Dark Grey',
-    pair: { bg: cbreColors['lighter-grey'], fg: cbreColors['dark-grey'] }
+    pair: { bg: cbreColors['light-grey'], fg: cbreColors['dark-grey'] }
   },
   {
     name: 'White / CBRE Green',
