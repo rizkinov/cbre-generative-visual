@@ -969,9 +969,9 @@ export function ControlsPanel({
                           <div className="mt-2 p-3 border border-light-grey rounded bg-white space-y-3 max-h-[400px] overflow-y-auto">
                             {/* Primary Colors */}
                             <div className="space-y-1">
-                              <div className="text-xs font-calibre text-dark-grey font-semibold">Primary</div>
-                              <div className="grid grid-cols-6 gap-1.5">
-                                {['cbre-green', 'dark-grey', 'light-grey'].map((colorKey) => {
+                              <div className="text-xs font-calibre text-dark-grey font-semibold uppercase tracking-wide">Primary Colors</div>
+                              <div className="grid grid-cols-5 gap-1.5">
+                                {['cbre-green', 'accent-green', 'dark-green', 'dark-grey', 'light-grey'].map((colorKey) => {
                                   const colorHex = cbreColors[colorKey as keyof typeof cbreColors];
                                   return (
                                     <button
@@ -998,71 +998,14 @@ export function ControlsPanel({
                               </div>
                             </div>
 
-                            {/* Accent Green Family */}
-                            <div className="space-y-1">
-                              <div className="text-xs font-calibre text-dark-grey font-semibold">Accent Green</div>
-                              <div className="grid grid-cols-6 gap-1.5">
-                                {['accent-green', 'accent-green-shade-1', 'accent-green-shade-2', 'accent-green-shade-3'].map((colorKey) => {
-                                  const colorHex = cbreColors[colorKey as keyof typeof cbreColors];
-                                  return (
-                                    <button
-                                      key={colorKey}
-                                      type="button"
-                                      onClick={() => {
-                                        const newPins = [...transformationalColorBackgroundParams.pins];
-                                        newPins[idx] = { ...newPins[idx], color: colorHex };
-                                        onTransformationalColorBackgroundChange({
-                                          ...transformationalColorBackgroundParams,
-                                          pins: newPins as any,
-                                        });
-                                      }}
-                                      className={`w-full aspect-square rounded border-2 transition-all hover:scale-110 ${
-                                        pin.color === colorHex
-                                          ? 'border-cbre-green shadow-md ring-2 ring-cbre-green ring-offset-1'
-                                          : 'border-light-grey hover:border-dark-grey'
-                                      }`}
-                                      style={{ backgroundColor: colorHex }}
-                                      title={colorKey.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}
-                                    />
-                                  );
-                                })}
-                              </div>
-                            </div>
-
-                            {/* Dark Green Family */}
-                            <div className="space-y-1">
-                              <div className="text-xs font-calibre text-dark-grey font-semibold">Dark Green</div>
-                              <div className="grid grid-cols-6 gap-1.5">
-                                {['dark-green', 'dark-green-shade-1', 'dark-green-shade-2', 'dark-green-shade-3'].map((colorKey) => {
-                                  const colorHex = cbreColors[colorKey as keyof typeof cbreColors];
-                                  return (
-                                    <button
-                                      key={colorKey}
-                                      type="button"
-                                      onClick={() => {
-                                        const newPins = [...transformationalColorBackgroundParams.pins];
-                                        newPins[idx] = { ...newPins[idx], color: colorHex };
-                                        onTransformationalColorBackgroundChange({
-                                          ...transformationalColorBackgroundParams,
-                                          pins: newPins as any,
-                                        });
-                                      }}
-                                      className={`w-full aspect-square rounded border-2 transition-all hover:scale-110 ${
-                                        pin.color === colorHex
-                                          ? 'border-cbre-green shadow-md ring-2 ring-cbre-green ring-offset-1'
-                                          : 'border-light-grey hover:border-dark-grey'
-                                      }`}
-                                      style={{ backgroundColor: colorHex }}
-                                      title={colorKey.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}
-                                    />
-                                  );
-                                })}
-                              </div>
+                            {/* Secondary Colors Header */}
+                            <div className="pt-2 border-t border-light-grey">
+                              <div className="text-xs font-calibre text-dark-grey font-semibold uppercase tracking-wide mb-3">Secondary Colors</div>
                             </div>
 
                             {/* Midnight Family */}
                             <div className="space-y-1">
-                              <div className="text-xs font-calibre text-dark-grey font-semibold">Midnight Blue</div>
+                              <div className="text-xs font-calibre text-dark-grey">Midnight</div>
                               <div className="grid grid-cols-6 gap-1.5">
                                 {['midnight', 'midnight-shade-1', 'midnight-shade-2', 'midnight-shade-3', 'midnight-tint'].map((colorKey) => {
                                   const colorHex = cbreColors[colorKey as keyof typeof cbreColors];
@@ -1093,7 +1036,7 @@ export function ControlsPanel({
 
                             {/* Sage Family */}
                             <div className="space-y-1">
-                              <div className="text-xs font-calibre text-dark-grey font-semibold">Sage</div>
+                              <div className="text-xs font-calibre text-dark-grey">Sage</div>
                               <div className="grid grid-cols-6 gap-1.5">
                                 {['sage', 'sage-shade-1', 'sage-shade-2', 'sage-shade-3', 'sage-tint'].map((colorKey) => {
                                   const colorHex = cbreColors[colorKey as keyof typeof cbreColors];
@@ -1124,7 +1067,7 @@ export function ControlsPanel({
 
                             {/* Celadon Family */}
                             <div className="space-y-1">
-                              <div className="text-xs font-calibre text-dark-grey font-semibold">Celadon</div>
+                              <div className="text-xs font-calibre text-dark-grey">Celadon</div>
                               <div className="grid grid-cols-6 gap-1.5">
                                 {['celadon', 'celadon-shade-1', 'celadon-shade-2', 'celadon-shade-3', 'celadon-tint'].map((colorKey) => {
                                   const colorHex = cbreColors[colorKey as keyof typeof cbreColors];
@@ -1155,7 +1098,7 @@ export function ControlsPanel({
 
                             {/* Wheat Family */}
                             <div className="space-y-1">
-                              <div className="text-xs font-calibre text-dark-grey font-semibold">Wheat</div>
+                              <div className="text-xs font-calibre text-dark-grey">Wheat</div>
                               <div className="grid grid-cols-6 gap-1.5">
                                 {['wheat', 'wheat-tint'].map((colorKey) => {
                                   const colorHex = cbreColors[colorKey as keyof typeof cbreColors];
@@ -1186,9 +1129,76 @@ export function ControlsPanel({
 
                             {/* Cement Family */}
                             <div className="space-y-1">
-                              <div className="text-xs font-calibre text-dark-grey font-semibold">Cement</div>
+                              <div className="text-xs font-calibre text-dark-grey">Cement</div>
                               <div className="grid grid-cols-6 gap-1.5">
                                 {['cement', 'cement-tint'].map((colorKey) => {
+                                  const colorHex = cbreColors[colorKey as keyof typeof cbreColors];
+                                  return (
+                                    <button
+                                      key={colorKey}
+                                      type="button"
+                                      onClick={() => {
+                                        const newPins = [...transformationalColorBackgroundParams.pins];
+                                        newPins[idx] = { ...newPins[idx], color: colorHex };
+                                        onTransformationalColorBackgroundChange({
+                                          ...transformationalColorBackgroundParams,
+                                          pins: newPins as any,
+                                        });
+                                      }}
+                                      className={`w-full aspect-square rounded border-2 transition-all hover:scale-110 ${
+                                        pin.color === colorHex
+                                          ? 'border-cbre-green shadow-md ring-2 ring-cbre-green ring-offset-1'
+                                          : 'border-light-grey hover:border-dark-grey'
+                                      }`}
+                                      style={{ backgroundColor: colorHex }}
+                                      title={colorKey.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}
+                                    />
+                                  );
+                                })}
+                              </div>
+                            </div>
+
+                            {/* Extended Shades (bonus) */}
+                            <div className="pt-2 border-t border-light-grey">
+                              <div className="text-xs font-calibre text-dark-grey font-semibold uppercase tracking-wide mb-3">Extended Shades</div>
+                            </div>
+
+                            {/* Accent Green Shades */}
+                            <div className="space-y-1">
+                              <div className="text-xs font-calibre text-dark-grey">Accent Green Shades</div>
+                              <div className="grid grid-cols-6 gap-1.5">
+                                {['accent-green-shade-1', 'accent-green-shade-2', 'accent-green-shade-3'].map((colorKey) => {
+                                  const colorHex = cbreColors[colorKey as keyof typeof cbreColors];
+                                  return (
+                                    <button
+                                      key={colorKey}
+                                      type="button"
+                                      onClick={() => {
+                                        const newPins = [...transformationalColorBackgroundParams.pins];
+                                        newPins[idx] = { ...newPins[idx], color: colorHex };
+                                        onTransformationalColorBackgroundChange({
+                                          ...transformationalColorBackgroundParams,
+                                          pins: newPins as any,
+                                        });
+                                      }}
+                                      className={`w-full aspect-square rounded border-2 transition-all hover:scale-110 ${
+                                        pin.color === colorHex
+                                          ? 'border-cbre-green shadow-md ring-2 ring-cbre-green ring-offset-1'
+                                          : 'border-light-grey hover:border-dark-grey'
+                                      }`}
+                                      style={{ backgroundColor: colorHex }}
+                                      title={colorKey.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}
+                                    />
+                                  );
+                                })}
+                              </div>
+                            </div>
+
+                            {/* Dark Green Shades */}
+                            <div className="space-y-1">
+                              <div className="text-xs font-calibre text-dark-grey">Dark Green Shades</div>
+                              <div className="grid grid-cols-6 gap-1.5">
+                                {['dark-green-shade-1', 'dark-green-shade-2', 'dark-green-shade-3'].map((colorKey) => {
                                   const colorHex = cbreColors[colorKey as keyof typeof cbreColors];
                                   return (
                                     <button
