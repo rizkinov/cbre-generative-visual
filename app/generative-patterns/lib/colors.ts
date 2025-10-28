@@ -4,23 +4,51 @@
  */
 
 export const cbreColors = {
-  // Primary Colors
+  // ===== PRIMARY COLORS =====
   "cbre-green": "#003F2D",
-  "accent-green": "#17E88F",
-  "dark-green": "#012A2D",
   "dark-grey": "#435254",
   "light-grey": "#CAD1D3",
-  "lighter-grey": "#E6E8E9",
 
-  // Secondary Colors
+  // ===== SECONDARY COLORS =====
+
+  // Accent Green Family
+  "accent-green": "#17E88F",
+  "accent-green-shade-1": "#45EDA5",
+  "accent-green-shade-2": "#74F1BC",
+  "accent-green-shade-3": "#A2F6D2",
+
+  // Dark Green Family
+  "dark-green": "#012A2D",
+  "dark-green-shade-1": "#355456",
+  "dark-green-shade-2": "#677F80",
+  "dark-green-shade-3": "#9AA9AB",
+
+  // Midnight Blue Family
   "midnight": "#032842",
+  "midnight-shade-1": "#355268",
+  "midnight-shade-2": "#677D8E",
+  "midnight-shade-3": "#9AA9B3",
   "midnight-tint": "#778F9C",
+
+  // Sage Family
   "sage": "#538184",
+  "sage-shade-1": "#759A9D",
+  "sage-shade-2": "#97B3B5",
+  "sage-shade-3": "#BACDCE",
   "sage-tint": "#96B3B6",
+
+  // Celadon Family
   "celadon": "#80BBAD",
+  "celadon-shade-1": "#99C9BD",
+  "celadon-shade-2": "#B3D6CE",
+  "celadon-shade-3": "#CCE4DE",
   "celadon-tint": "#C0D4CB",
+
+  // Wheat Family
   "wheat": "#DBD99A",
   "wheat-tint": "#EFECD2",
+
+  // Cement Family
   "cement": "#7F8480",
   "cement-tint": "#CBCDCB",
 };
