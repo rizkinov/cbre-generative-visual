@@ -25,6 +25,7 @@ import type {
   TransformationalColorBackgroundParams,
 } from '../lib/types';
 import { transformationalPresets } from '../patterns/transformationalColorBackground';
+import { cbreColors } from '../lib/colors';
 
 interface ControlsPanelProps {
   pattern: PatternType;
@@ -949,23 +950,30 @@ export function ControlsPanel({
                   {pin.enabled && (
                     <>
                       <div className="space-y-2">
-                        <Label htmlFor={`pin-${idx}-color`} className="font-calibre text-sm">
-                          Color
-                        </Label>
-                        <input
-                          type="color"
-                          id={`pin-${idx}-color`}
-                          value={pin.color}
-                          onChange={(e) => {
-                            const newPins = [...transformationalColorBackgroundParams.pins];
-                            newPins[idx] = { ...newPins[idx], color: e.target.value };
-                            onTransformationalColorBackgroundChange({
-                              ...transformationalColorBackgroundParams,
-                              pins: newPins as any,
-                            });
-                          }}
-                          className="w-full h-10 border border-light-grey cursor-pointer"
-                        />
+                        <Label className="font-calibre text-sm">Color</Label>
+                        <div className="grid grid-cols-5 gap-2">
+                          {Object.entries(cbreColors).map(([colorKey, colorHex]) => (
+                            <button
+                              key={colorKey}
+                              type="button"
+                              onClick={() => {
+                                const newPins = [...transformationalColorBackgroundParams.pins];
+                                newPins[idx] = { ...newPins[idx], color: colorHex };
+                                onTransformationalColorBackgroundChange({
+                                  ...transformationalColorBackgroundParams,
+                                  pins: newPins as any,
+                                });
+                              }}
+                              className={`w-full aspect-square rounded border-2 transition-all hover:scale-110 ${
+                                pin.color === colorHex
+                                  ? 'border-cbre-green shadow-md scale-105'
+                                  : 'border-light-grey'
+                              }`}
+                              style={{ backgroundColor: colorHex }}
+                              title={colorKey.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}
+                            />
+                          ))}
+                        </div>
                       </div>
 
                       <div className="space-y-2">
