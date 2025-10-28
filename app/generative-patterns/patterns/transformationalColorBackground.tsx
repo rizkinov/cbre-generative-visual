@@ -34,7 +34,8 @@ function calculateMeshColor(
   });
 
   // Inverse distance weighting with power (higher = sharper transitions)
-  const power = 2 + blendStrength * 2;
+  // Use lower power for smoother blending and less artifacts
+  const power = 1.5 + blendStrength * 2;
   const weights = distances.map(d => {
     if (d < 0.001) return 1000000; // Very close to pin
     return 1 / Math.pow(d, power);
@@ -87,8 +88,8 @@ function generateMeshGradientSVG(
   }
 
   // Create a high-resolution grid for smooth gradients
-  // Increased grid resolution for smoother blending and fewer artifacts
-  const gridSize = Math.min(150, Math.max(100, Math.floor(Math.min(width, height) / 20)));
+  // Very high resolution to minimize artifacts with high-contrast colors
+  const gridSize = Math.min(200, Math.max(120, Math.floor(Math.min(width, height) / 15)));
 
   // Extend grid beyond visible area to prevent edge darkening (like AE's "Repeat Edge Pixels")
   const edgeExtension = 0.15; // Extend 15% beyond edges
@@ -130,8 +131,8 @@ function generateMeshGradientSVG(
   }
 
   // Calculate blur strength for smooth blending
-  // Increased blur for smoother gradients and reduced artifacts
-  const blurAmount = Math.max(30, width / gridSize * 1.5);
+  // Higher blur for high-contrast colors to eliminate grid artifacts
+  const blurAmount = Math.max(40, width / gridSize * 2);
 
   return (
     <g>
