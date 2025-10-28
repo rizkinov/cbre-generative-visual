@@ -87,8 +87,8 @@ function generateMeshGradientSVG(
   }
 
   // Create a high-resolution grid for smooth gradients
-  // Adaptive grid size: larger canvases get higher resolution
-  const gridSize = Math.min(100, Math.max(60, Math.floor(Math.min(width, height) / 30)));
+  // Increased grid resolution for smoother blending and fewer artifacts
+  const gridSize = Math.min(150, Math.max(100, Math.floor(Math.min(width, height) / 20)));
 
   // Extend grid beyond visible area to prevent edge darkening (like AE's "Repeat Edge Pixels")
   const edgeExtension = 0.15; // Extend 15% beyond edges
@@ -130,7 +130,8 @@ function generateMeshGradientSVG(
   }
 
   // Calculate blur strength for smooth blending
-  const blurAmount = Math.max(20, width / gridSize);
+  // Increased blur for smoother gradients and reduced artifacts
+  const blurAmount = Math.max(30, width / gridSize * 1.5);
 
   return (
     <g>
