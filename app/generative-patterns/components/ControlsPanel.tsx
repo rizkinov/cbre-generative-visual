@@ -892,13 +892,13 @@ export function ControlsPanel({
             <div className="space-y-3">
               <div className="space-y-2">
                 <Label htmlFor="blend-strength" className="font-calibre text-sm">
-                  Blend Strength: {transformationalColorBackgroundParams.blendStrength.toFixed(2)}
+                  Blend Strength: {transformationalColorBackgroundParams.blendStrength.toFixed(1)}
                 </Label>
                 <Slider
                   id="blend-strength"
-                  min={0.01}
+                  min={0.1}
                   max={3}
-                  step={0.01}
+                  step={0.1}
                   value={[transformationalColorBackgroundParams.blendStrength]}
                   onValueChange={(v) =>
                     onTransformationalColorBackgroundChange({
