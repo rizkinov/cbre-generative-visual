@@ -221,6 +221,96 @@ export function generateTransformationalColorBackground(
 
 // Preset configurations
 export const transformationalPresets = {
+  'sageHorizon': {
+    name: 'Sage Horizon',
+    params: {
+      pins: [
+        { enabled: true, x: 0.1, y: 0.2, color: cbreColors['sage-tint'] },
+        { enabled: true, x: 0.9, y: 0.3, color: cbreColors['celadon'] },
+        { enabled: true, x: 0.5, y: 0.8, color: cbreColors['wheat-tint'] },
+        { enabled: true, x: 0.2, y: 0.6, color: cbreColors['sage'] },
+        { enabled: false, x: 0.5, y: 0.5, color: cbreColors['accent-green'] },
+      ],
+      blendStrength: 0.1,
+      frameEnabled: false,
+      frameThickness: 100,
+    } as TransformationalColorBackgroundParams,
+  },
+  'accentGlow': {
+    name: 'Accent Glow',
+    params: {
+      pins: [
+        { enabled: true, x: 0.5, y: 0.5, color: cbreColors['accent-green'] },
+        { enabled: true, x: 0.15, y: 0.15, color: cbreColors['accent-green-shade-1'] },
+        { enabled: true, x: 0.85, y: 0.15, color: cbreColors['accent-green-shade-2'] },
+        { enabled: true, x: 0.15, y: 0.85, color: cbreColors['celadon'] },
+        { enabled: true, x: 0.85, y: 0.85, color: cbreColors['accent-green-shade-3'] },
+      ],
+      blendStrength: 0.2,
+      frameEnabled: false,
+      frameThickness: 100,
+    } as TransformationalColorBackgroundParams,
+  },
+  'wheatFields': {
+    name: 'Wheat Fields',
+    params: {
+      pins: [
+        { enabled: true, x: 0.2, y: 0.3, color: cbreColors['celadon-tint'] },
+        { enabled: true, x: 0.7, y: 0.25, color: cbreColors['sage'] },
+        { enabled: true, x: 0.4, y: 0.7, color: cbreColors['wheat-tint'] },
+        { enabled: true, x: 0.85, y: 0.8, color: cbreColors['wheat'] },
+        { enabled: false, x: 0.5, y: 0.5, color: '#FFFFFF' },
+      ],
+      blendStrength: 0.1,
+      frameEnabled: false,
+      frameThickness: 100,
+    } as TransformationalColorBackgroundParams,
+  },
+  'celadonDream': {
+    name: 'Celadon Dream',
+    params: {
+      pins: [
+        { enabled: true, x: 0.25, y: 0.25, color: cbreColors['celadon-shade-1'] },
+        { enabled: true, x: 0.75, y: 0.35, color: cbreColors['celadon'] },
+        { enabled: true, x: 0.5, y: 0.75, color: cbreColors['wheat-tint'] },
+        { enabled: true, x: 0.15, y: 0.65, color: cbreColors['sage-tint'] },
+        { enabled: true, x: 0.85, y: 0.85, color: cbreColors['cement-tint'] },
+      ],
+      blendStrength: 0.1,
+      frameEnabled: false,
+      frameThickness: 100,
+    } as TransformationalColorBackgroundParams,
+  },
+  'oceanBreeze': {
+    name: 'Ocean Breeze',
+    params: {
+      pins: [
+        { enabled: true, x: 0.3, y: 0.3, color: cbreColors['celadon'] },
+        { enabled: true, x: 0.7, y: 0.2, color: cbreColors['sage-shade-3'] },
+        { enabled: true, x: 0.5, y: 0.7, color: cbreColors['celadon-shade-3'] },
+        { enabled: true, x: 0.1, y: 0.6, color: cbreColors['sage-tint'] },
+        { enabled: true, x: 0.9, y: 0.8, color: cbreColors['celadon-tint'] },
+      ],
+      blendStrength: 0.08,
+      frameEnabled: false,
+      frameThickness: 100,
+    } as TransformationalColorBackgroundParams,
+  },
+  'subtleElegance': {
+    name: 'Subtle Elegance',
+    params: {
+      pins: [
+        { enabled: true, x: 0.25, y: 0.35, color: cbreColors['sage-shade-2'] },
+        { enabled: true, x: 0.75, y: 0.3, color: cbreColors['celadon-shade-2'] },
+        { enabled: true, x: 0.5, y: 0.65, color: cbreColors['cement-tint'] },
+        { enabled: true, x: 0.2, y: 0.7, color: cbreColors['sage-shade-3'] },
+        { enabled: true, x: 0.8, y: 0.75, color: cbreColors['celadon-shade-3'] },
+      ],
+      blendStrength: 0.05,
+      frameEnabled: false,
+      frameThickness: 100,
+    } as TransformationalColorBackgroundParams,
+  },
   'midnightTeal': {
     name: 'Midnight Teal',
     params: {
@@ -236,21 +326,6 @@ export const transformationalPresets = {
       frameThickness: 100,
     } as TransformationalColorBackgroundParams,
   },
-  'accentRadiance': {
-    name: 'Accent Radiance',
-    params: {
-      pins: [
-        { enabled: true, x: 0.5, y: 0.5, color: cbreColors['accent-green'] },
-        { enabled: true, x: 0.1, y: 0.1, color: cbreColors['midnight'] },
-        { enabled: true, x: 0.9, y: 0.1, color: cbreColors['cbre-green'] },
-        { enabled: true, x: 0.1, y: 0.9, color: cbreColors['celadon'] },
-        { enabled: true, x: 0.9, y: 0.9, color: cbreColors['sage'] },
-      ],
-      blendStrength: 0.12,
-      frameEnabled: false,
-      frameThickness: 100,
-    } as TransformationalColorBackgroundParams,
-  },
   'deepForest': {
     name: 'Deep Forest',
     params: {
@@ -260,36 +335,6 @@ export const transformationalPresets = {
         { enabled: true, x: 0.5, y: 0.75, color: cbreColors['sage'] },
         { enabled: true, x: 0.2, y: 0.8, color: cbreColors['celadon-tint'] },
         { enabled: false, x: 0.5, y: 0.5, color: cbreColors['accent-green'] },
-      ],
-      blendStrength: 0.1,
-      frameEnabled: false,
-      frameThickness: 100,
-    } as TransformationalColorBackgroundParams,
-  },
-  'oceanicBlend': {
-    name: 'Oceanic Blend',
-    params: {
-      pins: [
-        { enabled: true, x: 0.2, y: 0.15, color: cbreColors['midnight-shade-2'] },
-        { enabled: true, x: 0.8, y: 0.2, color: cbreColors['celadon'] },
-        { enabled: true, x: 0.5, y: 0.7, color: cbreColors['accent-green-shade-2'] },
-        { enabled: true, x: 0.15, y: 0.75, color: cbreColors['sage'] },
-        { enabled: true, x: 0.85, y: 0.8, color: cbreColors['celadon-tint'] },
-      ],
-      blendStrength: 0.09,
-      frameEnabled: false,
-      frameThickness: 100,
-    } as TransformationalColorBackgroundParams,
-  },
-  'emeraldGlow': {
-    name: 'Emerald Glow',
-    params: {
-      pins: [
-        { enabled: true, x: 0.3, y: 0.3, color: cbreColors['accent-green'] },
-        { enabled: true, x: 0.7, y: 0.25, color: cbreColors['celadon'] },
-        { enabled: true, x: 0.5, y: 0.75, color: cbreColors['sage-tint'] },
-        { enabled: true, x: 0.1, y: 0.6, color: cbreColors['cbre-green'] },
-        { enabled: true, x: 0.9, y: 0.7, color: cbreColors['accent-green-shade-3'] },
       ],
       blendStrength: 0.1,
       frameEnabled: false,
@@ -311,53 +356,8 @@ export const transformationalPresets = {
       frameThickness: 100,
     } as TransformationalColorBackgroundParams,
   },
-  'sageDepth': {
-    name: 'Sage Depth',
-    params: {
-      pins: [
-        { enabled: true, x: 0.2, y: 0.2, color: cbreColors['sage'] },
-        { enabled: true, x: 0.8, y: 0.25, color: cbreColors['dark-green-shade-1'] },
-        { enabled: true, x: 0.5, y: 0.7, color: cbreColors['celadon'] },
-        { enabled: true, x: 0.15, y: 0.8, color: cbreColors['midnight-tint'] },
-        { enabled: true, x: 0.85, y: 0.75, color: cbreColors['sage-shade-3'] },
-      ],
-      blendStrength: 0.11,
-      frameEnabled: false,
-      frameThickness: 100,
-    } as TransformationalColorBackgroundParams,
-  },
-  'teaGreenWave': {
-    name: 'Tea Green Wave',
-    params: {
-      pins: [
-        { enabled: true, x: 0.25, y: 0.3, color: cbreColors['celadon'] },
-        { enabled: true, x: 0.75, y: 0.25, color: cbreColors['accent-green-shade-1'] },
-        { enabled: true, x: 0.5, y: 0.75, color: cbreColors['celadon-shade-3'] },
-        { enabled: true, x: 0.1, y: 0.65, color: cbreColors['sage-shade-2'] },
-        { enabled: true, x: 0.9, y: 0.8, color: cbreColors['celadon-tint'] },
-      ],
-      blendStrength: 0.08,
-      frameEnabled: false,
-      frameThickness: 100,
-    } as TransformationalColorBackgroundParams,
-  },
-  'darkTranquility': {
-    name: 'Dark Tranquility',
-    params: {
-      pins: [
-        { enabled: true, x: 0.3, y: 0.2, color: cbreColors['cbre-green'] },
-        { enabled: true, x: 0.7, y: 0.15, color: cbreColors['midnight-shade-1'] },
-        { enabled: true, x: 0.5, y: 0.65, color: cbreColors['sage'] },
-        { enabled: true, x: 0.15, y: 0.75, color: cbreColors['dark-green-shade-2'] },
-        { enabled: true, x: 0.85, y: 0.8, color: cbreColors['celadon-shade-1'] },
-      ],
-      blendStrength: 0.1,
-      frameEnabled: false,
-      frameThickness: 100,
-    } as TransformationalColorBackgroundParams,
-  },
 };
 
-// Default parameters (Midnight Teal preset)
+// Default parameters (Sage Horizon preset)
 export const defaultTransformationalColorBackgroundParams: TransformationalColorBackgroundParams =
-  transformationalPresets.midnightTeal.params;
+  transformationalPresets.sageHorizon.params;
