@@ -1,6 +1,7 @@
 "use client";
 
 import { Label } from '@/src/components/ui/label';
+import { Popover, PopoverContent, PopoverTrigger } from '@/src/components/ui/popover';
 import { cbreColors } from '../lib/colors';
 
 interface CBREColorPickerProps {
@@ -14,22 +15,25 @@ export function CBREColorPicker({ label, value, onChange, id }: CBREColorPickerP
   return (
     <div className="space-y-2">
       <Label className="font-calibre text-sm">{label}</Label>
-      <details className="group">
-        <summary className="cursor-pointer list-none">
-          <div className="flex items-center gap-2 p-2 border border-light-grey rounded hover:border-dark-grey transition-colors">
+      <Popover>
+        <PopoverTrigger asChild>
+          <button
+            type="button"
+            className="w-full flex items-center gap-2 p-2 border border-light-grey rounded hover:border-dark-grey transition-colors"
+          >
             <div
               className="w-8 h-8 rounded border-2 border-light-grey"
               style={{ backgroundColor: value }}
             />
-            <span className="text-sm font-calibre text-dark-grey flex-1">
+            <span className="text-sm font-calibre text-dark-grey flex-1 text-left">
               {Object.entries(cbreColors).find(([_, hex]) => hex === value)?.[0]?.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase()) || 'Select color'}
             </span>
-            <svg className="w-4 h-4 text-dark-grey transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg className="w-4 h-4 text-dark-grey" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
             </svg>
-          </div>
-        </summary>
-        <div className="mt-2 p-3 border border-light-grey rounded bg-white space-y-3 max-h-[400px] overflow-y-auto">
+          </button>
+        </PopoverTrigger>
+        <PopoverContent className="w-80 p-3 space-y-3 max-h-[400px] overflow-y-auto" align="start">
           {/* Primary Colors */}
           <div className="space-y-1">
             <div className="text-xs font-calibre text-dark-grey font-semibold uppercase tracking-wide">Primary Colors</div>
@@ -231,8 +235,8 @@ export function CBREColorPicker({ label, value, onChange, id }: CBREColorPickerP
               })}
             </div>
           </div>
-        </div>
-      </details>
+        </PopoverContent>
+      </Popover>
     </div>
   );
 }
