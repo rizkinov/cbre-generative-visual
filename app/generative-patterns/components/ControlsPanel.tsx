@@ -16,6 +16,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/src/components/ui/select';
+import { Checkbox } from '@/src/components/cbre/CBRECheckbox';
 import type {
   PatternType,
   HorizontalBandsParams,
@@ -803,14 +804,12 @@ export function ControlsPanel({
             <h3 className="text-sm font-calibre font-semibold text-cbre-green mb-3">Color Gradient</h3>
             <div className="space-y-3">
               <div className="flex items-center space-x-2">
-                <input
-                  type="checkbox"
+                <Checkbox
                   id="use-gradient"
                   checked={multidimensionalLoSParams.useGradient}
-                  onChange={(e) =>
-                    onMultidimensionalLoSChange({ ...multidimensionalLoSParams, useGradient: e.target.checked })
+                  onCheckedChange={(checked) =>
+                    onMultidimensionalLoSChange({ ...multidimensionalLoSParams, useGradient: checked === true })
                   }
-                  className="w-4 h-4"
                 />
                 <Label htmlFor="use-gradient" className="font-calibre text-sm cursor-pointer">
                   Use Gradient
@@ -928,19 +927,17 @@ export function ControlsPanel({
                       Pin {idx + 1}
                     </span>
                     <div className="flex items-center gap-2">
-                      <input
-                        type="checkbox"
+                      <Checkbox
                         id={`pin-${idx}-enabled`}
                         checked={pin.enabled}
-                        onChange={(e) => {
+                        onCheckedChange={(checked) => {
                           const newPins = [...transformationalColorBackgroundParams.pins];
-                          newPins[idx] = { ...newPins[idx], enabled: e.target.checked };
+                          newPins[idx] = { ...newPins[idx], enabled: checked === true };
                           onTransformationalColorBackgroundChange({
                             ...transformationalColorBackgroundParams,
                             pins: newPins as any,
                           });
                         }}
-                        className="w-4 h-4"
                       />
                       <Label htmlFor={`pin-${idx}-enabled`} className="font-calibre text-sm cursor-pointer">
                         Enabled
@@ -1018,17 +1015,15 @@ export function ControlsPanel({
             <h3 className="text-sm font-calibre font-semibold text-cbre-green mb-3">Frame Settings</h3>
             <div className="space-y-3">
               <div className="flex items-center space-x-2">
-                <input
-                  type="checkbox"
+                <Checkbox
                   id="frame-enabled"
                   checked={transformationalColorBackgroundParams.frameEnabled}
-                  onChange={(e) =>
+                  onCheckedChange={(checked) =>
                     onTransformationalColorBackgroundChange({
                       ...transformationalColorBackgroundParams,
-                      frameEnabled: e.target.checked,
+                      frameEnabled: checked === true,
                     })
                   }
-                  className="w-4 h-4"
                 />
                 <Label htmlFor="frame-enabled" className="font-calibre text-sm cursor-pointer">
                   Enable Frame
