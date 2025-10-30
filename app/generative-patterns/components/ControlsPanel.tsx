@@ -26,7 +26,6 @@ import type {
   TransformationalColorBackgroundParams,
 } from '../lib/types';
 import { transformationalPresets } from '../patterns/transformationalColorBackground';
-import { cbreColors } from '../lib/colors';
 import { CBREColorPicker } from './CBREColorPicker';
 
 interface ControlsPanelProps {
@@ -935,7 +934,7 @@ export function ControlsPanel({
                           newPins[idx] = { ...newPins[idx], enabled: checked === true };
                           onTransformationalColorBackgroundChange({
                             ...transformationalColorBackgroundParams,
-                            pins: newPins as any,
+                            pins: newPins as TransformationalColorBackgroundParams['pins'],
                           });
                         }}
                       />
@@ -955,7 +954,7 @@ export function ControlsPanel({
                           newPins[idx] = { ...newPins[idx], color };
                           onTransformationalColorBackgroundChange({
                             ...transformationalColorBackgroundParams,
-                            pins: newPins as any,
+                            pins: newPins as TransformationalColorBackgroundParams['pins'],
                           });
                         }}
                       />
@@ -975,7 +974,7 @@ export function ControlsPanel({
                             newPins[idx] = { ...newPins[idx], x: v[0] };
                             onTransformationalColorBackgroundChange({
                               ...transformationalColorBackgroundParams,
-                              pins: newPins as any,
+                              pins: newPins as TransformationalColorBackgroundParams['pins'],
                             });
                           }}
                         />
@@ -996,7 +995,7 @@ export function ControlsPanel({
                             newPins[idx] = { ...newPins[idx], y: v[0] };
                             onTransformationalColorBackgroundChange({
                               ...transformationalColorBackgroundParams,
-                              pins: newPins as any,
+                              pins: newPins as TransformationalColorBackgroundParams['pins'],
                             });
                           }}
                         />

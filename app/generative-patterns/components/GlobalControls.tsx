@@ -2,7 +2,6 @@
 
 import { CBREButton } from '@/src/components/cbre/CBREButton';
 import { CBRECard } from '@/src/components/cbre/CBRECard';
-import { Input } from '@/src/components/ui/input';
 import { Label } from '@/src/components/ui/label';
 import {
   Select,
@@ -13,20 +12,14 @@ import {
 } from '@/src/components/ui/select';
 import { Slider } from '@/src/components/ui/slider';
 import { cbreColors } from '../lib/colors';
-import type { BrandPair, CanvasSpec, PatternType } from '../lib/types';
-import { generateRandomSeed } from '../lib/seeding';
+import type { BrandPair, CanvasSpec } from '../lib/types';
 import { CBREColorPicker } from './CBREColorPicker';
 
 interface GlobalControlsProps {
-  seed: number;
-  onSeedChange: (seed: number) => void;
   brandPair: BrandPair;
   onBrandPairChange: (pair: BrandPair) => void;
   canvas: CanvasSpec;
   onCanvasChange: (canvas: CanvasSpec) => void;
-  lineWeight: number;
-  onLineWeightChange: (weight: number) => void;
-  currentPattern: PatternType;
 }
 
 // Brand color pair presets
@@ -106,15 +99,10 @@ const canvasSizes = [
 ];
 
 export function GlobalControls({
-  seed,
-  onSeedChange,
   brandPair,
   onBrandPairChange,
   canvas,
   onCanvasChange,
-  lineWeight,
-  onLineWeightChange,
-  currentPattern,
 }: GlobalControlsProps) {
   // Find matching preset or default to "Custom" (index 0)
   const currentPairIndex = colorPairs.findIndex(

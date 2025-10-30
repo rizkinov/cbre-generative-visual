@@ -8,10 +8,9 @@ interface CBREColorPickerProps {
   label: string;
   value: string;
   onChange: (color: string) => void;
-  id?: string;
 }
 
-export function CBREColorPicker({ label, value, onChange, id }: CBREColorPickerProps) {
+export function CBREColorPicker({ label, value, onChange }: CBREColorPickerProps) {
   return (
     <div className="space-y-2">
       <Label className="font-calibre text-sm">{label}</Label>
@@ -26,7 +25,7 @@ export function CBREColorPicker({ label, value, onChange, id }: CBREColorPickerP
               style={{ backgroundColor: value }}
             />
             <span className="text-sm font-calibre text-dark-grey flex-1 text-left">
-              {Object.entries(cbreColors).find(([_, hex]) => hex === value)?.[0]?.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase()) || 'Select color'}
+              {Object.entries(cbreColors).find(([, hex]) => hex === value)?.[0]?.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase()) || 'Select color'}
             </span>
             <svg className="w-4 h-4 text-dark-grey" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
