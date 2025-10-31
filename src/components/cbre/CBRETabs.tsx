@@ -148,7 +148,7 @@ export function CBRETabsTrigger({
     ),
     boxed: cn(
       "font-calibre font-medium",
-      "data-[state=inactive]:text-dark-grey",
+      "data-[state=inactive]:text-dark-grey data-[state=inactive]:bg-light-grey",
       "rounded-none hover:text-cbre-green"
     ),
   };
