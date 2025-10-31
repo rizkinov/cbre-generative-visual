@@ -49,8 +49,9 @@ export function generateVerticalBars(
       const density = applyCurve(t, params.densityCurve, params.curveIntensity);
 
       // For LTR: density increases (gap decreases) from left to right
-      // For RTL: density increases (gap decreases) from right to left
-      const finalDensity = params.direction === 'LTR' ? density : (params.curveIntensity / 100) - density;
+      // For RTL: density increases (gap decreases) from right to left (reverse the curve)
+      const maxDensity = (params.curveIntensity / 100);
+      const finalDensity = params.direction === 'LTR' ? density : maxDensity * (1 - t * t);
 
       const barWidth = Math.max(lineWeight, params.barWidth);
 
@@ -63,7 +64,8 @@ export function generateVerticalBars(
       // This eliminates any hairline gaps at the densest end
       const finalGap = gap < 5 ? -2 : gap;
 
-      // Check if this is the last bar and extendLastBar is enabled
+      // Always extend the last bar drawn to fill remaining space
+      // This works for all directions (LTR, RTL, etc.)
       const isLastBar = i === params.barCount - 1;
       const actualBarWidth = (isLastBar && params.extendLastBar)
         ? (width - padding - params.edgePadding - x) // Fill remaining space
@@ -94,8 +96,9 @@ export function generateVerticalBars(
       const density = applyCurve(t, params.densityCurve, params.curveIntensity);
 
       // For TTB: density increases (gap decreases) from top to bottom
-      // For BTT: density increases (gap decreases) from bottom to top
-      const finalDensity = params.direction === 'TTB' ? density : (params.curveIntensity / 100) - density;
+      // For BTT: density increases (gap decreases) from bottom to top (reverse the curve)
+      const maxDensity = (params.curveIntensity / 100);
+      const finalDensity = params.direction === 'TTB' ? density : maxDensity * (1 - t * t);
 
       const barHeight = Math.max(lineWeight, params.barWidth);
 
@@ -108,7 +111,8 @@ export function generateVerticalBars(
       // This eliminates any hairline gaps at the densest end
       const finalGap = gap < 5 ? -2 : gap;
 
-      // Check if this is the last bar and extendLastBar is enabled
+      // Always extend the last bar drawn to fill remaining space
+      // This works for all directions (TTB, BTT, etc.)
       const isLastBar = i === params.barCount - 1;
       const actualBarHeight = (isLastBar && params.extendLastBar)
         ? (height - padding - params.edgePadding - y) // Fill remaining space
