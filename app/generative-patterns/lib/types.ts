@@ -2,7 +2,7 @@
  * Type definitions for CBRE Generative Patterns
  */
 
-export type PatternType = 'horizontalBands' | 'verticalBars' | 'diagonalContours' | 'multidimensionalLoS' | 'transformationalColorBackground';
+export type PatternType = 'horizontalBands' | 'verticalBars' | 'diagonalContours' | 'multidimensionalLoS' | 'transformationalColorBackground' | 'portal';
 
 export interface CanvasSpec {
   width: number;

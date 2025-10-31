@@ -87,6 +87,9 @@ export function ControlsPanel({
           <CBRETabsTrigger value="transformationalColorBackground" className="flex-1 min-w-[140px]">
             Transformational
           </CBRETabsTrigger>
+          <CBRETabsTrigger value="portal" className="flex-1 min-w-[140px]" disabled>
+            Portal
+          </CBRETabsTrigger>
         </CBRETabsList>
 
         {/* Horizontal Bands Controls */}
@@ -1055,6 +1058,18 @@ export function ControlsPanel({
                 </div>
               )}
             </div>
+          </div>
+        </CBRETabsContent>
+
+        {/* Portal Controls - Coming Soon */}
+        <CBRETabsContent value="portal" className="space-y-4">
+          <div className="flex flex-col items-center justify-center py-12 text-center">
+            <p className="text-lg font-calibre text-dark-grey mb-2">
+              Portal Pattern
+            </p>
+            <p className="text-sm font-calibre text-dark-grey opacity-60">
+              Coming Soon
+            </p>
           </div>
         </CBRETabsContent>
       </CBRETabs>

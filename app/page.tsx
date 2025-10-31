@@ -83,6 +83,9 @@ export default function Home() {
         return generateMultidimensionalLoS(multidimensionalLoSParams, globals);
       case 'transformationalColorBackground':
         return generateTransformationalColorBackground(transformationalColorBackgroundParams, globals);
+      case 'portal':
+        // Coming soon - render empty for now
+        return <g />;
       default:
         return <g />;
     }
