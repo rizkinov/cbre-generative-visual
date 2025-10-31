@@ -89,12 +89,12 @@ export function CBRETabsList({
 
   // Variant classes
   const variantClasses = {
-    underline: "border-b border-light-grey",
-    boxed: "rounded-none",
+    underline: "border-b border-light-grey bg-transparent",
+    boxed: "rounded-none bg-transparent",
   };
 
   return (
-    <TabsList 
+    <TabsList
       data-variant={variant}
       className={cn(
         "w-full flex justify-start p-0 rounded-none relative",
@@ -139,6 +139,11 @@ export function CBRETabsTrigger({
     lg: "px-4 py-2 text-lg",
   };
 
+  // Base inline styles for boxed variant (bypasses Tailwind specificity)
+  const inlineStyles = variant === 'boxed' && !disabled
+    ? { backgroundColor: '#CAD1D3' } // light-grey
+    : undefined;
+
   // Variant styles for tabs - simplified to avoid conflicts with our global CSS
   const variantClasses = {
     underline: cn(
@@ -147,9 +152,11 @@ export function CBRETabsTrigger({
       "data-[state=active]:text-cbre-green"
     ),
     boxed: cn(
-      "font-calibre font-medium bg-light-grey text-dark-grey",
-      "rounded-none hover:bg-lighter-grey",
-      "data-[state=active]:bg-cbre-green data-[state=active]:text-white"
+      "font-calibre font-medium",
+      "rounded-none",
+      "data-[state=active]:text-white",
+      // Use inline style attribute for active state background
+      "[&[data-state=active]]:!bg-[#003F2D]" // cbre-green
     ),
   };
 
@@ -158,6 +165,7 @@ export function CBRETabsTrigger({
       value={value}
       disabled={disabled}
       data-variant={variant}
+      style={inlineStyles}
       className={cn(
         // Base styles
         "transition-all focus-visible:outline-none focus-visible:ring-2",

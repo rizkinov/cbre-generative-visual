@@ -33,7 +33,7 @@ export interface HorizontalBandsParams {
 }
 
 // Vertical Bars Parameters
-export type DensityCurve = 'linear' | 'easeIn' | 'easeOut' | 'easeInOut' | 'exp';
+export type DensityCurve = 'linear' | 'ease';
 export type Direction = 'LTR' | 'RTL' | 'TTB' | 'BTT';
 
 export interface VerticalBarsParams {
@@ -41,9 +41,10 @@ export interface VerticalBarsParams {
   barWidth: number;
   gapWidth: number;
   densityCurve: DensityCurve;
-  curveIntensity: number;
+  curveIntensity: number; // 0-100 scale
   direction: Direction;
   edgePadding: number;
+  extendLastBar: boolean; // Extend last bar to fill remaining space
 }
 
 // Diagonal Contours Parameters

@@ -8,20 +8,19 @@ import type { VerticalBarsParams, GlobalState, DensityCurve } from '../lib/types
 import { mulberry32 } from '../lib/seeding';
 
 // Density curve functions
-function applyCurve(t: number, curve: DensityCurve): number {
+// Returns a value from 0 to 1 representing density along the progression
+function applyCurve(t: number, curve: DensityCurve, intensity: number): number {
   switch (curve) {
     case 'linear':
-      return t;
-    case 'easeIn':
-      return t * t;
-    case 'easeOut':
-      return 1 - (1 - t) * (1 - t);
-    case 'easeInOut':
-      return t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2;
-    case 'exp':
-      return Math.pow(t, 2.5);
+      // Linear: always returns 0 (no density variation, uniform spacing)
+      return 0;
+    case 'ease':
+      // Ease In: quadratic easing - starts slow, accelerates
+      // This is the original calculation: t * t
+      const easeIn = t * t;
+      return easeIn * (intensity / 100);
     default:
-      return t;
+      return 0;
   }
 }
 
@@ -43,39 +42,77 @@ export function generateVerticalBars(
     let x = padding + params.edgePadding;
 
     for (let i = 0; i < params.barCount && x < width - padding - params.edgePadding; i++) {
+      // t goes from 0 to 1 across all bars
       const t = params.barCount > 1 ? i / (params.barCount - 1) : 0.5;
-      const tCurved = applyCurve(t, params.densityCurve);
-      const densityRaw = params.direction === 'LTR' ? tCurved : 1 - tCurved;
-      const density = densityRaw * params.curveIntensity;
+
+      // Apply curve and intensity
+      const density = applyCurve(t, params.densityCurve, params.curveIntensity);
+
+      // For LTR: density increases (gap decreases) from left to right
+      // For RTL: density increases (gap decreases) from right to left
+      const finalDensity = params.direction === 'LTR' ? density : (params.curveIntensity / 100) - density;
 
       const barWidth = Math.max(lineWeight, params.barWidth);
-      const gap = params.gapWidth * (1 - density * 0.8);
+
+      // Gap reduces as density increases - amplify the effect for more dramatic squeeze
+      // Multiply by 3 to make the gap reduction more aggressive
+      const gapReduction = Math.min(1, finalDensity * 3);
+      let gap = params.gapWidth * (1 - gapReduction);
+
+      // When gap gets very small (< 5px), make bars overlap for solid appearance
+      // This eliminates any hairline gaps at the densest end
+      const finalGap = gap < 5 ? -2 : gap;
+
+      // Check if this is the last bar and extendLastBar is enabled
+      const isLastBar = i === params.barCount - 1;
+      const actualBarWidth = (isLastBar && params.extendLastBar)
+        ? (width - padding - params.edgePadding - x) // Fill remaining space
+        : barWidth;
 
       bars.push(
         <rect
           key={i}
           x={x}
           y={padding}
-          width={barWidth}
+          width={actualBarWidth}
           height={height - 2 * padding}
           fill="currentColor"
         />
       );
 
-      x += barWidth + gap;
+      x += barWidth + finalGap;
     }
   } else {
     // Horizontal bars (top-bottom)
     let y = padding + params.edgePadding;
 
     for (let i = 0; i < params.barCount && y < height - padding - params.edgePadding; i++) {
+      // t goes from 0 to 1 across all bars
       const t = params.barCount > 1 ? i / (params.barCount - 1) : 0.5;
-      const tCurved = applyCurve(t, params.densityCurve);
-      const densityRaw = params.direction === 'TTB' ? tCurved : 1 - tCurved;
-      const density = densityRaw * params.curveIntensity;
+
+      // Apply curve and intensity
+      const density = applyCurve(t, params.densityCurve, params.curveIntensity);
+
+      // For TTB: density increases (gap decreases) from top to bottom
+      // For BTT: density increases (gap decreases) from bottom to top
+      const finalDensity = params.direction === 'TTB' ? density : (params.curveIntensity / 100) - density;
 
       const barHeight = Math.max(lineWeight, params.barWidth);
-      const gap = params.gapWidth * (1 - density * 0.8);
+
+      // Gap reduces as density increases - amplify the effect for more dramatic squeeze
+      // Multiply by 3 to make the gap reduction more aggressive
+      const gapReduction = Math.min(1, finalDensity * 3);
+      let gap = params.gapWidth * (1 - gapReduction);
+
+      // When gap gets very small (< 5px), make bars overlap for solid appearance
+      // This eliminates any hairline gaps at the densest end
+      const finalGap = gap < 5 ? -2 : gap;
+
+      // Check if this is the last bar and extendLastBar is enabled
+      const isLastBar = i === params.barCount - 1;
+      const actualBarHeight = (isLastBar && params.extendLastBar)
+        ? (height - padding - params.edgePadding - y) // Fill remaining space
+        : barHeight;
 
       bars.push(
         <rect
@@ -83,12 +120,12 @@ export function generateVerticalBars(
           x={padding}
           y={y}
           width={width - 2 * padding}
-          height={barHeight}
+          height={actualBarHeight}
           fill="currentColor"
         />
       );
 
-      y += barHeight + gap;
+      y += barHeight + finalGap;
     }
   }
 
@@ -100,8 +137,9 @@ export const defaultVerticalBarsParams: VerticalBarsParams = {
   barCount: 30,
   barWidth: 20,
   gapWidth: 40,
-  densityCurve: 'easeInOut',
-  curveIntensity: 1.0,
+  densityCurve: 'ease',
+  curveIntensity: 50, // 0-100 scale
   direction: 'LTR',
   edgePadding: 0,
+  extendLastBar: true,
 };

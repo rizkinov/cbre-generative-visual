@@ -181,6 +181,11 @@
   }
 
   /* Override tab styles for CBRE branding - boxed variant */
+  [data-slot="tabs-trigger"][data-variant="boxed"] {
+    background-color: var(--lighter-grey) !important;
+    color: var(--dark-grey) !important;
+  }
+
   [data-slot="tabs-trigger"][data-state="active"][data-variant="boxed"] {
     background-color: var(--cbre-green) !important;
     color: white !important;

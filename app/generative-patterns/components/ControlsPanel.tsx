@@ -241,28 +241,27 @@ export function ControlsPanel({
             </SelectTrigger>
             <SelectContent>
               <SelectItem value="linear">Linear</SelectItem>
-              <SelectItem value="easeIn">Ease In</SelectItem>
-              <SelectItem value="easeOut">Ease Out</SelectItem>
-              <SelectItem value="easeInOut">Ease In Out</SelectItem>
-              <SelectItem value="exp">Exponential</SelectItem>
+              <SelectItem value="ease">Ease</SelectItem>
             </SelectContent>
           </CBRESelect>
 
-          <div className="space-y-2">
-            <Label htmlFor="curve-intensity" className="font-calibre">
-              Curve Intensity: {verticalBarsParams.curveIntensity.toFixed(2)}
-            </Label>
-            <Slider
-              id="curve-intensity"
-              min={0}
-              max={2}
-              step={0.1}
-              value={[verticalBarsParams.curveIntensity]}
-              onValueChange={(v) =>
-                onVerticalBarsChange({ ...verticalBarsParams, curveIntensity: v[0] })
-              }
-            />
-          </div>
+          {verticalBarsParams.densityCurve === 'ease' && (
+            <div className="space-y-2">
+              <Label htmlFor="curve-intensity" className="font-calibre">
+                Curve Intensity: {verticalBarsParams.curveIntensity.toFixed(0)}
+              </Label>
+              <Slider
+                id="curve-intensity"
+                min={0}
+                max={100}
+                step={1}
+                value={[verticalBarsParams.curveIntensity]}
+                onValueChange={(v) =>
+                  onVerticalBarsChange({ ...verticalBarsParams, curveIntensity: v[0] })
+                }
+              />
+            </div>
+          )}
 
           <CBRESelect
             label="Direction"
@@ -300,6 +299,19 @@ export function ControlsPanel({
                 onVerticalBarsChange({ ...verticalBarsParams, edgePadding: v[0] })
               }
             />
+          </div>
+
+          <div className="flex items-center space-x-2">
+            <Checkbox
+              id="extend-last-bar"
+              checked={verticalBarsParams.extendLastBar}
+              onCheckedChange={(checked) =>
+                onVerticalBarsChange({ ...verticalBarsParams, extendLastBar: checked === true })
+              }
+            />
+            <Label htmlFor="extend-last-bar" className="font-calibre cursor-pointer">
+              Extend Last Bar to Fill Canvas
+            </Label>
           </div>
         </CBRETabsContent>
 
