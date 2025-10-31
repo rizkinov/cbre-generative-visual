@@ -147,10 +147,11 @@ export function CBRETabsTrigger({
       "rounded-none hover:text-cbre-green"
     ),
     boxed: cn(
-      "font-calibre font-medium",
-      "data-[state=inactive]:text-dark-grey data-[state=inactive]:!bg-light-grey",
-      "data-[state=active]:bg-white data-[state=active]:text-cbre-green",
-      "rounded-none hover:text-cbre-green"
+      "font-calibre font-medium bg-light-grey",
+      "data-[state=inactive]:text-dark-grey",
+      "data-[state=active]:!bg-white data-[state=active]:text-cbre-green",
+      "rounded-none hover:text-cbre-green hover:bg-lighter-grey",
+      "shadow-none border-0"
     ),
   };
 
@@ -164,7 +165,7 @@ export function CBRETabsTrigger({
         "transition-all focus-visible:outline-none focus-visible:ring-2",
         "focus-visible:ring-accent-green focus-visible:ring-offset-2",
         "data-[disabled]:opacity-50 data-[disabled]:cursor-not-allowed",
-        
+
         // Apply size and variant specific styles
         sizeClasses[size],
         variantClasses[variant],
