@@ -142,15 +142,14 @@ export function CBRETabsTrigger({
   // Variant styles for tabs - simplified to avoid conflicts with our global CSS
   const variantClasses = {
     underline: cn(
-      "font-calibre font-medium",
-      "data-[state=inactive]:text-dark-grey",
-      "rounded-none hover:text-cbre-green"
+      "font-calibre font-medium text-dark-grey",
+      "rounded-none hover:text-cbre-green",
+      "data-[state=active]:text-cbre-green"
     ),
     boxed: cn(
-      "font-calibre font-medium bg-light-grey",
-      "data-[state=inactive]:text-dark-grey",
-      "data-[state=active]:bg-white data-[state=active]:text-cbre-green",
-      "rounded-none hover:text-cbre-green hover:bg-lighter-grey"
+      "font-calibre font-medium bg-light-grey text-dark-grey",
+      "rounded-none hover:bg-lighter-grey",
+      "data-[state=active]:bg-cbre-green data-[state=active]:text-white"
     ),
   };
 
