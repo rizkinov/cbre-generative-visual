@@ -117,13 +117,13 @@ export function generateMultidimensionalLoS(
       const interpolatedY = foldLineYPos + phase2Progress * (lastLineYPos - foldLineYPos);
 
       // Calculate fold point positions (where phase 1 ended at foldLineIndex)
-      const foldOffset = foldLineIndex * params.gapBetweenLines;
+      const foldOffset = foldLineIndex * params.gapBetweenLines * scale;
       const foldP1X = (p1BaseX - extension) - foldOffset * leftSlopeFactor * 0.8;
       const foldP2X = p2BaseX - foldOffset * leftSlopeFactor * 0.55;
       const foldP3X = (p3BaseX + extension) - foldOffset * leftSlopeFactor * 0.5;
 
       // Apply RIGHT movement from fold point using phase2 offset
-      const phase2Offset = linesSinceFold * params.gapBetweenLines;
+      const phase2Offset = linesSinceFold * params.gapBetweenLines * scale;
       leftStartX = foldP1X + phase2Offset * rightSlopeFactor * 0.47;
       leftStartY = interpolatedY;
 
