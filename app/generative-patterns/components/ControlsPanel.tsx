@@ -817,37 +817,23 @@ export function ControlsPanel({
 
               {multidimensionalLoSParams.useGradient && (
                 <>
-                  <div className="space-y-2">
-                    <Label htmlFor="gradient-from" className="font-calibre text-sm">
-                      Gradient Color From (optional)
-                    </Label>
-                    <input
-                      type="color"
-                      id="gradient-from"
-                      value={multidimensionalLoSParams.gradientColorFrom || '#17E88F'}
-                      onChange={(e) =>
-                        onMultidimensionalLoSChange({ ...multidimensionalLoSParams, gradientColorFrom: e.target.value })
-                      }
-                      className="w-full h-10 border border-light-grey cursor-pointer"
-                    />
-                    <p className="text-xs text-dark-grey font-calibre">Leave empty to use main foreground color</p>
-                  </div>
+                  <CBREColorPicker
+                    label="Gradient Color From (optional)"
+                    value={multidimensionalLoSParams.gradientColorFrom || '#17E88F'}
+                    onChange={(color) =>
+                      onMultidimensionalLoSChange({ ...multidimensionalLoSParams, gradientColorFrom: color })
+                    }
+                    helperText="Leave empty to use main foreground color"
+                  />
 
-                  <div className="space-y-2">
-                    <Label htmlFor="gradient-to" className="font-calibre text-sm">
-                      Gradient Color To (optional)
-                    </Label>
-                    <input
-                      type="color"
-                      id="gradient-to"
-                      value={multidimensionalLoSParams.gradientColorTo || '#003F2D'}
-                      onChange={(e) =>
-                        onMultidimensionalLoSChange({ ...multidimensionalLoSParams, gradientColorTo: e.target.value })
-                      }
-                      className="w-full h-10 border border-light-grey cursor-pointer"
-                    />
-                    <p className="text-xs text-dark-grey font-calibre">Leave empty to use main background color</p>
-                  </div>
+                  <CBREColorPicker
+                    label="Gradient Color To (optional)"
+                    value={multidimensionalLoSParams.gradientColorTo || '#003F2D'}
+                    onChange={(color) =>
+                      onMultidimensionalLoSChange({ ...multidimensionalLoSParams, gradientColorTo: color })
+                    }
+                    helperText="Leave empty to use main background color"
+                  />
                 </>
               )}
             </div>

@@ -8,9 +8,10 @@ interface CBREColorPickerProps {
   label: string;
   value: string;
   onChange: (color: string) => void;
+  helperText?: string;
 }
 
-export function CBREColorPicker({ label, value, onChange }: CBREColorPickerProps) {
+export function CBREColorPicker({ label, value, onChange, helperText }: CBREColorPickerProps) {
   return (
     <div className="space-y-2">
       <Label className="font-calibre text-sm">{label}</Label>
@@ -236,6 +237,9 @@ export function CBREColorPicker({ label, value, onChange }: CBREColorPickerProps
           </div>
         </PopoverContent>
       </Popover>
+      {helperText && (
+        <p className="text-xs text-dark-grey font-calibre">{helperText}</p>
+      )}
     </div>
   );
 }
