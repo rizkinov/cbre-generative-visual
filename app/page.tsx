@@ -93,12 +93,14 @@ export default function Home() {
       <div className="py-8 px-4 sm:px-6 lg:px-8 xl:px-12 max-w-[1800px] mx-auto w-full">
         {/* Header */}
         <div className="mb-6">
-          <h1 className="text-4xl md:text-5xl font-financier text-cbre-green mb-2">
-            CBRE Generative Patterns
+          <p className="text-xs font-calibre text-dark-grey tracking-wider uppercase mb-2">
+            THE CREATIVE COE
+          </p>
+          <h1 className="text-4xl md:text-5xl font-financier text-cbre-green mb-3">
+            Generative Visuals
           </h1>
           <p className="text-dark-grey font-calibre text-base max-w-3xl">
-            Create brand-consistent line, stripe, and contour motifs for reports, motion
-            backgrounds, or brand experiments.
+            Create brand-consistent generative patterns with five unique styles: Horizontal Bands, Vertical Bars, Diagonal Contours, Multidimensional LoS, and Transformational Color Backgrounds. Control every detail from colors to line weight, export as SVG or PNG at any scale.
           </p>
         </div>
 

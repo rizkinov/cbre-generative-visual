@@ -21,7 +21,10 @@
       "Bash(git log:*)",
       "Bash(git fetch:*)",
       "Bash(npm run type-check:*)",
-      "Bash(awk:*)"
+      "Bash(awk:*)",
+      "Bash(curl:*)",
+      "Bash(npm run lint:*)",
+      "Bash(npx eslint:*)"
     ],
     "deny": [],
     "ask": []

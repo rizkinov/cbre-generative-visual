@@ -15,13 +15,21 @@ export function generateMultidimensionalLoS(
 
   const lines: React.ReactElement[] = [];
 
+  // Calculate master scale from Z position (mimics 3D depth)
+  const scale = params.masterPositionZ;
+
+  // Calculate scaled dimensions
+  const scaledWidth = width * scale;
+  const scaledHeight = height * scale;
+  const scaledPadding = padding * scale;
+
   // Calculate master offset for entire pattern positioning
-  const masterOffsetX = (params.masterPositionX - 0.5) * (width - 2 * padding);
-  const masterOffsetY = (params.masterPositionY - 0.5) * (height - 2 * padding);
+  const masterOffsetX = (params.masterPositionX - 0.5) * (scaledWidth - 2 * scaledPadding);
+  const masterOffsetY = (params.masterPositionY - 0.5) * (scaledHeight - 2 * scaledPadding);
 
   // Calculate corner peak position (user controllable)
-  const cornerX = padding + params.cornerPositionX * (width - 2 * padding) + masterOffsetX;
-  const cornerY = padding + params.cornerPositionY * (height - 2 * padding) + masterOffsetY;
+  const cornerX = scaledPadding + params.cornerPositionX * (scaledWidth - 2 * scaledPadding) + masterOffsetX;
+  const cornerY = scaledPadding + params.cornerPositionY * (scaledHeight - 2 * scaledPadding) + masterOffsetY;
 
   // Convert angles to radians (user controllable)
   const leftAngleRad = (params.leftAngle * Math.PI) / 180;
@@ -36,12 +44,12 @@ export function generateMultidimensionalLoS(
   const foldLineIndex = Math.floor(params.lineCount * 0.42); // ~42% through (line 22 of 52 default)
 
   for (let i = 0; i < params.lineCount; i++) {
-    const offset = i * params.gapBetweenLines;
+    const offset = i * params.gapBetweenLines * scale;
     const progress = params.lineCount > 1 ? i / (params.lineCount - 1) : 0;
 
-    // Calculate stroke width (interpolate from min to max)
+    // Calculate stroke width (interpolate from min to max) - scaled by Z
     const strokeWidth =
-      params.strokeWidthMin + progress * (params.strokeWidthMax - params.strokeWidthMin);
+      (params.strokeWidthMin + progress * (params.strokeWidthMax - params.strokeWidthMin)) * scale;
 
     // Calculate color
     let strokeColor: string;
@@ -51,8 +59,8 @@ export function generateMultidimensionalLoS(
       strokeColor = globals.brand.fg;
     }
 
-    // Calculate line extension
-    const extension = ((params.lineExtension - 1) * width) / 2;
+    // Calculate line extension - scaled by Z
+    const extension = ((params.lineExtension - 1) * scaledWidth) / 2;
 
     // Pattern has TWO phases creating the fold effect:
     // PHASE 1: Lines move DOWN-LEFT toward the fold
@@ -68,21 +76,21 @@ export function generateMultidimensionalLoS(
     const rightSlopeFactor = Math.tan(rightAngleRad);
 
     // Calculate Y positions WITHOUT master offset first (for calculating constant offsets)
-    const firstLineYBase = padding + params.firstLineY * (height - 2 * padding);
-    const cornerYBase = padding + params.cornerPositionY * (height - 2 * padding);
+    const firstLineYBase = scaledPadding + params.firstLineY * (scaledHeight - 2 * scaledPadding);
+    const cornerYBase = scaledPadding + params.cornerPositionY * (scaledHeight - 2 * scaledPadding);
 
     // Calculate the CONSTANT peak offset (this stays the same regardless of line Y positions)
     const constantPeakOffset = cornerYBase - firstLineYBase;
 
     // Now calculate actual positions WITH master offset for rendering
     const firstLineYPos = firstLineYBase + masterOffsetY;
-    const foldLineYPos = padding + params.foldLineY * (height - 2 * padding) + masterOffsetY;
-    const lastLineYPos = padding + params.lastLineY * (height - 2 * padding) + masterOffsetY;
+    const foldLineYPos = scaledPadding + params.foldLineY * (scaledHeight - 2 * scaledPadding) + masterOffsetY;
+    const lastLineYPos = scaledPadding + params.lastLineY * (scaledHeight - 2 * scaledPadding) + masterOffsetY;
 
     // Base positions - now using user-controlled Y positions
-    const p1BaseX = padding * 1.5 + masterOffsetX;
+    const p1BaseX = scaledPadding * 1.5 + masterOffsetX;
     const p2BaseX = cornerX;
-    const p3BaseX = width - padding * 1.5 + masterOffsetX;
+    const p3BaseX = scaledWidth - scaledPadding * 1.5 + masterOffsetX;
 
     let leftStartX, leftStartY, peakX, peakY, rightEndX, rightEndY;
 
@@ -150,6 +158,7 @@ export const defaultMultidimensionalLoSParams: MultidimensionalLoSParams = {
   gapBetweenLines: 12.0,
   masterPositionX: 0.45, // Master X position (0 = left, 1 = right)
   masterPositionY: 0.55, // Master Y position (0 = top, 1 = bottom)
+  masterPositionZ: 1.0, // Master Z position/scale (0.5 = 50%, 1.0 = 100%, 2.0 = 200%)
   cornerPositionX: 0.42,
   cornerPositionY: 0.14, // Peak position (0 = top, 1 = bottom)
   firstLineY: 0.40, // Y position of first line (0 = top, 1 = bottom)
@@ -160,7 +169,7 @@ export const defaultMultidimensionalLoSParams: MultidimensionalLoSParams = {
   lineExtension: 0.60,
   strokeWidthMin: 0.5,
   strokeWidthMax: 2.0,
-  useGradient: true,
+  useGradient: false,
   gradientColorFrom: '',
   gradientColorTo: '',
 };

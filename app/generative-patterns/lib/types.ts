@@ -68,6 +68,7 @@ export interface MultidimensionalLoSParams {
   gapBetweenLines: number;
   masterPositionX: number;
   masterPositionY: number;
+  masterPositionZ: number;
   cornerPositionX: number;
   cornerPositionY: number;
   firstLineY: number;

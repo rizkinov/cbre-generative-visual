@@ -616,6 +616,22 @@ export function ControlsPanel({
                   }
                 />
               </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="master-position-z" className="font-calibre text-sm">
+                  Master Position Z: {multidimensionalLoSParams.masterPositionZ.toFixed(2)}
+                </Label>
+                <Slider
+                  id="master-position-z"
+                  min={0.5}
+                  max={2}
+                  step={0.01}
+                  value={[multidimensionalLoSParams.masterPositionZ]}
+                  onValueChange={(v) =>
+                    onMultidimensionalLoSChange({ ...multidimensionalLoSParams, masterPositionZ: v[0] })
+                  }
+                />
+              </div>
             </div>
           </div>
 
