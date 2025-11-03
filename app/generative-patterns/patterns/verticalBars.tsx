@@ -39,97 +39,133 @@ export function generateVerticalBars(
 
   if (isVertical) {
     // Vertical bars (left-right)
-    let x = padding + params.edgePadding;
+    const barWidth = Math.max(lineWeight, params.barWidth);
 
-    for (let i = 0; i < params.barCount && x < width - padding - params.edgePadding; i++) {
-      // t goes from 0 to 1 across all bars
-      const t = params.barCount > 1 ? i / (params.barCount - 1) : 0.5;
+    if (params.direction === 'LTR') {
+      // Left to Right: density increases rightward
+      let x = padding + params.edgePadding;
 
-      // Apply curve and intensity
-      const density = applyCurve(t, params.densityCurve, params.curveIntensity);
+      for (let i = 0; i < params.barCount && x < width - padding - params.edgePadding; i++) {
+        const t = params.barCount > 1 ? i / (params.barCount - 1) : 0.5;
+        const density = applyCurve(t, params.densityCurve, params.curveIntensity);
 
-      // For LTR: density increases (gap decreases) from left to right
-      // For RTL: density increases (gap decreases) from right to left (reverse the curve)
-      const maxDensity = (params.curveIntensity / 100);
-      const finalDensity = params.direction === 'LTR' ? density : maxDensity * (1 - t * t);
+        const gapReduction = Math.min(1, density * 3);
+        let gap = params.gapWidth * (1 - gapReduction);
+        const finalGap = gap < 10 ? -Math.max(1, Math.floor(density * 10)) : gap;
 
-      const barWidth = Math.max(lineWeight, params.barWidth);
+        const isLastBar = i === params.barCount - 1;
+        const actualBarWidth = (isLastBar && params.extendLastBar)
+          ? (width - padding - params.edgePadding - x)
+          : barWidth;
 
-      // Gap reduces as density increases - amplify the effect for more dramatic squeeze
-      // Multiply by 3 to make the gap reduction more aggressive
-      const gapReduction = Math.min(1, finalDensity * 3);
-      let gap = params.gapWidth * (1 - gapReduction);
+        bars.push(
+          <rect
+            key={i}
+            x={x}
+            y={padding}
+            width={actualBarWidth}
+            height={height - 2 * padding}
+            fill="currentColor"
+          />
+        );
 
-      // When gap gets very small, make bars overlap to eliminate hairline gaps
-      // Use more aggressive overlap at high density (scales with finalDensity)
-      const finalGap = gap < 10 ? -Math.max(1, Math.floor(finalDensity * 10)) : gap;
+        x += barWidth + finalGap;
+      }
+    } else {
+      // Right to Left: density increases leftward
+      let x = width - padding - params.edgePadding;
 
-      // Always extend the last bar drawn to fill remaining space
-      // This works for all directions (LTR, RTL, etc.)
-      const isLastBar = i === params.barCount - 1;
-      const actualBarWidth = (isLastBar && params.extendLastBar)
-        ? (width - padding - params.edgePadding - x) // Fill remaining space
-        : barWidth;
+      for (let i = 0; i < params.barCount && x > padding + params.edgePadding; i++) {
+        const t = params.barCount > 1 ? i / (params.barCount - 1) : 0.5;
+        const density = applyCurve(t, params.densityCurve, params.curveIntensity);
 
-      bars.push(
-        <rect
-          key={i}
-          x={x}
-          y={padding}
-          width={actualBarWidth}
-          height={height - 2 * padding}
-          fill="currentColor"
-        />
-      );
+        const gapReduction = Math.min(1, density * 3);
+        let gap = params.gapWidth * (1 - gapReduction);
+        const finalGap = gap < 10 ? -Math.max(1, Math.floor(density * 10)) : gap;
 
-      x += barWidth + finalGap;
+        const isLastBar = i === params.barCount - 1;
+        const actualBarWidth = (isLastBar && params.extendLastBar)
+          ? (x - padding - params.edgePadding)
+          : barWidth;
+
+        bars.push(
+          <rect
+            key={i}
+            x={x - actualBarWidth}
+            y={padding}
+            width={actualBarWidth}
+            height={height - 2 * padding}
+            fill="currentColor"
+          />
+        );
+
+        x -= barWidth + finalGap;
+      }
     }
   } else {
     // Horizontal bars (top-bottom)
-    let y = padding + params.edgePadding;
+    const barHeight = Math.max(lineWeight, params.barWidth);
 
-    for (let i = 0; i < params.barCount && y < height - padding - params.edgePadding; i++) {
-      // t goes from 0 to 1 across all bars
-      const t = params.barCount > 1 ? i / (params.barCount - 1) : 0.5;
+    if (params.direction === 'TTB') {
+      // Top to Bottom: density increases downward
+      let y = padding + params.edgePadding;
 
-      // Apply curve and intensity
-      const density = applyCurve(t, params.densityCurve, params.curveIntensity);
+      for (let i = 0; i < params.barCount && y < height - padding - params.edgePadding; i++) {
+        const t = params.barCount > 1 ? i / (params.barCount - 1) : 0.5;
+        const density = applyCurve(t, params.densityCurve, params.curveIntensity);
 
-      // For TTB: density increases (gap decreases) from top to bottom
-      // For BTT: density increases (gap decreases) from bottom to top (reverse the curve)
-      const maxDensity = (params.curveIntensity / 100);
-      const finalDensity = params.direction === 'TTB' ? density : maxDensity * (1 - t * t);
+        const gapReduction = Math.min(1, density * 3);
+        let gap = params.gapWidth * (1 - gapReduction);
+        const finalGap = gap < 10 ? -Math.max(1, Math.floor(density * 10)) : gap;
 
-      const barHeight = Math.max(lineWeight, params.barWidth);
+        const isLastBar = i === params.barCount - 1;
+        const actualBarHeight = (isLastBar && params.extendLastBar)
+          ? (height - padding - params.edgePadding - y)
+          : barHeight;
 
-      // Gap reduces as density increases - amplify the effect for more dramatic squeeze
-      // Multiply by 3 to make the gap reduction more aggressive
-      const gapReduction = Math.min(1, finalDensity * 3);
-      let gap = params.gapWidth * (1 - gapReduction);
+        bars.push(
+          <rect
+            key={i}
+            x={padding}
+            y={y}
+            width={width - 2 * padding}
+            height={actualBarHeight}
+            fill="currentColor"
+          />
+        );
 
-      // When gap gets very small, make bars overlap to eliminate hairline gaps
-      // Use more aggressive overlap at high density (scales with finalDensity)
-      const finalGap = gap < 10 ? -Math.max(1, Math.floor(finalDensity * 10)) : gap;
+        y += barHeight + finalGap;
+      }
+    } else {
+      // Bottom to Top: density increases upward
+      let y = height - padding - params.edgePadding;
 
-      // Always extend the last bar drawn to fill remaining space
-      // This works for all directions (TTB, BTT, etc.)
-      const isLastBar = i === params.barCount - 1;
-      const actualBarHeight = (isLastBar && params.extendLastBar)
-        ? (height - padding - params.edgePadding - y) // Fill remaining space
-        : barHeight;
+      for (let i = 0; i < params.barCount && y > padding + params.edgePadding; i++) {
+        const t = params.barCount > 1 ? i / (params.barCount - 1) : 0.5;
+        const density = applyCurve(t, params.densityCurve, params.curveIntensity);
 
-      bars.push(
-        <rect
-          key={i}
-          x={padding}
-          y={y}
-          width={width - 2 * padding}
-          height={actualBarHeight}
-          fill="currentColor"
-        />
-      );
+        const gapReduction = Math.min(1, density * 3);
+        let gap = params.gapWidth * (1 - gapReduction);
+        const finalGap = gap < 10 ? -Math.max(1, Math.floor(density * 10)) : gap;
 
-      y += barHeight + finalGap;
+        const isLastBar = i === params.barCount - 1;
+        const actualBarHeight = (isLastBar && params.extendLastBar)
+          ? (y - padding - params.edgePadding)
+          : barHeight;
+
+        bars.push(
+          <rect
+            key={i}
+            x={padding}
+            y={y - actualBarHeight}
+            width={width - 2 * padding}
+            height={actualBarHeight}
+            fill="currentColor"
+          />
+        );
+
+        y -= barHeight + finalGap;
+      }
     }
   }
 
