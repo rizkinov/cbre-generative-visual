@@ -138,9 +138,9 @@ export function generateVerticalBars(
 
 // Default parameters
 export const defaultVerticalBarsParams: VerticalBarsParams = {
-  barCount: 30,
-  barWidth: 20,
-  gapWidth: 40,
+  barCount: 24,
+  barWidth: 50,
+  gapWidth: 30,
   densityCurve: 'ease',
   curveIntensity: 50, // 0-100 scale
   direction: 'LTR',
