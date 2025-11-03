@@ -103,7 +103,7 @@ export default function Home() {
             Generative Visuals
           </h1>
           <p className="text-dark-grey font-calibre text-base max-w-3xl">
-            Create brand-consistent generative patterns with five unique styles: Horizontal Bands, Vertical Bars, Diagonal Contours, Multidimensional LoS, and Transformational Color Backgrounds. Control every detail from colors to line weight, export as SVG or PNG at any scale.
+            Create brand-consistent generative visuals with five unique styles: Horizontal Bands, Vertical Bars, Diagonal Contours, Multidimensional LoS, and Transformational Color Backgrounds. Control every detail from colors to line weight, export as SVG or PNG at any scale.
           </p>
         </div>
 

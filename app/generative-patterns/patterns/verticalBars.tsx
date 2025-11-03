@@ -60,9 +60,9 @@ export function generateVerticalBars(
       const gapReduction = Math.min(1, finalDensity * 3);
       let gap = params.gapWidth * (1 - gapReduction);
 
-      // When gap gets very small (< 5px), make bars overlap for solid appearance
-      // This eliminates any hairline gaps at the densest end
-      const finalGap = gap < 5 ? -2 : gap;
+      // When gap gets very small, make bars overlap to eliminate hairline gaps
+      // Use more aggressive overlap at high density (scales with finalDensity)
+      const finalGap = gap < 10 ? -Math.max(1, Math.floor(finalDensity * 10)) : gap;
 
       // Always extend the last bar drawn to fill remaining space
       // This works for all directions (LTR, RTL, etc.)
@@ -107,9 +107,9 @@ export function generateVerticalBars(
       const gapReduction = Math.min(1, finalDensity * 3);
       let gap = params.gapWidth * (1 - gapReduction);
 
-      // When gap gets very small (< 5px), make bars overlap for solid appearance
-      // This eliminates any hairline gaps at the densest end
-      const finalGap = gap < 5 ? -2 : gap;
+      // When gap gets very small, make bars overlap to eliminate hairline gaps
+      // Use more aggressive overlap at high density (scales with finalDensity)
+      const finalGap = gap < 10 ? -Math.max(1, Math.floor(finalDensity * 10)) : gap;
 
       // Always extend the last bar drawn to fill remaining space
       // This works for all directions (TTB, BTT, etc.)
