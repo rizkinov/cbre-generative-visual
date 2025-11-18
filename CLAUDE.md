@@ -115,22 +115,23 @@ import { cbreTheme } from 'cbre-web-elements/theme';
 
 ## Generative Patterns Application
 
-Located in `app/generative-patterns/`, this is a client-side tool for generating CBRE brand-consistent visual patterns.
+The Generative Patterns tool is a client-side application for generating CBRE brand-consistent visual patterns. The main page lives at the root (`app/page.tsx`), while pattern components and utilities are organized in `app/generative-patterns/`.
 
 ### Architecture
 
 ```
 app/generative-patterns/
-├── page.tsx                    # Main page component
 ├── components/
 │   ├── GlobalControls.tsx      # Seed, colors, canvas, line weight
 │   ├── ControlsPanel.tsx       # Pattern-specific parameters
 │   ├── PreviewSurface.tsx      # SVG rendering surface
 │   └── ExportMenu.tsx          # SVG/PNG export controls
 ├── patterns/
-│   ├── horizontalBands.tsx     # Gradient field pattern
-│   ├── verticalBars.tsx        # Density ramp pattern
-│   └── diagonalContours.tsx    # Rooflines pattern
+│   ├── horizontalBands.tsx                      # Gradient field pattern
+│   ├── verticalBars.tsx                         # Density ramp pattern
+│   ├── diagonalContours.tsx                     # Rooflines pattern
+│   ├── multidimensionalLoS.tsx                  # Multi-angle line pattern
+│   └── transformationalColorBackground.tsx      # Color gradient mesh
 ├── lib/
 │   ├── types.ts                # TypeScript type definitions
 │   ├── colors.ts               # CBRE color mappings
@@ -141,13 +142,19 @@ app/generative-patterns/
 ### Pattern Types
 
 1. **Horizontal Bands** - Gradient field with vignette effects
-   - Parameters: band count, thickness, variation, gap, vignette depth, jitter, tilt
+   - Parameters: band count, thickness, gap, vignette depth, tilt angle
 
 2. **Vertical Bars** - Density ramp with variable spacing
-   - Parameters: bar count, width, variation, gap, density curve, direction, edge padding
+   - Parameters: bar count, width, gap, density curve, curve intensity, direction, edge padding
 
 3. **Diagonal Contours** - Roofline patterns with slope control
-   - Parameters: line count, gap, slope angle, peak position, skew factor, corner style, opacity step
+   - Parameters: line count, gap, slope angle, dual peak positions, peak heights, skew factor, line length, opacity step
+
+4. **Multidimensional LoS** - Multi-angle line of sight pattern
+   - Parameters: line count, gap, master position (X/Y/Z), corner position, line positions, angles, line extension, stroke width range, gradient options
+
+5. **Transformational Color Background** - Color gradient mesh with pin points
+   - Parameters: 5 color pins (enabled/disabled, position, color), blend strength, frame options
 
 ### Deterministic Randomization
 

@@ -14,7 +14,8 @@ function calculateMeshColor(
   x: number,
   y: number,
   pins: ColorPin[],
-  blendStrength: number
+  blendStrength: number,
+  aspectRatio: number = 1
 ): string {
   const enabledPins = pins.filter(p => p.enabled);
 
@@ -27,8 +28,9 @@ function calculateMeshColor(
   }
 
   // Calculate distances and weights
+  // Adjust for aspect ratio to maintain circular gradients around pins
   const distances = enabledPins.map(pin => {
-    const dx = x - pin.x;
+    const dx = (x - pin.x) * aspectRatio;
     const dy = y - pin.y;
     return Math.sqrt(dx * dx + dy * dy);
   });
@@ -87,8 +89,13 @@ function generateMeshGradientSVG(
     return <rect width={width} height={height} fill={enabledPins[0].color} />;
   }
 
+  // Calculate aspect ratio to maintain circular gradients
+  const aspectRatio = width / height;
+
   // Create a high-resolution grid for smooth gradients
   // Balanced resolution for quality and performance
+  // Use actual width/height for grid calculation to maintain consistent visual density
+  // Since we're already passing square dimensions, this will maintain proper grid density
   const gridSize = Math.min(150, Math.max(100, Math.floor(Math.min(width, height) / 18)));
 
   // Extend grid beyond visible area to prevent edge darkening (like AE's "Repeat Edge Pixels")
@@ -110,7 +117,7 @@ function generateMeshGradientSVG(
       const clampedX = Math.max(0, Math.min(1, x));
       const clampedY = Math.max(0, Math.min(1, y));
 
-      const color = calculateMeshColor(clampedX, clampedY, pins, blendStrength);
+      const color = calculateMeshColor(clampedX, clampedY, pins, blendStrength, aspectRatio);
 
       const rectX = offsetX + (col / gridSize) * extendedWidth;
       const rectY = offsetY + (row / gridSize) * extendedHeight;
@@ -132,7 +139,8 @@ function generateMeshGradientSVG(
 
   // Calculate blur strength for smooth blending
   // Optimized blur for quality and performance balance
-  const blurAmount = Math.max(35, width / gridSize * 1.8);
+  // Use minimum dimension for consistent blur
+  const blurAmount = Math.max(35, Math.min(width, height) / gridSize * 1.8);
 
   return (
     <g>
@@ -159,15 +167,17 @@ export function generateTransformationalColorBackground(
 ): React.ReactElement {
   const { width, height, padding } = globals.canvas;
 
+  // Fill the entire canvas while maintaining gradient proportions
+  // The gradient will expand to fill the full canvas without distortion
+  const innerWidth = width - padding * 2;
+  const innerHeight = height - padding * 2;
+
   // Create inverted pins for frame
   const invertedPins: [ColorPin, ColorPin, ColorPin, ColorPin, ColorPin] = params.pins.map(pin => ({
     ...pin,
     x: 1 - pin.x,
     y: 1 - pin.y,
   })) as [ColorPin, ColorPin, ColorPin, ColorPin, ColorPin];
-
-  const innerWidth = width - padding * 2;
-  const innerHeight = height - padding * 2;
 
   return (
     <g>

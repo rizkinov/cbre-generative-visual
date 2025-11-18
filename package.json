@@ -1,7 +1,7 @@
 {
-  "name": "cbre-web-elements",
+  "name": "cbre-generative-visual",
   "version": "0.1.0",
-  "description": "CBRE design system UI components",
+  "description": "CBRE Generative Patterns - Visual pattern generator with design system components",
   "private": false,
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
@@ -103,12 +103,12 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/rizkinov/cbre-web-elements"
+    "url": "https://github.com/rizkinov/cbre-generative-visual"
   },
   "bugs": {
-    "url": "https://github.com/rizkinov/cbre-web-elements/issues"
+    "url": "https://github.com/rizkinov/cbre-generative-visual/issues"
   },
-  "homepage": "https://github.com/rizkinov/cbre-web-elements",
+  "homepage": "https://github.com/rizkinov/cbre-generative-visual",
   "devDependencies": {
     "@babel/core": "^7.26.10",
     "@babel/preset-env": "^7.26.9",

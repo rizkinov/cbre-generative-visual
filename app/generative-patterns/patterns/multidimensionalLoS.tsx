@@ -15,21 +15,29 @@ export function generateMultidimensionalLoS(
 
   const lines: React.ReactElement[] = [];
 
+  // Use square reference to prevent non-uniform stretching when aspect ratio changes
+  const referenceDimension = Math.min(width, height);
+
   // Calculate master scale from Z position (mimics 3D depth)
   const scale = params.masterPositionZ;
 
-  // Calculate scaled dimensions
-  const scaledWidth = width * scale;
-  const scaledHeight = height * scale;
+  // Calculate scaled dimensions based on square reference
+  const scaledDimension = referenceDimension * scale;
+  const scaledWidth = scaledDimension;
+  const scaledHeight = scaledDimension;
   const scaledPadding = padding * scale;
+
+  // Center the pattern in the canvas
+  const offsetX = (width - scaledWidth) / 2;
+  const offsetY = (height - scaledHeight) / 2;
 
   // Calculate master offset for entire pattern positioning
   const masterOffsetX = (params.masterPositionX - 0.5) * (scaledWidth - 2 * scaledPadding);
   const masterOffsetY = (params.masterPositionY - 0.5) * (scaledHeight - 2 * scaledPadding);
 
-  // Calculate corner peak position (user controllable)
-  const cornerX = scaledPadding + params.cornerPositionX * (scaledWidth - 2 * scaledPadding) + masterOffsetX;
-  const cornerY = scaledPadding + params.cornerPositionY * (scaledHeight - 2 * scaledPadding) + masterOffsetY;
+  // Calculate corner peak position (user controllable) with centering offset
+  const cornerX = offsetX + scaledPadding + params.cornerPositionX * (scaledWidth - 2 * scaledPadding) + masterOffsetX;
+  const cornerY = offsetY + scaledPadding + params.cornerPositionY * (scaledHeight - 2 * scaledPadding) + masterOffsetY;
 
   // Convert angles to radians (user controllable)
   const leftAngleRad = (params.leftAngle * Math.PI) / 180;
@@ -82,15 +90,15 @@ export function generateMultidimensionalLoS(
     // Calculate the CONSTANT peak offset (this stays the same regardless of line Y positions)
     const constantPeakOffset = cornerYBase - firstLineYBase;
 
-    // Now calculate actual positions WITH master offset for rendering
-    const firstLineYPos = firstLineYBase + masterOffsetY;
-    const foldLineYPos = scaledPadding + params.foldLineY * (scaledHeight - 2 * scaledPadding) + masterOffsetY;
-    const lastLineYPos = scaledPadding + params.lastLineY * (scaledHeight - 2 * scaledPadding) + masterOffsetY;
+    // Now calculate actual positions WITH master offset and centering offset for rendering
+    const firstLineYPos = offsetY + firstLineYBase + masterOffsetY;
+    const foldLineYPos = offsetY + scaledPadding + params.foldLineY * (scaledHeight - 2 * scaledPadding) + masterOffsetY;
+    const lastLineYPos = offsetY + scaledPadding + params.lastLineY * (scaledHeight - 2 * scaledPadding) + masterOffsetY;
 
-    // Base positions - now using user-controlled Y positions
-    const p1BaseX = scaledPadding * 1.5 + masterOffsetX;
+    // Base positions - now using user-controlled Y positions with centering offset
+    const p1BaseX = offsetX + scaledPadding * 1.5 + masterOffsetX;
     const p2BaseX = cornerX;
-    const p3BaseX = scaledWidth - scaledPadding * 1.5 + masterOffsetX;
+    const p3BaseX = offsetX + scaledWidth - scaledPadding * 1.5 + masterOffsetX;
 
     let leftStartX, leftStartY, peakX, peakY, rightEndX, rightEndY;
 

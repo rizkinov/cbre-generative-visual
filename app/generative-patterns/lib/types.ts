@@ -4,10 +4,13 @@
 
 export type PatternType = 'horizontalBands' | 'verticalBars' | 'diagonalContours' | 'multidimensionalLoS' | 'transformationalColorBackground' | 'portal';
 
+export type DimensionPreset = '16:9' | '9:16' | '4:3' | '3:4' | '1:1';
+
 export interface CanvasSpec {
   width: number;
   height: number;
   padding: number;
+  dimension: DimensionPreset;
 }
 
 export interface BrandPair {

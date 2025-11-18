@@ -43,7 +43,7 @@ export default function Home() {
 
   // Global state
   const [globals, setGlobals] = useState<GlobalState>({
-    canvas: { width: 2000, height: 2000, padding: 0 },
+    canvas: { width: 2000, height: 2000, padding: 0, dimension: '1:1' },
     brand: { bg: cbreColors['dark-green'], fg: cbreColors['accent-green'] },
     lineWeight: 7,
     seed: 12345,
@@ -51,7 +51,7 @@ export default function Home() {
   });
 
   // Zoom state
-  const [zoom, setZoom] = useState<number>(0.25);
+  const [zoom, setZoom] = useState<number>(0.35);
 
   // Pattern-specific params
   const [horizontalBandsParams, setHorizontalBandsParams] = useState<HorizontalBandsParams>(
