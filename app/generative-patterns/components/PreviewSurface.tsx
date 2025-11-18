@@ -19,7 +19,7 @@ export const PreviewSurface = forwardRef<SVGSVGElement, PreviewSurfaceProps>(
     const displayHeight = height * zoom;
 
     return (
-      <CBRECard className="w-full h-[70vh] overflow-auto flex items-center justify-center">
+      <CBRECard className="w-full h-[95vh] overflow-auto flex items-center justify-center">
         <div className="p-8">
           <svg
             ref={ref}
