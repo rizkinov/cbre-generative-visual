@@ -23,13 +23,13 @@ import type {
   VerticalBarsParams,
   DiagonalContoursParams,
   MultidimensionalLoSParams,
-  TransformationalColorBackgroundParams,
+  GlazeParams,
 } from '../lib/types';
 import {
   defaultVerticalBarsParams,
   verticalBarsPresets,
 } from '../patterns/verticalBars';
-import { transformationalPresets } from '../patterns/transformationalColorBackground';
+import { glazePresets } from '../patterns/glaze';
 import { CBREColorPicker } from './CBREColorPicker';
 
 interface ControlsPanelProps {
@@ -43,8 +43,8 @@ interface ControlsPanelProps {
   onDiagonalContoursChange: (params: DiagonalContoursParams) => void;
   multidimensionalLoSParams: MultidimensionalLoSParams;
   onMultidimensionalLoSChange: (params: MultidimensionalLoSParams) => void;
-  transformationalColorBackgroundParams: TransformationalColorBackgroundParams;
-  onTransformationalColorBackgroundChange: (params: TransformationalColorBackgroundParams) => void;
+  glazeParams: GlazeParams;
+  onGlazeChange: (params: GlazeParams) => void;
   lineWeight: number;
   onLineWeightChange: (weight: number) => void;
   brand: { bg: string; fg: string };
@@ -61,13 +61,13 @@ export function ControlsPanel({
   onDiagonalContoursChange,
   multidimensionalLoSParams,
   onMultidimensionalLoSChange,
-  transformationalColorBackgroundParams,
-  onTransformationalColorBackgroundChange,
+  glazeParams,
+  onGlazeChange,
   lineWeight,
   onLineWeightChange,
   brand,
 }: ControlsPanelProps) {
-  const [selectedPreset, setSelectedPreset] = useState<string>('sageHorizon');
+  const [selectedPreset, setSelectedPreset] = useState<string>('preset1');
 
   return (
     <div className="space-y-4">
@@ -90,8 +90,8 @@ export function ControlsPanel({
           <CBRETabsTrigger value="multidimensionalLoS" className="flex-1 min-w-[140px]">
             Dimensional
           </CBRETabsTrigger>
-          <CBRETabsTrigger value="transformationalColorBackground" className="flex-1 min-w-[140px]">
-            Transformational
+          <CBRETabsTrigger value="glaze" className="flex-1 min-w-[140px]">
+            Glaze
           </CBRETabsTrigger>
           <CBRETabsTrigger value="portal" className="flex-1 min-w-[140px]" disabled>
             Portal
@@ -1100,19 +1100,19 @@ export function ControlsPanel({
           </div>
         </CBRETabsContent>
 
-        {/* Transformational Color Background Controls */}
-        <CBRETabsContent value="transformationalColorBackground" className="space-y-4">
+        {/* Glaze Controls */}
+        <CBRETabsContent value="glaze" className="space-y-4">
           {/* Preset Selector */}
           <div>
             <CBRESelect
               label="Preset"
-              id="transformational-preset"
+              id="glaze-preset"
               value={selectedPreset}
               onValueChange={(presetKey) => {
                 setSelectedPreset(presetKey);
-                const preset = transformationalPresets[presetKey as keyof typeof transformationalPresets];
+                const preset = glazePresets[presetKey as keyof typeof glazePresets];
                 if (preset) {
-                  onTransformationalColorBackgroundChange(preset.params);
+                  onGlazeChange(preset.params);
                 }
               }}
             >
@@ -1120,7 +1120,7 @@ export function ControlsPanel({
                 <SelectValue placeholder="Choose a preset..." />
               </SelectTrigger>
               <SelectContent>
-                {Object.entries(transformationalPresets).map(([key, preset]) => (
+                {Object.entries(glazePresets).map(([key, preset]) => (
                   <SelectItem key={key} value={key}>
                     {preset.name}
                   </SelectItem>
@@ -1131,23 +1131,36 @@ export function ControlsPanel({
 
           <div className="h-[1px] bg-light-grey my-6" />
 
+          {/* Glaze Background Color */}
+          <div>
+            <CBREColorPicker
+              label="Glaze Background"
+              value={glazeParams.backgroundColor || '#FFFFFF'}
+              onChange={(color) =>
+                onGlazeChange({ ...glazeParams, backgroundColor: color })
+              }
+            />
+          </div>
+
+          <div className="h-[1px] bg-light-grey my-6" />
+
           {/* Blend Strength */}
           <div>
             <h3 className="text-sm font-calibre font-semibold text-cbre-green mb-3">Blend Settings</h3>
             <div className="space-y-3">
               <div className="space-y-2">
                 <Label htmlFor="blend-strength" className="font-calibre text-sm">
-                  Blend Strength: {transformationalColorBackgroundParams.blendStrength.toFixed(1)}
+                  Blend Strength: {glazeParams.blendStrength.toFixed(1)}
                 </Label>
                 <Slider
                   id="blend-strength"
                   min={0.1}
                   max={3}
                   step={0.1}
-                  value={[transformationalColorBackgroundParams.blendStrength]}
+                  value={[glazeParams.blendStrength]}
                   onValueChange={(v) =>
-                    onTransformationalColorBackgroundChange({
-                      ...transformationalColorBackgroundParams,
+                    onGlazeChange({
+                      ...glazeParams,
                       blendStrength: v[0],
                     })
                   }
@@ -1165,7 +1178,7 @@ export function ControlsPanel({
           <div>
             <h3 className="text-sm font-calibre font-semibold text-cbre-green mb-3">Color Pins</h3>
             <div className="space-y-4">
-              {transformationalColorBackgroundParams.pins.map((pin, idx) => (
+              {glazeParams.pins.map((pin, idx) => (
                 <div key={idx} className="border border-light-grey p-3 rounded space-y-3">
                   <div className="flex items-center justify-between">
                     <span className="font-calibre font-semibold text-sm text-cbre-green">
@@ -1176,11 +1189,11 @@ export function ControlsPanel({
                         id={`pin-${idx}-enabled`}
                         checked={pin.enabled}
                         onCheckedChange={(checked) => {
-                          const newPins = [...transformationalColorBackgroundParams.pins];
+                          const newPins = [...glazeParams.pins];
                           newPins[idx] = { ...newPins[idx], enabled: checked === true };
-                          onTransformationalColorBackgroundChange({
-                            ...transformationalColorBackgroundParams,
-                            pins: newPins as TransformationalColorBackgroundParams['pins'],
+                          onGlazeChange({
+                            ...glazeParams,
+                            pins: newPins as GlazeParams['pins'],
                           });
                         }}
                       />
@@ -1196,14 +1209,35 @@ export function ControlsPanel({
                         label="Color"
                         value={pin.color}
                         onChange={(color) => {
-                          const newPins = [...transformationalColorBackgroundParams.pins];
+                          const newPins = [...glazeParams.pins];
                           newPins[idx] = { ...newPins[idx], color };
-                          onTransformationalColorBackgroundChange({
-                            ...transformationalColorBackgroundParams,
-                            pins: newPins as TransformationalColorBackgroundParams['pins'],
+                          onGlazeChange({
+                            ...glazeParams,
+                            pins: newPins as GlazeParams['pins'],
                           });
                         }}
                       />
+
+                      <div className="space-y-2">
+                        <Label htmlFor={`pin-${idx}-opacity`} className="font-calibre text-sm">
+                          Opacity: {((pin.opacity ?? 1) * 100).toFixed(0)}%
+                        </Label>
+                        <Slider
+                          id={`pin-${idx}-opacity`}
+                          min={0}
+                          max={1}
+                          step={0.01}
+                          value={[pin.opacity ?? 1]}
+                          onValueChange={(v) => {
+                            const newPins = [...glazeParams.pins];
+                            newPins[idx] = { ...newPins[idx], opacity: v[0] };
+                            onGlazeChange({
+                              ...glazeParams,
+                              pins: newPins as GlazeParams['pins'],
+                            });
+                          }}
+                        />
+                      </div>
 
                       <div className="space-y-2">
                         <Label htmlFor={`pin-${idx}-x`} className="font-calibre text-sm">
@@ -1216,11 +1250,11 @@ export function ControlsPanel({
                           step={0.01}
                           value={[pin.x]}
                           onValueChange={(v) => {
-                            const newPins = [...transformationalColorBackgroundParams.pins];
+                            const newPins = [...glazeParams.pins];
                             newPins[idx] = { ...newPins[idx], x: v[0] };
-                            onTransformationalColorBackgroundChange({
-                              ...transformationalColorBackgroundParams,
-                              pins: newPins as TransformationalColorBackgroundParams['pins'],
+                            onGlazeChange({
+                              ...glazeParams,
+                              pins: newPins as GlazeParams['pins'],
                             });
                           }}
                         />
@@ -1237,11 +1271,11 @@ export function ControlsPanel({
                           step={0.01}
                           value={[pin.y]}
                           onValueChange={(v) => {
-                            const newPins = [...transformationalColorBackgroundParams.pins];
+                            const newPins = [...glazeParams.pins];
                             newPins[idx] = { ...newPins[idx], y: v[0] };
-                            onTransformationalColorBackgroundChange({
-                              ...transformationalColorBackgroundParams,
-                              pins: newPins as TransformationalColorBackgroundParams['pins'],
+                            onGlazeChange({
+                              ...glazeParams,
+                              pins: newPins as GlazeParams['pins'],
                             });
                           }}
                         />
@@ -1262,10 +1296,10 @@ export function ControlsPanel({
               <div className="flex items-center space-x-2">
                 <Checkbox
                   id="frame-enabled"
-                  checked={transformationalColorBackgroundParams.frameEnabled}
+                  checked={glazeParams.frameEnabled}
                   onCheckedChange={(checked) =>
-                    onTransformationalColorBackgroundChange({
-                      ...transformationalColorBackgroundParams,
+                    onGlazeChange({
+                      ...glazeParams,
                       frameEnabled: checked === true,
                     })
                   }
@@ -1275,20 +1309,20 @@ export function ControlsPanel({
                 </Label>
               </div>
 
-              {transformationalColorBackgroundParams.frameEnabled && (
+              {glazeParams.frameEnabled && (
                 <div className="space-y-2">
                   <Label htmlFor="frame-thickness" className="font-calibre text-sm">
-                    Frame Thickness: {transformationalColorBackgroundParams.frameThickness}px
+                    Frame Thickness: {glazeParams.frameThickness}px
                   </Label>
                   <Slider
                     id="frame-thickness"
                     min={20}
                     max={300}
                     step={10}
-                    value={[transformationalColorBackgroundParams.frameThickness]}
+                    value={[glazeParams.frameThickness]}
                     onValueChange={(v) =>
-                      onTransformationalColorBackgroundChange({
-                        ...transformationalColorBackgroundParams,
+                      onGlazeChange({
+                        ...glazeParams,
                         frameThickness: v[0],
                       })
                     }

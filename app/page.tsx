@@ -26,16 +26,16 @@ import {
   defaultMultidimensionalLoSParams,
 } from './generative-patterns/patterns/multidimensionalLoS';
 import {
-  generateTransformationalColorBackground,
-  defaultTransformationalColorBackgroundParams,
-} from './generative-patterns/patterns/transformationalColorBackground';
+  generateGlaze,
+  defaultGlazeParams,
+} from './generative-patterns/patterns/glaze';
 import type {
   GlobalState,
   HorizontalBandsParams,
   VerticalBarsParams,
   DiagonalContoursParams,
   MultidimensionalLoSParams,
-  TransformationalColorBackgroundParams,
+  GlazeParams,
 } from './generative-patterns/lib/types';
 
 export default function Home() {
@@ -66,8 +66,8 @@ export default function Home() {
   const [multidimensionalLoSParams, setMultidimensionalLoSParams] = useState<MultidimensionalLoSParams>(
     defaultMultidimensionalLoSParams
   );
-  const [transformationalColorBackgroundParams, setTransformationalColorBackgroundParams] = useState<TransformationalColorBackgroundParams>(
-    defaultTransformationalColorBackgroundParams
+  const [glazeParams, setGlazeParams] = useState<GlazeParams>(
+    defaultGlazeParams
   );
 
   // Generate current pattern
@@ -81,15 +81,15 @@ export default function Home() {
         return generateDiagonalContours(diagonalContoursParams, globals);
       case 'multidimensionalLoS':
         return generateMultidimensionalLoS(multidimensionalLoSParams, globals);
-      case 'transformationalColorBackground':
-        return generateTransformationalColorBackground(transformationalColorBackgroundParams, globals);
+      case 'glaze':
+        return generateGlaze(glazeParams, globals);
       case 'portal':
         // Coming soon - render empty for now
         return <g />;
       default:
         return <g />;
     }
-  }, [globals, horizontalBandsParams, verticalBarsParams, diagonalContoursParams, multidimensionalLoSParams, transformationalColorBackgroundParams]);
+  }, [globals, horizontalBandsParams, verticalBarsParams, diagonalContoursParams, multidimensionalLoSParams, glazeParams]);
 
   return (
     <div className="min-h-screen bg-lighter-grey">
@@ -103,7 +103,7 @@ export default function Home() {
             Generative Visuals
           </h1>
           <p className="text-dark-grey font-calibre text-base max-w-3xl">
-            Create brand-consistent generative visuals with five unique styles: Horizontal Bands, Linear, Diagonal Contours, Multidimensional LoS, and Transformational Color Backgrounds. Control every detail from colors to line weight, export as SVG or PNG at any scale.
+            Create brand-consistent generative visuals with five unique styles: Horizontal Bands, Linear, Diagonal Contours, Multidimensional LoS, and Glaze. Control every detail from colors to line weight, export as SVG or PNG at any scale.
           </p>
         </div>
 
@@ -139,8 +139,8 @@ export default function Home() {
                 onDiagonalContoursChange={setDiagonalContoursParams}
                 multidimensionalLoSParams={multidimensionalLoSParams}
                 onMultidimensionalLoSChange={setMultidimensionalLoSParams}
-                transformationalColorBackgroundParams={transformationalColorBackgroundParams}
-                onTransformationalColorBackgroundChange={setTransformationalColorBackgroundParams}
+                glazeParams={glazeParams}
+                onGlazeChange={setGlazeParams}
                 lineWeight={globals.lineWeight}
                 onLineWeightChange={(lineWeight) => setGlobals({ ...globals, lineWeight })}
                 brand={globals.brand}
