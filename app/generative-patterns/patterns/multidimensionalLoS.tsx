@@ -12,6 +12,7 @@ export function generateMultidimensionalLoS(
   globals: GlobalState
 ): React.ReactElement {
   const { width, height, padding } = globals.canvas;
+  const DEFAULT_GAP = 12.0;
 
   const lines: React.ReactElement[] = [];
 
@@ -73,7 +74,7 @@ export function generateMultidimensionalLoS(
     }
 
     // Calculate line extension - scaled by Z
-    const extension = ((params.lineExtension - 1) * scaledWidth) / 2;
+    // Extension is now applied as a vector scaling at the end to preserve form
 
     // Pattern has TWO phases creating the fold effect:
     // PHASE 1: Lines move DOWN-LEFT toward the fold
@@ -92,8 +93,14 @@ export function generateMultidimensionalLoS(
     const firstLineYBase = scaledPadding + params.firstLineY * (scaledHeight - 2 * scaledPadding);
     const cornerYBase = scaledPadding + params.cornerPositionY * (scaledHeight - 2 * scaledPadding);
 
-    // Calculate the CONSTANT peak offset (this stays the same regardless of line Y positions)
-    const constantPeakOffset = cornerYBase - firstLineYBase;
+    // Calculate the CONSTANT peak offset
+    // We anchor this to the DEFAULT first line Y (0.40) so that changing firstLineY
+    // moves the entire line (including peak) together, rather than stretching it.
+    // This treats "Corner Position Y" as defining the shape relative to a standard baseline,
+    // rather than an absolute position that pins the peak.
+    const DEFAULT_FIRST_LINE_Y = 0.40;
+    const referenceFirstLineYBase = scaledPadding + DEFAULT_FIRST_LINE_Y * (scaledHeight - 2 * scaledPadding);
+    const constantPeakOffset = cornerYBase - referenceFirstLineYBase;
 
     // Now calculate actual positions WITH master offset and centering offset for rendering
     const firstLineYPos = offsetY + firstLineYBase + masterOffsetY;
@@ -107,19 +114,27 @@ export function generateMultidimensionalLoS(
 
     let leftStartX, leftStartY, peakX, peakY, rightEndX, rightEndY;
 
+    let interpolatedY;
+
     if (i <= foldLineIndex) {
       // PHASE 1: Moving toward fold (lines 0 to foldLineIndex)
       // Y position interpolates from firstLineY to foldLineY
       const phase1Progress = foldLineIndex > 0 ? i / foldLineIndex : 0;
-      const interpolatedY = firstLineYPos + phase1Progress * (foldLineYPos - firstLineYPos);
+      interpolatedY = firstLineYPos + phase1Progress * (foldLineYPos - firstLineYPos);
 
-      leftStartX = (p1BaseX - extension) - offset * leftSlopeFactor * 0.8;
+      // Apply gap scaling to Y position to maintain angle/form
+      // We scale the distance from the first line based on the gap ratio
+      const yDistanceFromFirst = interpolatedY - firstLineYPos;
+      const scaledYDistance = yDistanceFromFirst * (params.gapBetweenLines / DEFAULT_GAP);
+      interpolatedY = firstLineYPos + scaledYDistance;
+
+      leftStartX = p1BaseX - offset * leftSlopeFactor * 0.8;
       leftStartY = interpolatedY;
 
       peakX = p2BaseX - offset * leftSlopeFactor * 0.55;
       peakY = interpolatedY + constantPeakOffset; // Use constant offset so peak moves with line
 
-      rightEndX = (p3BaseX + extension) - offset * leftSlopeFactor * 0.5;
+      rightEndX = p3BaseX - offset * leftSlopeFactor * 0.5;
       rightEndY = interpolatedY;
     } else {
       // PHASE 2: Moving away from fold (lines foldLineIndex+1 to end)
@@ -127,13 +142,18 @@ export function generateMultidimensionalLoS(
       const linesSinceFold = i - foldLineIndex;
       const phase2TotalLines = params.lineCount - foldLineIndex - 1;
       const phase2Progress = phase2TotalLines > 0 ? linesSinceFold / phase2TotalLines : 0;
-      const interpolatedY = foldLineYPos + phase2Progress * (lastLineYPos - foldLineYPos);
+      interpolatedY = foldLineYPos + phase2Progress * (lastLineYPos - foldLineYPos);
+
+      // Apply gap scaling to Y position to maintain angle/form
+      const yDistanceFromFirst = interpolatedY - firstLineYPos;
+      const scaledYDistance = yDistanceFromFirst * (params.gapBetweenLines / DEFAULT_GAP);
+      interpolatedY = firstLineYPos + scaledYDistance;
 
       // Calculate fold point positions (where phase 1 ended at foldLineIndex)
       const foldOffset = foldLineIndex * params.gapBetweenLines * responsiveScale * scale;
-      const foldP1X = (p1BaseX - extension) - foldOffset * leftSlopeFactor * 0.8;
+      const foldP1X = p1BaseX - foldOffset * leftSlopeFactor * 0.8;
       const foldP2X = p2BaseX - foldOffset * leftSlopeFactor * 0.55;
-      const foldP3X = (p3BaseX + extension) - foldOffset * leftSlopeFactor * 0.5;
+      const foldP3X = p3BaseX - foldOffset * leftSlopeFactor * 0.5;
 
       // Apply RIGHT movement from fold point using phase2 offset
       const phase2Offset = linesSinceFold * params.gapBetweenLines * responsiveScale * scale;
@@ -147,7 +167,14 @@ export function generateMultidimensionalLoS(
       rightEndY = interpolatedY;
     }
 
-    const points = `${leftStartX},${leftStartY} ${peakX},${peakY} ${rightEndX},${rightEndY}`;
+    // Apply line extension by scaling the vector from Peak to Start/End
+    // This extends the lines diagonally, preserving the slope and form
+    const finalLeftStartX = peakX + (leftStartX - peakX) * params.lineExtension;
+    const finalLeftStartY = peakY + (leftStartY - peakY) * params.lineExtension;
+    const finalRightEndX = peakX + (rightEndX - peakX) * params.lineExtension;
+    const finalRightEndY = peakY + (rightEndY - peakY) * params.lineExtension;
+
+    const points = `${finalLeftStartX},${finalLeftStartY} ${peakX},${peakY} ${finalRightEndX},${finalRightEndY}`;
 
     lines.push(
       <polyline
