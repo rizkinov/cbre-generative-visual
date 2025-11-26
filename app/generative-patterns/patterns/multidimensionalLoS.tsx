@@ -114,7 +114,7 @@ export function generateMultidimensionalLoS(
 
     // 1. Calculate the movement of the Peak relative to its default position
     const innerWidth = scaledWidth - 2 * scaledPadding;
-    const defaultCornerX = offsetX + scaledPadding + 0.42 * innerWidth + masterOffsetX;
+    const defaultCornerX = offsetX + scaledPadding + 0.13 * innerWidth + masterOffsetX;
     const peakDeltaX = cornerX - defaultCornerX;
 
     // 2. Calculate the stabilization factor
@@ -136,20 +136,42 @@ export function generateMultidimensionalLoS(
 
     // Y-Axis Stabilization
     const defaultCornerYBase = scaledPadding + 0.14 * (scaledHeight - 2 * scaledPadding);
-    const defaultReferenceFirstLineYBase = scaledPadding + 0.40 * (scaledHeight - 2 * scaledPadding);
+    const defaultReferenceFirstLineYBase = scaledPadding + 0.38 * (scaledHeight - 2 * scaledPadding);
     const defaultConstantPeakOffset = defaultCornerYBase - defaultReferenceFirstLineYBase;
     const deltaPeakOffset = constantPeakOffset - defaultConstantPeakOffset;
 
     const baseShiftY = deltaPeakOffset * stabilizationFactor;
 
-    if (i <= foldLineIndex) {
-      // PHASE 1: Moving toward fold (lines 0 to foldLineIndex)
-      // Y position interpolates from firstLineY to foldLineY
-      const phase1Progress = foldLineIndex > 0 ? i / foldLineIndex : 0;
-      interpolatedY = firstLineYPos + phase1Progress * (foldLineYPos - firstLineYPos);
+    // Angle Consistency Logic
+    // To ensure Line Count doesn't change the angle, we calculate the vertical step
+    // based on a REFERENCE line count (42).
+    // We ANCHOR at the FIRST LINE.
+    // This ensures that:
+    // 1. The Top of the visual stays fixed when changing Line Count (no jumping).
+    // 2. Adding lines extends the pattern downwards.
+    // 3. The Sliders (First, Fold, Last) define the "Reference Shape" (Angle).
+    // Note: If Line Count != 42, the actual geometric fold will be at a different Y
+    // than the Fold Line Y slider, because the pattern has extended past it.
+    // This is necessary to preserve the fixed angle.
+    const DEFAULT_LINE_COUNT = 42;
+    const refFoldLineIndex = Math.floor(DEFAULT_LINE_COUNT * 0.42);
+    const refPhase1TotalSteps = refFoldLineIndex;
+    const refPhase2TotalSteps = DEFAULT_LINE_COUNT - refFoldLineIndex - 1;
 
-      // Apply gap scaling to Y position to maintain angle/form
-      // We scale the distance from the first line based on the gap ratio
+    // Calculate the vertical step per line based on the reference shape
+    const refPhase1StepY = refPhase1TotalSteps > 0 ? (foldLineYPos - firstLineYPos) / refPhase1TotalSteps : 0;
+    const refPhase2StepY = refPhase2TotalSteps > 0 ? (lastLineYPos - foldLineYPos) / refPhase2TotalSteps : 0;
+
+    // Calculate the actual Y position of the fold for the CURRENT line count
+    const currentFoldYPos = firstLineYPos + foldLineIndex * refPhase1StepY;
+
+    if (i <= foldLineIndex) {
+      // PHASE 1: Moving toward fold
+      // Anchor at First Line
+      const stepsFromFirst = i;
+      interpolatedY = firstLineYPos + stepsFromFirst * refPhase1StepY;
+
+      // Apply gap scaling
       const yDistanceFromFirst = interpolatedY - firstLineYPos;
       const scaledYDistance = yDistanceFromFirst * (params.gapBetweenLines / DEFAULT_GAP);
       interpolatedY = firstLineYPos + scaledYDistance;
@@ -165,14 +187,13 @@ export function generateMultidimensionalLoS(
       rightEndX = p3BaseX - offset * leftSlopeFactor * 0.5;
       rightEndY = interpolatedY + baseShiftY;
     } else {
-      // PHASE 2: Moving away from fold (lines foldLineIndex+1 to end)
-      // Y position interpolates from foldLineY to lastLineY
-      const linesSinceFold = i - foldLineIndex;
-      const phase2TotalLines = params.lineCount - foldLineIndex - 1;
-      const phase2Progress = phase2TotalLines > 0 ? linesSinceFold / phase2TotalLines : 0;
-      interpolatedY = foldLineYPos + phase2Progress * (lastLineYPos - foldLineYPos);
+      // PHASE 2: Moving away from fold
+      // Anchor at Calculated Fold
+      const stepsFromFold = i - foldLineIndex;
+      interpolatedY = currentFoldYPos + stepsFromFold * refPhase2StepY;
 
-      // Apply gap scaling to Y position to maintain angle/form
+      // Apply gap scaling
+      // We scale distance from First Line for consistency across the whole shape
       const yDistanceFromFirst = interpolatedY - firstLineYPos;
       const scaledYDistance = yDistanceFromFirst * (params.gapBetweenLines / DEFAULT_GAP);
       interpolatedY = firstLineYPos + scaledYDistance;
@@ -184,7 +205,7 @@ export function generateMultidimensionalLoS(
       const foldP3X = p3BaseX - foldOffset * leftSlopeFactor * 0.5;
 
       // Apply RIGHT movement from fold point using phase2 offset
-      const phase2Offset = linesSinceFold * params.gapBetweenLines * responsiveScale * scale;
+      const phase2Offset = stepsFromFold * params.gapBetweenLines * responsiveScale * scale;
       leftStartX = foldP1X + phase2Offset * rightSlopeFactor * 0.47;
 
       // Apply Y stabilization ONLY to the Base (Start)
@@ -225,21 +246,21 @@ export function generateMultidimensionalLoS(
 
 // Default parameters (based on SVG analysis)
 export const defaultMultidimensionalLoSParams: MultidimensionalLoSParams = {
-  lineCount: 52,
+  lineCount: 42,
   gapBetweenLines: 12.0,
-  masterPositionX: 0.45, // Master X position (0 = left, 1 = right)
-  masterPositionY: 0.55, // Master Y position (0 = top, 1 = bottom)
-  masterPositionZ: 1.0, // Master Z position/scale (0.5 = 50%, 1.0 = 100%, 2.0 = 200%)
-  cornerPositionX: 0.42,
+  masterPositionX: 0.74, // Master X position (0 = left, 1 = right)
+  masterPositionY: 0.87, // Master Y position (0 = top, 1 = bottom)
+  masterPositionZ: 1.11, // Master Z position/scale (0.5 = 50%, 1.0 = 100%, 2.0 = 200%)
+  cornerPositionX: 0.13,
   cornerPositionY: 0.14, // Peak position (0 = top, 1 = bottom)
-  firstLineY: 0.40, // Y position of first line (0 = top, 1 = bottom)
-  foldLineY: 0.52, // Y position of fold line
-  lastLineY: 0.73, // Y position of last line
-  leftAngle: 37,
-  rightAngle: 57,
-  lineExtension: 1.0,
-  strokeWidthMin: 0.5,
-  strokeWidthMax: 2.0,
+  firstLineY: 0.38, // Y position of first line (0 = top, 1 = bottom)
+  foldLineY: 0.66, // Y position of fold line
+  lastLineY: 0.94, // Y position of last line
+  leftAngle: 22,
+  rightAngle: 73,
+  lineExtension: 1.45,
+  strokeWidthMin: 2.0,
+  strokeWidthMax: 2.5,
   useGradient: false,
   gradientColorFrom: '',
   gradientColorTo: '',
