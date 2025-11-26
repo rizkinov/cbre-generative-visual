@@ -114,7 +114,7 @@ export function generateMultidimensionalLoS(
 
     // 1. Calculate the movement of the Peak relative to its default position
     const innerWidth = scaledWidth - 2 * scaledPadding;
-    const defaultCornerX = offsetX + scaledPadding + 0.13 * innerWidth + masterOffsetX;
+    const defaultCornerX = offsetX + scaledPadding + 0.17 * innerWidth + masterOffsetX;
     const peakDeltaX = cornerX - defaultCornerX;
 
     // 2. Calculate the stabilization factor
@@ -135,7 +135,7 @@ export function generateMultidimensionalLoS(
     let interpolatedY;
 
     // Y-Axis Stabilization
-    const defaultCornerYBase = scaledPadding + 0.14 * (scaledHeight - 2 * scaledPadding);
+    const defaultCornerYBase = scaledPadding + 0.20 * (scaledHeight - 2 * scaledPadding);
     const defaultReferenceFirstLineYBase = scaledPadding + 0.38 * (scaledHeight - 2 * scaledPadding);
     const defaultConstantPeakOffset = defaultCornerYBase - defaultReferenceFirstLineYBase;
     const deltaPeakOffset = constantPeakOffset - defaultConstantPeakOffset;
@@ -249,18 +249,18 @@ export const defaultMultidimensionalLoSParams: MultidimensionalLoSParams = {
   lineCount: 42,
   gapBetweenLines: 12.0,
   masterPositionX: 0.74, // Master X position (0 = left, 1 = right)
-  masterPositionY: 0.87, // Master Y position (0 = top, 1 = bottom)
+  masterPositionY: 0.82, // Master Y position (0 = top, 1 = bottom)
   masterPositionZ: 1.11, // Master Z position/scale (0.5 = 50%, 1.0 = 100%, 2.0 = 200%)
-  cornerPositionX: 0.13,
-  cornerPositionY: 0.14, // Peak position (0 = top, 1 = bottom)
+  cornerPositionX: 0.17,
+  cornerPositionY: 0.20, // Peak position (0 = top, 1 = bottom)
   firstLineY: 0.38, // Y position of first line (0 = top, 1 = bottom)
-  foldLineY: 0.66, // Y position of fold line
-  lastLineY: 0.94, // Y position of last line
+  foldLineY: 0.62, // Y position of fold line
+  lastLineY: 0.84, // Y position of last line
   leftAngle: 22,
   rightAngle: 73,
-  lineExtension: 1.45,
-  strokeWidthMin: 2.0,
-  strokeWidthMax: 2.5,
+  lineExtension: 1.85,
+  strokeWidthMin: 3.0,
+  strokeWidthMax: 3.5,
   useGradient: false,
   gradientColorFrom: '',
   gradientColorTo: '',
