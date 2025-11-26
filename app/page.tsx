@@ -103,7 +103,7 @@ export default function Home() {
             Generative Visuals
           </h1>
           <p className="text-dark-grey font-calibre text-base max-w-3xl">
-            Create brand-consistent generative visuals with five unique styles: Horizontal Bands, Linear, Diagonal Contours, Multidimensional LoS, and Glaze. Control every detail from colors to line weight, export as SVG or PNG at any scale.
+            Create brand-consistent generative visuals with five unique styles: Horizontal Bands, Vertical Bars, Diagonal Contours, Multidimensional LoS, and Glaze. Control every detail from colors to line weight, export as SVG or PNG at any scale.
           </p>
         </div>
 
@@ -127,7 +127,7 @@ export default function Home() {
           {/* Left Panel: Controls */}
           <div>
             <CBRECard className="p-6">
-              <h2 className="text-2xl font-financier text-cbre-green mb-4">Pattern Controls</h2>
+              <h2 className="text-2xl font-financier text-cbre-green mb-4">Controls</h2>
               <ControlsPanel
                 pattern={globals.pattern}
                 onPatternChange={(pattern) => setGlobals({ ...globals, pattern })}
