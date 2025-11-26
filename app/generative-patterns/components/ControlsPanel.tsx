@@ -647,8 +647,59 @@ export function ControlsPanel({
                   }
                 />
               </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="master-rotation" className="font-calibre text-sm">
+                  Rotation
+                </Label>
+                <CBRESelect
+                  value={multidimensionalLoSParams.masterRotation?.toString() || "0"}
+                  onValueChange={(v) =>
+                    onMultidimensionalLoSChange({ ...multidimensionalLoSParams, masterRotation: parseInt(v) })
+                  }
+                >
+                  <SelectTrigger id="master-rotation">
+                    <SelectValue placeholder="Select rotation" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="0">0°</SelectItem>
+                    <SelectItem value="90">90°</SelectItem>
+                    <SelectItem value="180">180°</SelectItem>
+                    <SelectItem value="270">270°</SelectItem>
+                  </SelectContent>
+                </CBRESelect>
+              </div>
+
+              <div className="flex items-center space-x-4 pt-2">
+                <div className="flex items-center space-x-2">
+                  <Checkbox
+                    id="master-flip-x"
+                    checked={multidimensionalLoSParams.masterFlipX || false}
+                    onCheckedChange={(checked) =>
+                      onMultidimensionalLoSChange({ ...multidimensionalLoSParams, masterFlipX: checked === true })
+                    }
+                  />
+                  <Label htmlFor="master-flip-x" className="font-calibre text-sm">
+                    Flip Horizontal
+                  </Label>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <Checkbox
+                    id="master-flip-y"
+                    checked={multidimensionalLoSParams.masterFlipY || false}
+                    onCheckedChange={(checked) =>
+                      onMultidimensionalLoSChange({ ...multidimensionalLoSParams, masterFlipY: checked === true })
+                    }
+                  />
+                  <Label htmlFor="master-flip-y" className="font-calibre text-sm">
+                    Flip Vertical
+                  </Label>
+                </div>
+              </div>
+
             </div>
           </div>
+
 
           <div className="h-[1px] bg-light-grey my-6" />
 
@@ -1085,6 +1136,6 @@ export function ControlsPanel({
           </div>
         </CBRETabsContent>
       </CBRETabs>
-    </div>
+    </div >
   );
 }

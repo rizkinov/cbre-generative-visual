@@ -86,6 +86,9 @@ export interface MultidimensionalLoSParams {
   useGradient: boolean;
   gradientColorFrom: string;
   gradientColorTo: string;
+  masterRotation: number; // 0, 90, 180, 270
+  masterFlipX: boolean;
+  masterFlipY: boolean;
 }
 
 // Transformational Color Background Parameters

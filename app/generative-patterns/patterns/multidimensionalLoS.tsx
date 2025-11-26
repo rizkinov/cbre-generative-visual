@@ -241,7 +241,24 @@ export function generateMultidimensionalLoS(
     );
   }
 
-  return <g>{lines}</g>;
+  // Calculate center for rotation/flip
+  // We use the scaled dimensions to find the visual center of the pattern
+  const cx = width / 2;
+  const cy = height / 2;
+  let transform = '';
+
+  if (params.masterRotation) {
+    transform += `rotate(${params.masterRotation}, ${cx}, ${cy}) `;
+  }
+
+  if (params.masterFlipX || params.masterFlipY) {
+    const sx = params.masterFlipX ? -1 : 1;
+    const sy = params.masterFlipY ? -1 : 1;
+    // To flip around center: translate(cx, cy) scale(sx, sy) translate(-cx, -cy)
+    transform += `translate(${cx}, ${cy}) scale(${sx}, ${sy}) translate(${-cx}, ${-cy}) `;
+  }
+
+  return <g transform={transform}>{lines}</g>;
 }
 
 // Default parameters (based on SVG analysis)
@@ -264,4 +281,7 @@ export const defaultMultidimensionalLoSParams: MultidimensionalLoSParams = {
   useGradient: false,
   gradientColorFrom: '',
   gradientColorTo: '',
+  masterRotation: 0,
+  masterFlipX: false,
+  masterFlipY: false,
 };
