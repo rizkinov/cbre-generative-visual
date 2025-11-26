@@ -107,14 +107,40 @@ export function generateMultidimensionalLoS(
     const foldLineYPos = offsetY + scaledPadding + params.foldLineY * (scaledHeight - 2 * scaledPadding) + masterOffsetY;
     const lastLineYPos = offsetY + scaledPadding + params.lastLineY * (scaledHeight - 2 * scaledPadding) + masterOffsetY;
 
-    // Base positions - now using user-controlled Y positions with centering offset
-    const p1BaseX = offsetX + scaledPadding * 1.5 + masterOffsetX;
+    // Base positions
+    // We implement a "Dynamic Base" to stabilize the extended tips.
+    // We use a dynamic factor so that at ext=1.0, the base is FIXED (Skew behavior),
+    // and at ext>1.0, the base moves to stabilize the tips (prevent lever effect).
+
+    // 1. Calculate the movement of the Peak relative to its default position
+    const innerWidth = scaledWidth - 2 * scaledPadding;
+    const defaultCornerX = offsetX + scaledPadding + 0.42 * innerWidth + masterOffsetX;
+    const peakDeltaX = cornerX - defaultCornerX;
+
+    // 2. Calculate the stabilization factor
+    // Formula: factor = (ext - 1) / ext
+    const stabilizationFactor = (params.lineExtension - 1) / params.lineExtension;
+    const baseShiftX = peakDeltaX * stabilizationFactor;
+
+    // 3. Apply shift to the default base positions
+    const defaultP1BaseX = offsetX + scaledPadding * 1.5 + masterOffsetX;
+    const defaultP3BaseX = offsetX + scaledWidth - scaledPadding * 1.5 + masterOffsetX;
+
+    const p1BaseX = defaultP1BaseX + baseShiftX;
     const p2BaseX = cornerX;
-    const p3BaseX = offsetX + scaledWidth - scaledPadding * 1.5 + masterOffsetX;
+    const p3BaseX = defaultP3BaseX + baseShiftX;
 
     let leftStartX, leftStartY, peakX, peakY, rightEndX, rightEndY;
 
     let interpolatedY;
+
+    // Y-Axis Stabilization
+    const defaultCornerYBase = scaledPadding + 0.14 * (scaledHeight - 2 * scaledPadding);
+    const defaultReferenceFirstLineYBase = scaledPadding + 0.40 * (scaledHeight - 2 * scaledPadding);
+    const defaultConstantPeakOffset = defaultCornerYBase - defaultReferenceFirstLineYBase;
+    const deltaPeakOffset = constantPeakOffset - defaultConstantPeakOffset;
+
+    const baseShiftY = deltaPeakOffset * stabilizationFactor;
 
     if (i <= foldLineIndex) {
       // PHASE 1: Moving toward fold (lines 0 to foldLineIndex)
@@ -129,13 +155,15 @@ export function generateMultidimensionalLoS(
       interpolatedY = firstLineYPos + scaledYDistance;
 
       leftStartX = p1BaseX - offset * leftSlopeFactor * 0.8;
-      leftStartY = interpolatedY;
+
+      // Apply Y stabilization ONLY to the Base (Start), NOT the Peak
+      leftStartY = interpolatedY + baseShiftY;
 
       peakX = p2BaseX - offset * leftSlopeFactor * 0.55;
-      peakY = interpolatedY + constantPeakOffset; // Use constant offset so peak moves with line
+      peakY = interpolatedY + constantPeakOffset; // Peak uses original Y to stay anchored to slider
 
       rightEndX = p3BaseX - offset * leftSlopeFactor * 0.5;
-      rightEndY = interpolatedY;
+      rightEndY = interpolatedY + baseShiftY;
     } else {
       // PHASE 2: Moving away from fold (lines foldLineIndex+1 to end)
       // Y position interpolates from foldLineY to lastLineY
@@ -158,17 +186,20 @@ export function generateMultidimensionalLoS(
       // Apply RIGHT movement from fold point using phase2 offset
       const phase2Offset = linesSinceFold * params.gapBetweenLines * responsiveScale * scale;
       leftStartX = foldP1X + phase2Offset * rightSlopeFactor * 0.47;
-      leftStartY = interpolatedY;
+
+      // Apply Y stabilization ONLY to the Base (Start)
+      leftStartY = interpolatedY + baseShiftY;
 
       peakX = foldP2X + phase2Offset * rightSlopeFactor * 0.72;
-      peakY = interpolatedY + constantPeakOffset; // Use constant offset so peak moves with line
+      peakY = interpolatedY + constantPeakOffset; // Peak uses original Y
 
       rightEndX = foldP3X + phase2Offset * rightSlopeFactor * 0.76;
-      rightEndY = interpolatedY;
+      rightEndY = interpolatedY + baseShiftY;
     }
 
     // Apply line extension by scaling the vector from Peak to Start/End
     // This extends the lines diagonally, preserving the slope and form
+    // We reverted to this logic because the 'Fixed Vector' approach caused instability during extension.
     const finalLeftStartX = peakX + (leftStartX - peakX) * params.lineExtension;
     const finalLeftStartY = peakY + (leftStartY - peakY) * params.lineExtension;
     const finalRightEndX = peakX + (rightEndX - peakX) * params.lineExtension;
@@ -206,7 +237,7 @@ export const defaultMultidimensionalLoSParams: MultidimensionalLoSParams = {
   lastLineY: 0.73, // Y position of last line
   leftAngle: 37,
   rightAngle: 57,
-  lineExtension: 0.60,
+  lineExtension: 1.0,
   strokeWidthMin: 0.5,
   strokeWidthMax: 2.0,
   useGradient: false,

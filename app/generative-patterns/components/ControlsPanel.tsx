@@ -658,7 +658,7 @@ export function ControlsPanel({
             <div className="space-y-3">
               <div className="space-y-2">
                 <Label htmlFor="corner-x" className="font-calibre text-sm">
-                  Corner Position X: {multidimensionalLoSParams.cornerPositionX.toFixed(2)}
+                  Peak Position X: {multidimensionalLoSParams.cornerPositionX.toFixed(2)}
                 </Label>
                 <Slider
                   id="corner-x"
@@ -674,7 +674,7 @@ export function ControlsPanel({
 
               <div className="space-y-2">
                 <Label htmlFor="corner-y" className="font-calibre text-sm">
-                  Corner Position Y: {multidimensionalLoSParams.cornerPositionY.toFixed(2)}
+                  Peak Position Y: {multidimensionalLoSParams.cornerPositionY.toFixed(2)}
                 </Label>
                 <Slider
                   id="corner-y"
@@ -694,7 +694,7 @@ export function ControlsPanel({
                 </Label>
                 <Slider
                   id="left-angle"
-                  min={0}
+                  min={-90}
                   max={90}
                   step={1}
                   value={[multidimensionalLoSParams.leftAngle]}
@@ -710,7 +710,7 @@ export function ControlsPanel({
                 </Label>
                 <Slider
                   id="right-angle"
-                  min={0}
+                  min={-90}
                   max={90}
                   step={1}
                   value={[multidimensionalLoSParams.rightAngle]}
