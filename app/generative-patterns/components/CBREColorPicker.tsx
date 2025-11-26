@@ -37,19 +37,18 @@ export function CBREColorPicker({ label, value, onChange, helperText }: CBREColo
           {/* Primary Colors */}
           <div className="space-y-1">
             <div className="text-xs font-calibre text-dark-grey font-semibold uppercase tracking-wide">Primary Colors</div>
-            <div className="grid grid-cols-5 gap-1.5">
-              {['cbre-green', 'accent-green', 'dark-green', 'dark-grey', 'light-grey'].map((colorKey) => {
+            <div className="grid grid-cols-6 gap-1.5">
+              {['cbre-green', 'accent-green', 'dark-green', 'dark-grey', 'light-grey', 'white'].map((colorKey) => {
                 const colorHex = cbreColors[colorKey as keyof typeof cbreColors];
                 return (
                   <button
                     key={colorKey}
                     type="button"
                     onClick={() => onChange(colorHex)}
-                    className={`w-full aspect-square rounded border-2 transition-all hover:scale-110 ${
-                      value === colorHex
+                    className={`w-full aspect-square rounded border-2 transition-all hover:scale-110 ${value === colorHex
                         ? 'border-cbre-green shadow-md ring-2 ring-cbre-green ring-offset-1'
                         : 'border-light-grey hover:border-dark-grey'
-                    }`}
+                      }`}
                     style={{ backgroundColor: colorHex }}
                     title={colorKey.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}
                   />
@@ -74,11 +73,10 @@ export function CBREColorPicker({ label, value, onChange, helperText }: CBREColo
                     key={colorKey}
                     type="button"
                     onClick={() => onChange(colorHex)}
-                    className={`w-full aspect-square rounded border-2 transition-all hover:scale-110 ${
-                      value === colorHex
+                    className={`w-full aspect-square rounded border-2 transition-all hover:scale-110 ${value === colorHex
                         ? 'border-cbre-green shadow-md ring-2 ring-cbre-green ring-offset-1'
                         : 'border-light-grey hover:border-dark-grey'
-                    }`}
+                      }`}
                     style={{ backgroundColor: colorHex }}
                     title={colorKey.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}
                   />
@@ -98,11 +96,10 @@ export function CBREColorPicker({ label, value, onChange, helperText }: CBREColo
                     key={colorKey}
                     type="button"
                     onClick={() => onChange(colorHex)}
-                    className={`w-full aspect-square rounded border-2 transition-all hover:scale-110 ${
-                      value === colorHex
+                    className={`w-full aspect-square rounded border-2 transition-all hover:scale-110 ${value === colorHex
                         ? 'border-cbre-green shadow-md ring-2 ring-cbre-green ring-offset-1'
                         : 'border-light-grey hover:border-dark-grey'
-                    }`}
+                      }`}
                     style={{ backgroundColor: colorHex }}
                     title={colorKey.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}
                   />
@@ -122,11 +119,10 @@ export function CBREColorPicker({ label, value, onChange, helperText }: CBREColo
                     key={colorKey}
                     type="button"
                     onClick={() => onChange(colorHex)}
-                    className={`w-full aspect-square rounded border-2 transition-all hover:scale-110 ${
-                      value === colorHex
+                    className={`w-full aspect-square rounded border-2 transition-all hover:scale-110 ${value === colorHex
                         ? 'border-cbre-green shadow-md ring-2 ring-cbre-green ring-offset-1'
                         : 'border-light-grey hover:border-dark-grey'
-                    }`}
+                      }`}
                     style={{ backgroundColor: colorHex }}
                     title={colorKey.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}
                   />
@@ -146,11 +142,10 @@ export function CBREColorPicker({ label, value, onChange, helperText }: CBREColo
                     key={colorKey}
                     type="button"
                     onClick={() => onChange(colorHex)}
-                    className={`w-full aspect-square rounded border-2 transition-all hover:scale-110 ${
-                      value === colorHex
+                    className={`w-full aspect-square rounded border-2 transition-all hover:scale-110 ${value === colorHex
                         ? 'border-cbre-green shadow-md ring-2 ring-cbre-green ring-offset-1'
                         : 'border-light-grey hover:border-dark-grey'
-                    }`}
+                      }`}
                     style={{ backgroundColor: colorHex }}
                     title={colorKey.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}
                   />
@@ -170,11 +165,10 @@ export function CBREColorPicker({ label, value, onChange, helperText }: CBREColo
                     key={colorKey}
                     type="button"
                     onClick={() => onChange(colorHex)}
-                    className={`w-full aspect-square rounded border-2 transition-all hover:scale-110 ${
-                      value === colorHex
+                    className={`w-full aspect-square rounded border-2 transition-all hover:scale-110 ${value === colorHex
                         ? 'border-cbre-green shadow-md ring-2 ring-cbre-green ring-offset-1'
                         : 'border-light-grey hover:border-dark-grey'
-                    }`}
+                      }`}
                     style={{ backgroundColor: colorHex }}
                     title={colorKey.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}
                   />
@@ -199,11 +193,10 @@ export function CBREColorPicker({ label, value, onChange, helperText }: CBREColo
                     key={colorKey}
                     type="button"
                     onClick={() => onChange(colorHex)}
-                    className={`w-full aspect-square rounded border-2 transition-all hover:scale-110 ${
-                      value === colorHex
+                    className={`w-full aspect-square rounded border-2 transition-all hover:scale-110 ${value === colorHex
                         ? 'border-cbre-green shadow-md ring-2 ring-cbre-green ring-offset-1'
                         : 'border-light-grey hover:border-dark-grey'
-                    }`}
+                      }`}
                     style={{ backgroundColor: colorHex }}
                     title={colorKey.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}
                   />
@@ -223,11 +216,10 @@ export function CBREColorPicker({ label, value, onChange, helperText }: CBREColo
                     key={colorKey}
                     type="button"
                     onClick={() => onChange(colorHex)}
-                    className={`w-full aspect-square rounded border-2 transition-all hover:scale-110 ${
-                      value === colorHex
+                    className={`w-full aspect-square rounded border-2 transition-all hover:scale-110 ${value === colorHex
                         ? 'border-cbre-green shadow-md ring-2 ring-cbre-green ring-offset-1'
                         : 'border-light-grey hover:border-dark-grey'
-                    }`}
+                      }`}
                     style={{ backgroundColor: colorHex }}
                     title={colorKey.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}
                   />

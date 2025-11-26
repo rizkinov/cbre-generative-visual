@@ -44,10 +44,12 @@ export interface VerticalBarsParams {
   barWidth: number;
   gapWidth: number;
   densityCurve: DensityCurve;
-  curveIntensity: number; // 0-100 scale
+  curveIntensity: number; // 0-100 scale (affects gap)
+  barCurveIntensity: number; // 0-100 scale (affects bar width)
   direction: Direction;
   edgePadding: number;
   extendLastBar: boolean; // Extend last bar to fill remaining space
+  paddingColor?: string; // Optional background color for the padding area
 }
 
 // Diagonal Contours Parameters

@@ -8,6 +8,7 @@ export const cbreColors = {
   "cbre-green": "#003F2D",
   "dark-grey": "#435254",
   "light-grey": "#CAD1D3",
+  "white": "#FFFFFF",
 
   // ===== SECONDARY COLORS =====
 

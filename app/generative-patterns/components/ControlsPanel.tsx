@@ -25,6 +25,10 @@ import type {
   MultidimensionalLoSParams,
   TransformationalColorBackgroundParams,
 } from '../lib/types';
+import {
+  defaultVerticalBarsParams,
+  verticalBarsPresets,
+} from '../patterns/verticalBars';
 import { transformationalPresets } from '../patterns/transformationalColorBackground';
 import { CBREColorPicker } from './CBREColorPicker';
 
@@ -68,19 +72,19 @@ export function ControlsPanel({
       <CBRETabs
         value={pattern}
         onValueChange={(v) => onPatternChange(v as PatternType)}
-        defaultValue="horizontalBands"
+        defaultValue="multidimensionalLoS"
         variant="boxed"
       >
         <CBRETabsList className="!h-auto !flex !flex-wrap !gap-2 !py-2">
-          <CBRETabsTrigger value="horizontalBands" className="flex-1 min-w-[140px]">
+          {/* <CBRETabsTrigger value="horizontalBands" className="flex-1 min-w-[140px]">
             Bands
-          </CBRETabsTrigger>
+          </CBRETabsTrigger> */}
           <CBRETabsTrigger value="verticalBars" className="flex-1 min-w-[140px]">
-            Bars
+            Linear
           </CBRETabsTrigger>
-          <CBRETabsTrigger value="diagonalContours" className="flex-1 min-w-[140px]">
+          {/* <CBRETabsTrigger value="diagonalContours" className="flex-1 min-w-[140px]">
             Contours
-          </CBRETabsTrigger>
+          </CBRETabsTrigger> */}
           <CBRETabsTrigger value="multidimensionalLoS" className="flex-1 min-w-[140px]">
             Dimensional
           </CBRETabsTrigger>
@@ -178,6 +182,32 @@ export function ControlsPanel({
         {/* Vertical Bars Controls */}
         <CBRETabsContent value="verticalBars" className="space-y-4">
           <div className="space-y-2">
+            <Label htmlFor="linear-preset" className="font-calibre">Preset</Label>
+            <CBRESelect
+              value={Object.keys(verticalBarsPresets).find(key =>
+                JSON.stringify(verticalBarsPresets[key as keyof typeof verticalBarsPresets].params) === JSON.stringify(verticalBarsParams)
+              ) || 'custom'}
+              onValueChange={(value) => {
+                if (value !== 'custom' && verticalBarsPresets[value as keyof typeof verticalBarsPresets]) {
+                  onVerticalBarsChange(verticalBarsPresets[value as keyof typeof verticalBarsPresets].params);
+                }
+              }}
+            >
+              <SelectTrigger id="linear-preset">
+                <SelectValue placeholder="Select a preset" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="custom">Custom</SelectItem>
+                {Object.entries(verticalBarsPresets).map(([key, preset]) => (
+                  <SelectItem key={key} value={key}>
+                    {preset.name}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </CBRESelect>
+          </div>
+
+          <div className="space-y-2">
             <Label htmlFor="bar-count" className="font-calibre">
               Bar Count: {verticalBarsParams.barCount}
             </Label>
@@ -200,7 +230,7 @@ export function ControlsPanel({
             <Slider
               id="bar-width"
               min={2}
-              max={80}
+              max={1200}
               step={1}
               value={[verticalBarsParams.barWidth]}
               onValueChange={(v) =>
@@ -216,7 +246,7 @@ export function ControlsPanel({
             <Slider
               id="gap-width"
               min={0}
-              max={60}
+              max={1200}
               step={1}
               value={[verticalBarsParams.gapWidth]}
               onValueChange={(v) =>
@@ -246,20 +276,38 @@ export function ControlsPanel({
           </CBRESelect>
 
           {verticalBarsParams.densityCurve === 'ease' && (
-            <div className="space-y-2">
-              <Label htmlFor="curve-intensity" className="font-calibre">
-                Curve Intensity: {verticalBarsParams.curveIntensity.toFixed(0)}
-              </Label>
-              <Slider
-                id="curve-intensity"
-                min={0}
-                max={100}
-                step={1}
-                value={[verticalBarsParams.curveIntensity]}
-                onValueChange={(v) =>
-                  onVerticalBarsChange({ ...verticalBarsParams, curveIntensity: v[0] })
-                }
-              />
+            <div className="space-y-4">
+              <div className="space-y-2">
+                <Label htmlFor="bar-curve-intensity" className="font-calibre">
+                  Bar Curve Intensity: {verticalBarsParams.barCurveIntensity?.toFixed(0) || 0}
+                </Label>
+                <Slider
+                  id="bar-curve-intensity"
+                  min={-100}
+                  max={100}
+                  step={1}
+                  value={[verticalBarsParams.barCurveIntensity || 0]}
+                  onValueChange={(v) =>
+                    onVerticalBarsChange({ ...verticalBarsParams, barCurveIntensity: v[0] })
+                  }
+                />
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="curve-intensity" className="font-calibre">
+                  Gap Curve Intensity: {verticalBarsParams.curveIntensity.toFixed(0)}
+                </Label>
+                <Slider
+                  id="curve-intensity"
+                  min={-100}
+                  max={100}
+                  step={1}
+                  value={[verticalBarsParams.curveIntensity]}
+                  onValueChange={(v) =>
+                    onVerticalBarsChange({ ...verticalBarsParams, curveIntensity: v[0] })
+                  }
+                />
+              </div>
             </div>
           )}
 
@@ -298,6 +346,17 @@ export function ControlsPanel({
               onValueChange={(v) =>
                 onVerticalBarsChange({ ...verticalBarsParams, edgePadding: v[0] })
               }
+            />
+          </div>
+
+          <div className="space-y-2">
+            <CBREColorPicker
+              label="Padding Color (optional)"
+              value={verticalBarsParams.paddingColor || ''}
+              onChange={(color) =>
+                onVerticalBarsChange({ ...verticalBarsParams, paddingColor: color })
+              }
+              helperText="Leave empty to use default background"
             />
           </div>
 

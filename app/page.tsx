@@ -44,10 +44,10 @@ export default function Home() {
   // Global state
   const [globals, setGlobals] = useState<GlobalState>({
     canvas: { width: 2000, height: 2000, padding: 0, dimension: '1:1' },
-    brand: { bg: cbreColors['dark-green'], fg: cbreColors['accent-green'] },
+    brand: { bg: cbreColors['dark-green'], fg: cbreColors['white'] },
     lineWeight: 7,
     seed: 12345,
-    pattern: 'horizontalBands',
+    pattern: 'multidimensionalLoS',
   });
 
   // Zoom state
@@ -103,7 +103,7 @@ export default function Home() {
             Generative Visuals
           </h1>
           <p className="text-dark-grey font-calibre text-base max-w-3xl">
-            Create brand-consistent generative visuals with five unique styles: Horizontal Bands, Vertical Bars, Diagonal Contours, Multidimensional LoS, and Transformational Color Backgrounds. Control every detail from colors to line weight, export as SVG or PNG at any scale.
+            Create brand-consistent generative visuals with five unique styles: Horizontal Bands, Linear, Diagonal Contours, Multidimensional LoS, and Transformational Color Backgrounds. Control every detail from colors to line weight, export as SVG or PNG at any scale.
           </p>
         </div>
 

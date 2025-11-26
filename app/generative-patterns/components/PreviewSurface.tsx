@@ -13,7 +13,14 @@ interface PreviewSurfaceProps {
 export const PreviewSurface = forwardRef<SVGSVGElement, PreviewSurfaceProps>(
   ({ globals, patternContent, zoom }, ref) => {
     const { width, height } = globals.canvas;
-    const { bg, fg } = globals.brand;
+    let { bg, fg } = globals.brand;
+
+    // Swap colors for Vertical Bars pattern
+    if (globals.pattern === 'verticalBars') {
+      const temp = bg;
+      bg = fg;
+      fg = temp;
+    }
 
     const displayWidth = width * zoom;
     const displayHeight = height * zoom;
