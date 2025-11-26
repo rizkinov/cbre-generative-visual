@@ -18,6 +18,11 @@ export function generateMultidimensionalLoS(
   // Use square reference to prevent non-uniform stretching when aspect ratio changes
   const referenceDimension = Math.min(width, height);
 
+  // Calculate responsive scale factor based on default 2000px size
+  // This ensures the pattern maintains its form/proportions across different canvas sizes
+  const baseSize = 2000;
+  const responsiveScale = referenceDimension / baseSize;
+
   // Calculate master scale from Z position (mimics 3D depth)
   const scale = params.masterPositionZ;
 
@@ -52,12 +57,12 @@ export function generateMultidimensionalLoS(
   const foldLineIndex = Math.floor(params.lineCount * 0.42); // ~42% through (line 22 of 52 default)
 
   for (let i = 0; i < params.lineCount; i++) {
-    const offset = i * params.gapBetweenLines * scale;
+    const offset = i * params.gapBetweenLines * responsiveScale * scale;
     const progress = params.lineCount > 1 ? i / (params.lineCount - 1) : 0;
 
-    // Calculate stroke width (interpolate from min to max) - scaled by Z
+    // Calculate stroke width (interpolate from min to max) - scaled by Z and responsive scale
     const strokeWidth =
-      (params.strokeWidthMin + progress * (params.strokeWidthMax - params.strokeWidthMin)) * scale;
+      (params.strokeWidthMin + progress * (params.strokeWidthMax - params.strokeWidthMin)) * responsiveScale * scale;
 
     // Calculate color
     let strokeColor: string;
@@ -125,13 +130,13 @@ export function generateMultidimensionalLoS(
       const interpolatedY = foldLineYPos + phase2Progress * (lastLineYPos - foldLineYPos);
 
       // Calculate fold point positions (where phase 1 ended at foldLineIndex)
-      const foldOffset = foldLineIndex * params.gapBetweenLines * scale;
+      const foldOffset = foldLineIndex * params.gapBetweenLines * responsiveScale * scale;
       const foldP1X = (p1BaseX - extension) - foldOffset * leftSlopeFactor * 0.8;
       const foldP2X = p2BaseX - foldOffset * leftSlopeFactor * 0.55;
       const foldP3X = (p3BaseX + extension) - foldOffset * leftSlopeFactor * 0.5;
 
       // Apply RIGHT movement from fold point using phase2 offset
-      const phase2Offset = linesSinceFold * params.gapBetweenLines * scale;
+      const phase2Offset = linesSinceFold * params.gapBetweenLines * responsiveScale * scale;
       leftStartX = foldP1X + phase2Offset * rightSlopeFactor * 0.47;
       leftStartY = interpolatedY;
 
