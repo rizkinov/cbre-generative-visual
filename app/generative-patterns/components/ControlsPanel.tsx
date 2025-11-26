@@ -47,6 +47,7 @@ interface ControlsPanelProps {
   onTransformationalColorBackgroundChange: (params: TransformationalColorBackgroundParams) => void;
   lineWeight: number;
   onLineWeightChange: (weight: number) => void;
+  brand: { bg: string; fg: string };
 }
 
 export function ControlsPanel({
@@ -64,6 +65,7 @@ export function ControlsPanel({
   onTransformationalColorBackgroundChange,
   lineWeight,
   onLineWeightChange,
+  brand,
 }: ControlsPanelProps) {
   const [selectedPreset, setSelectedPreset] = useState<string>('sageHorizon');
 
@@ -369,6 +371,102 @@ export function ControlsPanel({
               }
             />
           </div>
+
+          <div className="h-[1px] bg-light-grey my-6" />
+
+          {/* Split Controls */}
+          <div className="space-y-4">
+            <h3 className="text-sm font-calibre font-semibold text-cbre-green">Splits</h3>
+
+            <CBRESelect
+              label="Split Count"
+              id="split-count"
+              value={verticalBarsParams.splitCount?.toString() || "1"}
+              onValueChange={(v) => {
+                const count = parseInt(v) as 1 | 2 | 3 | 4;
+                // Ensure splits array is populated
+                const currentSplits = verticalBarsParams.splits || [];
+                const newSplits = Array(count).fill(0).map((_, i) => {
+                  if (currentSplits[i]) return currentSplits[i];
+                  // Default behavior: alternate mirroring
+                  return { mirror: i % 2 !== 0, color: undefined };
+                });
+
+                onVerticalBarsChange({
+                  ...verticalBarsParams,
+                  splitCount: count,
+                  splits: newSplits,
+                });
+              }}
+            >
+              <SelectTrigger>
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="1">1 (No Split)</SelectItem>
+                <SelectItem value="2">2 Splits</SelectItem>
+                <SelectItem value="3">3 Splits</SelectItem>
+                <SelectItem value="4">4 Splits</SelectItem>
+              </SelectContent>
+            </CBRESelect>
+
+            {/* Per-Split Settings */}
+            {verticalBarsParams.splitCount > 1 && Array.from({ length: verticalBarsParams.splitCount }).map((_, i) => {
+              if (i === 0) return null; // Skip Split 1 (Main controls apply)
+
+              const splitConfig = verticalBarsParams.splits?.[i] || { mirror: i % 2 !== 0 };
+
+              return (
+                <div key={i} className="border border-light-grey p-3 rounded space-y-3 mt-4">
+                  <div className="font-calibre font-semibold text-sm text-cbre-green">
+                    Split {i + 1}
+                  </div>
+
+                  <div className="flex items-center gap-2">
+                    <Checkbox
+                      id={`split-${i}-mirror`}
+                      checked={splitConfig.mirror}
+                      onCheckedChange={(checked) => {
+                        const newSplits = [...(verticalBarsParams.splits || [])];
+                        // Ensure array is filled up to this index
+                        while (newSplits.length <= i) {
+                          newSplits.push({ mirror: newSplits.length % 2 !== 0 });
+                        }
+                        newSplits[i] = { ...newSplits[i], mirror: checked === true };
+
+                        onVerticalBarsChange({
+                          ...verticalBarsParams,
+                          splits: newSplits,
+                        });
+                      }}
+                    />
+                    <Label htmlFor={`split-${i}-mirror`} className="font-calibre text-sm cursor-pointer">
+                      Reverse Direction
+                    </Label>
+                  </div>
+
+                  <CBREColorPicker
+                    label="Foreground Color"
+                    value={splitConfig.color || brand.fg}
+                    onChange={(color) => {
+                      const newSplits = [...(verticalBarsParams.splits || [])];
+                      while (newSplits.length <= i) {
+                        newSplits.push({ mirror: newSplits.length % 2 !== 0 });
+                      }
+                      newSplits[i] = { ...newSplits[i], color };
+
+                      onVerticalBarsChange({
+                        ...verticalBarsParams,
+                        splits: newSplits,
+                      });
+                    }}
+                  />
+                </div>
+              );
+            })}
+          </div>
+
+          <div className="h-[1px] bg-light-grey my-6" />
 
           <div className="space-y-2">
             <CBREColorPicker

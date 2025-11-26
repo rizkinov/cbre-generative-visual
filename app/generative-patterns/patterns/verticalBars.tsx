@@ -51,8 +51,6 @@ export function generateVerticalBars(
 
   if (useFullBleed) {
     // 1. Draw full content background (matches the gaps)
-    // We use globals.brand.fg because in PreviewSurface, colors are swapped for Vertical Bars,
-    // so the background (gaps) becomes the foreground color (Accent Green).
     bars.push(
       <rect
         key="bg-full-bleed"
@@ -65,195 +63,246 @@ export function generateVerticalBars(
     );
   }
 
-  // Determine mirroring bounds
+  // Determine mirroring bounds (Reflection)
   let effectiveWidth = width;
   let effectiveHeight = height;
-  let renderWidth = width;
-  let renderHeight = height;
 
   if (params.mirror === 'horizontal') {
     effectiveWidth = width / 2;
-    renderWidth = width / 2;
   } else if (params.mirror === 'vertical') {
     effectiveHeight = height / 2;
-    renderHeight = height / 2;
   }
 
-  if (isVertical) {
-    // Vertical bars (left-right)
-    const barWidth = Math.max(lineWeight, params.barWidth);
+  // Ensure splits array exists and has correct length
+  const activeSplits = params.splits && params.splits.length >= params.splitCount
+    ? params.splits.slice(0, params.splitCount)
+    : Array(params.splitCount).fill(0).map((_, i) => ({
+      mirror: i % 2 !== 0, // Default: alternate mirroring
+      color: undefined
+    }));
 
-    // Determine vertical extent
-    const barY = useFullBleed ? 0 : padding;
-    const barHeight = useFullBleed ? height : height - 2 * padding;
+  // Iterate through splits
+  activeSplits.forEach((splitConfig, splitIndex) => {
+    const splitCount = params.splitCount;
 
-    if (params.direction === 'LTR') {
-      // Left to Right: density increases rightward
-      // If mirrored horizontally: Left Edge -> Center
-      let x = padding + params.edgePadding;
-      const limit = params.mirror === 'horizontal' ? effectiveWidth : width - padding - params.edgePadding;
+    // Determine split bounds
+    let splitX = 0;
+    let splitY = 0;
+    let splitWidth = width;
+    let splitHeight = height;
 
-      for (let i = 0; i < params.barCount && x < limit; i++) {
-        const t = params.barCount > 1 ? i / (params.barCount - 1) : 0.5;
+    if (isVertical) {
+      // Vertical Bars (LTR/RTL) -> Stacked Vertically (Rows)
+      splitHeight = height / splitCount;
+      splitY = splitIndex * splitHeight;
+    } else {
+      // Horizontal Bars (TTB/BTT) -> Stacked Horizontally (Columns)
+      splitWidth = width / splitCount;
+      splitX = splitIndex * splitWidth;
+    }
 
-        // Gap density
-        const gapDensity = applyCurve(t, params.densityCurve, params.curveIntensity);
-        const gapReduction = Math.min(1, gapDensity * 3);
-        let gap = params.gapWidth * (1 - gapReduction);
-        const finalGap = gap < 10 ? -Math.max(1, Math.floor(gapDensity * 10)) : gap;
+    // Determine direction for this split
+    let currentDirection = params.direction;
+    if (splitConfig.mirror) {
+      if (params.direction === 'LTR') currentDirection = 'RTL';
+      else if (params.direction === 'RTL') currentDirection = 'LTR';
+      else if (params.direction === 'TTB') currentDirection = 'BTT';
+      else if (params.direction === 'BTT') currentDirection = 'TTB';
+    }
 
-        // Bar density
-        const barDensity = applyCurve(t, params.densityCurve, params.barCurveIntensity);
-        const barReduction = Math.min(0.9, barDensity * 2); // Limit reduction so bars don't disappear completely
-        const currentBarWidth = Math.max(lineWeight, barWidth * (1 - barReduction));
+    // Determine color
+    const barColor = splitConfig.color || "currentColor";
 
-        const isLastBar = i === params.barCount - 1;
-        const actualBarWidth = (isLastBar && params.extendLastBar)
-          ? (limit - x)
-          : currentBarWidth;
+    // Generate bars for this split
+    if (isVertical) {
+      // Vertical bars (left-right)
+      const barWidth = Math.max(lineWeight, params.barWidth);
 
-        bars.push(
-          <rect
-            key={`ltr-${i}`}
-            x={x}
-            y={barY}
-            width={actualBarWidth}
-            height={barHeight}
-            fill="currentColor"
-          />
-        );
+      // Determine vertical extent within the split
+      // If full bleed, we don't pad top/bottom of the canvas, but we might need to handle split boundaries?
+      // For now, assume splits are seamless.
+      // Padding only applies to the outer edges of the canvas if not full bleed.
 
-        x += currentBarWidth + finalGap;
+      let barY = splitY;
+      let barHeight = splitHeight;
+
+      if (!useFullBleed) {
+        // Apply padding to top of first split and bottom of last split
+        if (splitIndex === 0) {
+          barY += padding;
+          barHeight -= padding;
+        }
+        if (splitIndex === splitCount - 1) {
+          barHeight -= padding;
+        }
+        // If it's a middle split, no padding adjustment needed
+      }
+
+      if (currentDirection === 'LTR') {
+        // Left to Right
+        let x = padding + params.edgePadding;
+        const limit = params.mirror === 'horizontal' ? effectiveWidth : width - padding - params.edgePadding;
+
+        for (let i = 0; i < params.barCount && x < limit; i++) {
+          const t = params.barCount > 1 ? i / (params.barCount - 1) : 0.5;
+
+          const gapDensity = applyCurve(t, params.densityCurve, params.curveIntensity);
+          const gapReduction = Math.min(1, gapDensity * 3);
+          let gap = params.gapWidth * (1 - gapReduction);
+          const finalGap = gap < 10 ? -Math.max(1, Math.floor(gapDensity * 10)) : gap;
+
+          const barDensity = applyCurve(t, params.densityCurve, params.barCurveIntensity);
+          const barReduction = Math.min(0.9, barDensity * 2);
+          const currentBarWidth = Math.max(lineWeight, barWidth * (1 - barReduction));
+
+          const isLastBar = i === params.barCount - 1;
+          const actualBarWidth = (isLastBar && params.extendLastBar)
+            ? (limit - x)
+            : currentBarWidth;
+
+          bars.push(
+            <rect
+              key={`s${splitIndex}-ltr-${i}`}
+              x={x}
+              y={barY}
+              width={actualBarWidth}
+              height={barHeight}
+              fill={barColor}
+            />
+          );
+
+          x += currentBarWidth + finalGap;
+        }
+      } else {
+        // Right to Left
+        let startX = params.mirror === 'horizontal' ? effectiveWidth : width - padding - params.edgePadding;
+        let limit = padding + params.edgePadding;
+        let x = startX;
+
+        for (let i = 0; i < params.barCount && x > limit; i++) {
+          const t = params.barCount > 1 ? i / (params.barCount - 1) : 0.5;
+
+          const gapDensity = applyCurve(t, params.densityCurve, params.curveIntensity);
+          const gapReduction = Math.min(1, gapDensity * 3);
+          let gap = params.gapWidth * (1 - gapReduction);
+          const finalGap = gap < 10 ? -Math.max(1, Math.floor(gapDensity * 10)) : gap;
+
+          const barDensity = applyCurve(t, params.densityCurve, params.barCurveIntensity);
+          const barReduction = Math.min(0.9, barDensity * 2);
+          const currentBarWidth = Math.max(lineWeight, barWidth * (1 - barReduction));
+
+          const isLastBar = i === params.barCount - 1;
+          const actualBarWidth = (isLastBar && params.extendLastBar)
+            ? (x - limit)
+            : currentBarWidth;
+
+          bars.push(
+            <rect
+              key={`s${splitIndex}-rtl-${i}`}
+              x={x - actualBarWidth}
+              y={barY}
+              width={actualBarWidth}
+              height={barHeight}
+              fill={barColor}
+            />
+          );
+
+          x -= currentBarWidth + finalGap;
+        }
       }
     } else {
-      // Right to Left: density increases leftward
-      // If mirrored horizontally: Center -> Left Edge
-      let startX = params.mirror === 'horizontal' ? effectiveWidth : width - padding - params.edgePadding;
-      let limit = padding + params.edgePadding;
-      let x = startX;
+      // Horizontal bars (top-bottom)
+      const barHeight = Math.max(lineWeight, params.barWidth);
 
-      for (let i = 0; i < params.barCount && x > limit; i++) {
-        const t = params.barCount > 1 ? i / (params.barCount - 1) : 0.5;
+      let barX = splitX;
+      let barWidth = splitWidth;
 
-        // Gap density
-        const gapDensity = applyCurve(t, params.densityCurve, params.curveIntensity);
-        const gapReduction = Math.min(1, gapDensity * 3);
-        let gap = params.gapWidth * (1 - gapReduction);
-        const finalGap = gap < 10 ? -Math.max(1, Math.floor(gapDensity * 10)) : gap;
+      if (!useFullBleed) {
+        if (splitIndex === 0) {
+          barX += padding;
+          barWidth -= padding;
+        }
+        if (splitIndex === splitCount - 1) {
+          barWidth -= padding;
+        }
+      }
 
-        // Bar density
-        const barDensity = applyCurve(t, params.densityCurve, params.barCurveIntensity);
-        const barReduction = Math.min(0.9, barDensity * 2);
-        const currentBarWidth = Math.max(lineWeight, barWidth * (1 - barReduction));
+      if (currentDirection === 'TTB') {
+        // Top to Bottom
+        let y = padding + params.edgePadding;
+        const limit = params.mirror === 'vertical' ? effectiveHeight : height - padding - params.edgePadding;
 
-        const isLastBar = i === params.barCount - 1;
-        const actualBarWidth = (isLastBar && params.extendLastBar)
-          ? (x - limit)
-          : currentBarWidth;
+        for (let i = 0; i < params.barCount && y < limit; i++) {
+          const t = params.barCount > 1 ? i / (params.barCount - 1) : 0.5;
 
-        bars.push(
-          <rect
-            key={`rtl-${i}`}
-            x={x - actualBarWidth}
-            y={barY}
-            width={actualBarWidth}
-            height={barHeight}
-            fill="currentColor"
-          />
-        );
+          const gapDensity = applyCurve(t, params.densityCurve, params.curveIntensity);
+          const gapReduction = Math.min(1, gapDensity * 3);
+          let gap = params.gapWidth * (1 - gapReduction);
+          const finalGap = gap < 10 ? -Math.max(1, Math.floor(gapDensity * 10)) : gap;
 
-        x -= currentBarWidth + finalGap;
+          const barDensity = applyCurve(t, params.densityCurve, params.barCurveIntensity);
+          const barReduction = Math.min(0.9, barDensity * 2);
+          const currentBarHeight = Math.max(lineWeight, barHeight * (1 - barReduction));
+
+          const isLastBar = i === params.barCount - 1;
+          const actualBarHeight = (isLastBar && params.extendLastBar)
+            ? (limit - y)
+            : currentBarHeight;
+
+          bars.push(
+            <rect
+              key={`s${splitIndex}-ttb-${i}`}
+              x={barX}
+              y={y}
+              width={barWidth}
+              height={actualBarHeight}
+              fill={barColor}
+            />
+          );
+
+          y += currentBarHeight + finalGap;
+        }
+      } else {
+        // Bottom to Top
+        let startY = params.mirror === 'vertical' ? effectiveHeight : height - padding - params.edgePadding;
+        let limit = padding + params.edgePadding;
+        let y = startY;
+
+        for (let i = 0; i < params.barCount && y > limit; i++) {
+          const t = params.barCount > 1 ? i / (params.barCount - 1) : 0.5;
+
+          const gapDensity = applyCurve(t, params.densityCurve, params.curveIntensity);
+          const gapReduction = Math.min(1, gapDensity * 3);
+          let gap = params.gapWidth * (1 - gapReduction);
+          const finalGap = gap < 10 ? -Math.max(1, Math.floor(gapDensity * 10)) : gap;
+
+          const barDensity = applyCurve(t, params.densityCurve, params.barCurveIntensity);
+          const barReduction = Math.min(0.9, barDensity * 2);
+          const currentBarHeight = Math.max(lineWeight, barHeight * (1 - barReduction));
+
+          const isLastBar = i === params.barCount - 1;
+          const actualBarHeight = (isLastBar && params.extendLastBar)
+            ? (y - limit)
+            : currentBarHeight;
+
+          bars.push(
+            <rect
+              key={`s${splitIndex}-btt-${i}`}
+              x={barX}
+              y={y - actualBarHeight}
+              width={barWidth}
+              height={actualBarHeight}
+              fill={barColor}
+            />
+          );
+
+          y -= currentBarHeight + finalGap;
+        }
       }
     }
-  } else {
-    // Horizontal bars (top-bottom)
-    const barHeight = Math.max(lineWeight, params.barWidth);
+  });
 
-    // Determine horizontal extent
-    const barX = useFullBleed ? 0 : padding;
-    const barWidth = useFullBleed ? width : width - 2 * padding;
-
-    if (params.direction === 'TTB') {
-      // Top to Bottom: density increases downward
-      // If mirrored vertically: Top Edge -> Center
-      let y = padding + params.edgePadding;
-      const limit = params.mirror === 'vertical' ? effectiveHeight : height - padding - params.edgePadding;
-
-      for (let i = 0; i < params.barCount && y < limit; i++) {
-        const t = params.barCount > 1 ? i / (params.barCount - 1) : 0.5;
-
-        // Gap density
-        const gapDensity = applyCurve(t, params.densityCurve, params.curveIntensity);
-        const gapReduction = Math.min(1, gapDensity * 3);
-        let gap = params.gapWidth * (1 - gapReduction);
-        const finalGap = gap < 10 ? -Math.max(1, Math.floor(gapDensity * 10)) : gap;
-
-        // Bar density
-        const barDensity = applyCurve(t, params.densityCurve, params.barCurveIntensity);
-        const barReduction = Math.min(0.9, barDensity * 2);
-        const currentBarHeight = Math.max(lineWeight, barHeight * (1 - barReduction));
-
-        const isLastBar = i === params.barCount - 1;
-        const actualBarHeight = (isLastBar && params.extendLastBar)
-          ? (limit - y)
-          : currentBarHeight;
-
-        bars.push(
-          <rect
-            key={`ttb-${i}`}
-            x={barX}
-            y={y}
-            width={barWidth}
-            height={actualBarHeight}
-            fill="currentColor"
-          />
-        );
-
-        y += currentBarHeight + finalGap;
-      }
-    } else {
-      // Bottom to Top: density increases upward
-      // If mirrored vertically: Center -> Top Edge
-      let startY = params.mirror === 'vertical' ? effectiveHeight : height - padding - params.edgePadding;
-      let limit = padding + params.edgePadding;
-      let y = startY;
-
-      for (let i = 0; i < params.barCount && y > limit; i++) {
-        const t = params.barCount > 1 ? i / (params.barCount - 1) : 0.5;
-
-        // Gap density
-        const gapDensity = applyCurve(t, params.densityCurve, params.curveIntensity);
-        const gapReduction = Math.min(1, gapDensity * 3);
-        let gap = params.gapWidth * (1 - gapReduction);
-        const finalGap = gap < 10 ? -Math.max(1, Math.floor(gapDensity * 10)) : gap;
-
-        // Bar density
-        const barDensity = applyCurve(t, params.densityCurve, params.barCurveIntensity);
-        const barReduction = Math.min(0.9, barDensity * 2);
-        const currentBarHeight = Math.max(lineWeight, barHeight * (1 - barReduction));
-
-        const isLastBar = i === params.barCount - 1;
-        const actualBarHeight = (isLastBar && params.extendLastBar)
-          ? (y - limit)
-          : currentBarHeight;
-
-        bars.push(
-          <rect
-            key={`btt-${i}`}
-            x={barX}
-            y={y - actualBarHeight}
-            width={barWidth}
-            height={actualBarHeight}
-            fill="currentColor"
-          />
-        );
-
-        y -= currentBarHeight + finalGap;
-      }
-    }
-  }
-
-  // Handle Mirroring Duplication
+  // Handle Mirroring Duplication (Reflection)
   if (params.mirror === 'horizontal') {
     // Duplicate bars to the right side
     const mirroredBars = bars.map((bar, i) => {
@@ -365,6 +414,8 @@ export const verticalBarsPresets = {
       extendLastBar: false,
       paddingColor: '',
       mirror: 'none',
+      splitCount: 1,
+      splits: [],
     } as VerticalBarsParams,
   },
   'preset2': {
@@ -381,6 +432,8 @@ export const verticalBarsPresets = {
       extendLastBar: false,
       paddingColor: '',
       mirror: 'none',
+      splitCount: 1,
+      splits: [],
     } as VerticalBarsParams,
   },
   'preset3': {
@@ -397,6 +450,8 @@ export const verticalBarsPresets = {
       extendLastBar: false,
       paddingColor: '',
       mirror: 'none',
+      splitCount: 1,
+      splits: [],
     } as VerticalBarsParams,
   },
   'preset4': {
@@ -413,6 +468,8 @@ export const verticalBarsPresets = {
       extendLastBar: false,
       paddingColor: '',
       mirror: 'none',
+      splitCount: 1,
+      splits: [],
     } as VerticalBarsParams,
   },
   'preset5': {
@@ -429,6 +486,8 @@ export const verticalBarsPresets = {
       extendLastBar: false,
       paddingColor: '',
       mirror: 'vertical',
+      splitCount: 1,
+      splits: [],
     } as VerticalBarsParams,
   },
   'preset6': {
@@ -445,6 +504,75 @@ export const verticalBarsPresets = {
       extendLastBar: false,
       paddingColor: '',
       mirror: 'horizontal',
+      splitCount: 1,
+      splits: [],
+    } as VerticalBarsParams,
+  },
+  'preset7': {
+    name: 'Preset 7',
+    params: {
+      barCount: 16,
+      barWidth: 130,
+      gapWidth: 68,
+      densityCurve: 'ease',
+      curveIntensity: 5,
+      barCurveIntensity: -50,
+      direction: 'LTR',
+      edgePadding: 0,
+      extendLastBar: false,
+      paddingColor: '',
+      mirror: 'none',
+      splitCount: 4,
+      splits: [
+        { mirror: false }, // Split 1 (Main)
+        { mirror: false }, // Split 2
+        { mirror: false }, // Split 3
+        { mirror: true },  // Split 4
+      ],
+    } as VerticalBarsParams,
+  },
+  'preset8': {
+    name: 'Preset 8',
+    params: {
+      barCount: 19,
+      barWidth: 91,
+      gapWidth: 68,
+      densityCurve: 'ease',
+      curveIntensity: 5,
+      barCurveIntensity: -50,
+      direction: 'LTR',
+      edgePadding: 0,
+      extendLastBar: false,
+      paddingColor: '',
+      mirror: 'none',
+      splitCount: 4,
+      splits: [
+        { mirror: false }, // Split 1 (Main)
+        { mirror: true },  // Split 2
+        { mirror: false }, // Split 3
+        { mirror: true },  // Split 4
+      ],
+    } as VerticalBarsParams,
+  },
+  'preset9': {
+    name: 'Preset 9',
+    params: {
+      barCount: 14,
+      barWidth: 69,
+      gapWidth: 141,
+      densityCurve: 'ease',
+      curveIntensity: -29,
+      barCurveIntensity: 40,
+      direction: 'BTT',
+      edgePadding: 0,
+      extendLastBar: false,
+      paddingColor: '',
+      mirror: 'none',
+      splitCount: 2,
+      splits: [
+        { mirror: false }, // Split 1 (Main)
+        { mirror: true },  // Split 2
+      ],
     } as VerticalBarsParams,
   },
 };

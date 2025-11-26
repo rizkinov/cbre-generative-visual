@@ -143,6 +143,7 @@ export default function Home() {
                 onTransformationalColorBackgroundChange={setTransformationalColorBackgroundParams}
                 lineWeight={globals.lineWeight}
                 onLineWeightChange={(lineWeight) => setGlobals({ ...globals, lineWeight })}
+                brand={globals.brand}
               />
             </CBRECard>
           </div>

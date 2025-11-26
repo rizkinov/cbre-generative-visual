@@ -51,6 +51,11 @@ export interface VerticalBarsParams {
   extendLastBar: boolean; // Extend last bar to fill remaining space
   paddingColor?: string; // Optional background color for the padding area
   mirror?: 'none' | 'horizontal' | 'vertical';
+  splitCount: 1 | 2 | 3 | 4;
+  splits: {
+    color?: string; // Custom color for this split
+    mirror: boolean; // Whether to reverse direction for this split
+  }[];
 }
 
 // Diagonal Contours Parameters
