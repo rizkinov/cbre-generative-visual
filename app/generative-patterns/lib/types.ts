@@ -50,6 +50,7 @@ export interface VerticalBarsParams {
   edgePadding: number;
   extendLastBar: boolean; // Extend last bar to fill remaining space
   paddingColor?: string; // Optional background color for the padding area
+  mirror?: 'none' | 'horizontal' | 'vertical';
 }
 
 // Diagonal Contours Parameters

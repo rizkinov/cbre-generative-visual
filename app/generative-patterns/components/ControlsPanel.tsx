@@ -333,6 +333,27 @@ export function ControlsPanel({
             </SelectContent>
           </CBRESelect>
 
+          <CBRESelect
+            label="Mirroring"
+            id="mirroring"
+            value={verticalBarsParams.mirror || 'none'}
+            onValueChange={(v) =>
+              onVerticalBarsChange({
+                ...verticalBarsParams,
+                mirror: v as 'none' | 'horizontal' | 'vertical',
+              })
+            }
+          >
+            <SelectTrigger>
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="none">None</SelectItem>
+              <SelectItem value="horizontal">Horizontal Mirror</SelectItem>
+              <SelectItem value="vertical">Vertical Mirror</SelectItem>
+            </SelectContent>
+          </CBRESelect>
+
           <div className="space-y-2">
             <Label htmlFor="edge-padding" className="font-calibre">
               Edge Padding: {verticalBarsParams.edgePadding}px

@@ -47,7 +47,7 @@ export default function Home() {
     brand: { bg: cbreColors['dark-green'], fg: cbreColors['white'] },
     lineWeight: 7,
     seed: 12345,
-    pattern: 'multidimensionalLoS',
+    pattern: 'verticalBars',
   });
 
   // Zoom state

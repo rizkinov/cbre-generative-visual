@@ -65,6 +65,20 @@ export function generateVerticalBars(
     );
   }
 
+  // Determine mirroring bounds
+  let effectiveWidth = width;
+  let effectiveHeight = height;
+  let renderWidth = width;
+  let renderHeight = height;
+
+  if (params.mirror === 'horizontal') {
+    effectiveWidth = width / 2;
+    renderWidth = width / 2;
+  } else if (params.mirror === 'vertical') {
+    effectiveHeight = height / 2;
+    renderHeight = height / 2;
+  }
+
   if (isVertical) {
     // Vertical bars (left-right)
     const barWidth = Math.max(lineWeight, params.barWidth);
@@ -75,9 +89,11 @@ export function generateVerticalBars(
 
     if (params.direction === 'LTR') {
       // Left to Right: density increases rightward
+      // If mirrored horizontally: Left Edge -> Center
       let x = padding + params.edgePadding;
+      const limit = params.mirror === 'horizontal' ? effectiveWidth : width - padding - params.edgePadding;
 
-      for (let i = 0; i < params.barCount && x < width - padding - params.edgePadding; i++) {
+      for (let i = 0; i < params.barCount && x < limit; i++) {
         const t = params.barCount > 1 ? i / (params.barCount - 1) : 0.5;
 
         // Gap density
@@ -93,12 +109,12 @@ export function generateVerticalBars(
 
         const isLastBar = i === params.barCount - 1;
         const actualBarWidth = (isLastBar && params.extendLastBar)
-          ? (width - padding - params.edgePadding - x)
+          ? (limit - x)
           : currentBarWidth;
 
         bars.push(
           <rect
-            key={i}
+            key={`ltr-${i}`}
             x={x}
             y={barY}
             width={actualBarWidth}
@@ -111,9 +127,12 @@ export function generateVerticalBars(
       }
     } else {
       // Right to Left: density increases leftward
-      let x = width - padding - params.edgePadding;
+      // If mirrored horizontally: Center -> Left Edge
+      let startX = params.mirror === 'horizontal' ? effectiveWidth : width - padding - params.edgePadding;
+      let limit = padding + params.edgePadding;
+      let x = startX;
 
-      for (let i = 0; i < params.barCount && x > padding + params.edgePadding; i++) {
+      for (let i = 0; i < params.barCount && x > limit; i++) {
         const t = params.barCount > 1 ? i / (params.barCount - 1) : 0.5;
 
         // Gap density
@@ -129,12 +148,12 @@ export function generateVerticalBars(
 
         const isLastBar = i === params.barCount - 1;
         const actualBarWidth = (isLastBar && params.extendLastBar)
-          ? (x - padding - params.edgePadding)
+          ? (x - limit)
           : currentBarWidth;
 
         bars.push(
           <rect
-            key={i}
+            key={`rtl-${i}`}
             x={x - actualBarWidth}
             y={barY}
             width={actualBarWidth}
@@ -156,9 +175,11 @@ export function generateVerticalBars(
 
     if (params.direction === 'TTB') {
       // Top to Bottom: density increases downward
+      // If mirrored vertically: Top Edge -> Center
       let y = padding + params.edgePadding;
+      const limit = params.mirror === 'vertical' ? effectiveHeight : height - padding - params.edgePadding;
 
-      for (let i = 0; i < params.barCount && y < height - padding - params.edgePadding; i++) {
+      for (let i = 0; i < params.barCount && y < limit; i++) {
         const t = params.barCount > 1 ? i / (params.barCount - 1) : 0.5;
 
         // Gap density
@@ -174,12 +195,12 @@ export function generateVerticalBars(
 
         const isLastBar = i === params.barCount - 1;
         const actualBarHeight = (isLastBar && params.extendLastBar)
-          ? (height - padding - params.edgePadding - y)
+          ? (limit - y)
           : currentBarHeight;
 
         bars.push(
           <rect
-            key={i}
+            key={`ttb-${i}`}
             x={barX}
             y={y}
             width={barWidth}
@@ -192,9 +213,12 @@ export function generateVerticalBars(
       }
     } else {
       // Bottom to Top: density increases upward
-      let y = height - padding - params.edgePadding;
+      // If mirrored vertically: Center -> Top Edge
+      let startY = params.mirror === 'vertical' ? effectiveHeight : height - padding - params.edgePadding;
+      let limit = padding + params.edgePadding;
+      let y = startY;
 
-      for (let i = 0; i < params.barCount && y > padding + params.edgePadding; i++) {
+      for (let i = 0; i < params.barCount && y > limit; i++) {
         const t = params.barCount > 1 ? i / (params.barCount - 1) : 0.5;
 
         // Gap density
@@ -210,12 +234,12 @@ export function generateVerticalBars(
 
         const isLastBar = i === params.barCount - 1;
         const actualBarHeight = (isLastBar && params.extendLastBar)
-          ? (y - padding - params.edgePadding)
+          ? (y - limit)
           : currentBarHeight;
 
         bars.push(
           <rect
-            key={i}
+            key={`btt-${i}`}
             x={barX}
             y={y - actualBarHeight}
             width={barWidth}
@@ -227,6 +251,41 @@ export function generateVerticalBars(
         y -= currentBarHeight + finalGap;
       }
     }
+  }
+
+  // Handle Mirroring Duplication
+  if (params.mirror === 'horizontal') {
+    // Duplicate bars to the right side
+    const mirroredBars = bars.map((bar, i) => {
+      if (bar.type !== 'rect') return null;
+      const props = bar.props as any;
+      // Mirror X: newX = width - x - width
+      const newX = width - props.x - props.width;
+      return (
+        <rect
+          key={`mirror-h-${i}`}
+          {...props}
+          x={newX}
+        />
+      );
+    });
+    bars.push(...mirroredBars.filter((b): b is React.ReactElement => b !== null));
+  } else if (params.mirror === 'vertical') {
+    // Duplicate bars to the bottom side
+    const mirroredBars = bars.map((bar, i) => {
+      if (bar.type !== 'rect') return null;
+      const props = bar.props as any;
+      // Mirror Y: newY = height - y - height
+      const newY = height - props.y - props.height;
+      return (
+        <rect
+          key={`mirror-v-${i}`}
+          {...props}
+          y={newY}
+        />
+      );
+    });
+    bars.push(...mirroredBars.filter((b): b is React.ReactElement => b !== null));
   }
 
   // Apply padding mask if color is specified
@@ -305,6 +364,7 @@ export const verticalBarsPresets = {
       edgePadding: 0,
       extendLastBar: false,
       paddingColor: '',
+      mirror: 'none',
     } as VerticalBarsParams,
   },
   'preset2': {
@@ -320,6 +380,7 @@ export const verticalBarsPresets = {
       edgePadding: 0,
       extendLastBar: false,
       paddingColor: '',
+      mirror: 'none',
     } as VerticalBarsParams,
   },
   'preset3': {
@@ -335,6 +396,7 @@ export const verticalBarsPresets = {
       edgePadding: 0,
       extendLastBar: false,
       paddingColor: '',
+      mirror: 'none',
     } as VerticalBarsParams,
   },
   'preset4': {
@@ -350,6 +412,39 @@ export const verticalBarsPresets = {
       edgePadding: 0,
       extendLastBar: false,
       paddingColor: '',
+      mirror: 'none',
+    } as VerticalBarsParams,
+  },
+  'preset5': {
+    name: 'Preset 5',
+    params: {
+      barCount: 12,
+      barWidth: 554,
+      gapWidth: 75,
+      densityCurve: 'ease',
+      curveIntensity: 9,
+      barCurveIntensity: -50,
+      direction: 'TTB',
+      edgePadding: 0,
+      extendLastBar: false,
+      paddingColor: '',
+      mirror: 'vertical',
+    } as VerticalBarsParams,
+  },
+  'preset6': {
+    name: 'Preset 6',
+    params: {
+      barCount: 10,
+      barWidth: 69,
+      gapWidth: 106,
+      densityCurve: 'ease',
+      curveIntensity: -35,
+      barCurveIntensity: 23,
+      direction: 'LTR',
+      edgePadding: 0,
+      extendLastBar: false,
+      paddingColor: '',
+      mirror: 'horizontal',
     } as VerticalBarsParams,
   },
 };
