@@ -85,7 +85,7 @@ function generateMeshGradientSVG(
   // Calculate aspect ratio
   const aspectRatio = width / height;
 
-  // Grid resolution - reduced slightly to compensate for double rendering (RGB + Alpha)
+  // Grid resolution - reverted to balanced setting for performance
   // The masking technique allows for lower resolution without overlap artifacts
   const gridSize = Math.min(120, Math.max(80, Math.floor(Math.min(width, height) / 15)));
 
@@ -142,18 +142,15 @@ function generateMeshGradientSVG(
     }
   }
 
-  const blurAmount = Math.max(40, Math.min(width, height) / gridSize * 2.5);
+  // Significantly increased blur for softer, smoother gradients
+  // Increased further to compensate for lower grid resolution
+  const blurAmount = Math.max(60, Math.min(width, height) / gridSize * 5.0);
 
   return (
     <g>
       <defs>
         <filter id={`${idPrefix}-blur`} x="-50%" y="-50%" width="200%" height="200%">
           <feGaussianBlur in="SourceGraphic" stdDeviation={blurAmount} result="blurred" />
-          {/* Noise dithering */}
-          <feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="3" stitchTiles="stitch" result="noise" />
-          <feColorMatrix type="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 0.04 0" in="noise" result="weakNoise" />
-          <feComposite operator="in" in="weakNoise" in2="blurred" result="noiseOverlay" />
-          <feBlend mode="overlay" in="noiseOverlay" in2="blurred" />
         </filter>
 
         <mask id={`${idPrefix}-alpha-mask`}>
@@ -305,7 +302,7 @@ export const glazePresets = {
     name: 'Preset 4',
     params: {
       pins: [
-        { enabled: true, x: 0.0, y: 1.0, color: cbreColors['dark-green'], opacity: 0.55 },
+        { enabled: true, x: 0.0, y: 1.0, color: cbreColors['dark-green'], opacity: 0.40 },
         { enabled: true, x: 1.0, y: 0.0, color: cbreColors['celadon-shade-2'], opacity: 0.85 },
         { enabled: true, x: 0.0, y: 0.72, color: cbreColors['dark-green'], opacity: 0.40 },
         { enabled: true, x: 1.0, y: 1.0, color: cbreColors['sage-tint'], opacity: 0.88 },

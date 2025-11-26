@@ -75,8 +75,8 @@ export function ExportMenu({ svgRef }: ExportMenuProps) {
               <SelectContent>
                 <SelectItem value="1">1× (Normal)</SelectItem>
                 <SelectItem value="2">2× (High DPI)</SelectItem>
-                <SelectItem value="3">3× (Very High DPI)</SelectItem>
                 <SelectItem value="4">4× (Ultra High DPI)</SelectItem>
+                <SelectItem value="8">8× (Super High Quality)</SelectItem>
               </SelectContent>
             </Select>
           </div>

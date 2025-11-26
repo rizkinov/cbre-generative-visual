@@ -37,15 +37,31 @@ export function downloadSVG(svgElement: SVGSVGElement, filename: string = 'cbre-
  */
 export async function svgToPng(svgElement: SVGSVGElement, scale: number = 1): Promise<string> {
   return new Promise((resolve, reject) => {
-    const svgString = toSVG(svgElement);
+    // Clone the element to avoid modifying the DOM
+    const clone = svgElement.cloneNode(true) as SVGSVGElement;
+
+    // Get original dimensions
+    const width = parseInt(clone.getAttribute('width') || '0') || clone.getBoundingClientRect().width;
+    const height = parseInt(clone.getAttribute('height') || '0') || clone.getBoundingClientRect().height;
+
+    // Set viewBox if missing to ensure scaling works
+    if (!clone.getAttribute('viewBox')) {
+      clone.setAttribute('viewBox', `0 0 ${width} ${height}`);
+    }
+
+    // Update dimensions to scaled size
+    clone.setAttribute('width', (width * scale).toString());
+    clone.setAttribute('height', (height * scale).toString());
+
+    const svgString = toSVG(clone);
     const img = new Image();
     const blob = new Blob([svgString], { type: 'image/svg+xml;charset=utf-8' });
     const url = URL.createObjectURL(blob);
 
     img.onload = () => {
       const canvas = document.createElement('canvas');
-      canvas.width = img.width * scale;
-      canvas.height = img.height * scale;
+      canvas.width = width * scale;
+      canvas.height = height * scale;
 
       const ctx = canvas.getContext('2d');
       if (!ctx) {
@@ -53,7 +69,9 @@ export async function svgToPng(svgElement: SVGSVGElement, scale: number = 1): Pr
         return;
       }
 
-      ctx.scale(scale, scale);
+      ctx.imageSmoothingEnabled = true;
+      ctx.imageSmoothingQuality = 'high';
+      // No need to scale context, image is already scaled via SVG attributes
       ctx.drawImage(img, 0, 0);
       URL.revokeObjectURL(url);
 
